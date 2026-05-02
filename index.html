@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFRINGE — Destiny 2 Clan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --void: #060608;
+    --deep: #0a080f;
+    --surface: #0f0c18;
+    --lift: #16121f;
+    --purple-dim: #2d1f4a;
+    --purple-mid: #5b2d9e;
+    --purple-bright: #9b5de5;
+    --purple-glow: #c77dff;
+    --cyan-dim: #0a2a2f;
+    --cyan-mid: #0e6e7a;
+    --cyan-bright: #00d4e8;
+    --pink-accent: #ff6eb4;
+    --silver: #c0c0c8;
+    --light: #e8e4f0;
+    --white: #f4f0ff;
+    --border: rgba(155, 93, 229, 0.15);
+    --border-cyan: rgba(0, 212, 232, 0.2);
+    --glow-purple: 0 0 40px rgba(155, 93, 229, 0.3);
+    --glow-cyan: 0 0 30px rgba(0, 212, 232, 0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--light);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(6, 6, 8, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-logo span { color: var(--purple-glow); }
+
+  nav ul {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav ul a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--cyan-bright); }
+
+  .nav-join {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    border: 1px solid var(--cyan-bright);
+    padding: 0.4rem 1.2rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .nav-join:hover {
+    background: var(--cyan-bright);
+    color: var(--void);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 30% 40%, rgba(91, 45, 158, 0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0, 212, 232, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(45, 31, 74, 0.3) 0%, transparent 80%);
+    z-index: 0;
+  }
+
+  /* Hex grid background */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.06)' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 60px 52px;
+    opacity: 0.8;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-logo-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2));
+    animation: pulse-logo 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-logo {
+    0%, 100% { filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2)); }
+    50% { filter: drop-shadow(0 0 60px rgba(155, 93, 229, 0.9)) drop-shadow(0 0 100px rgba(0, 212, 232, 0.35)); }
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 80px rgba(155, 93, 229, 0.5);
+  }
+
+  .hero-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--silver);
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+
+  .hero-tagline em { color: var(--cyan-bright); font-style: normal; }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--void);
+    background: var(--purple-bright);
+    border: none;
+    padding: 0.85rem 2.5rem;
+    text-decoration: none;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: all 0.2s;
+    box-shadow: 0 0 30px rgba(155, 93, 229, 0.4);
+  }
+
+  .btn-primary:hover {
+    background: var(--purple-glow);
+    box-shadow: 0 0 50px rgba(155, 93, 229, 0.7);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    background: transparent;
+    border: 1px solid var(--cyan-bright);
+    padding: 0.85rem 2.5rem;
+    text-decoration: none;
+    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(0, 212, 232, 0.1);
+    box-shadow: var(--glow-cyan);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(192, 192, 200, 0.4);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: bob 2s ease-in-out infinite;
+  }
+
+  .scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(155, 93, 229, 0.6));
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    max-width: 100%;
+    padding: 6rem 0;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--cyan-bright);
+  }
+
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright));
+    margin-bottom: 3rem;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img-wrap img {
+    width: 100%;
+    border-radius: 2px;
+    filter: saturate(0.7) brightness(0.8);
+    border: 1px solid var(--border);
+  }
+
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid var(--border);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .about-img-wrap::after {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    border: 1px solid rgba(0, 212, 232, 0.15);
+    z-index: -1;
+  }
+
+  .about-text p {
+    color: var(--silver);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .about-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .pill {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--border);
+    color: var(--purple-glow);
+    background: rgba(155, 93, 229, 0.05);
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+
+  /* ─── STATS ─── */
+  .stats-band {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 4rem 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 2.5rem;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-number span { color: var(--purple-glow); }
+
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(192, 192, 200, 0.5);
+  }
+
+  /* ─── RAID GRID ─── */
+  .guides-section { background: var(--deep); }
+
+  .raid-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab-btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--silver);
+    background: none;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    color: var(--cyan-bright);
+    border-bottom-color: var(--cyan-bright);
+  }
+
+  .tab-btn:hover:not(.active) { color: var(--light); }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: grid; }
+
+  .raid-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+  }
+
+  .raid-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    group: true;
+  }
+
+  .raid-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(6,6,8,0.95) 0%, rgba(6,6,8,0.4) 50%, transparent 100%);
+    z-index: 1;
+    transition: opacity 0.3s;
+  }
+
+  .raid-card:hover::before {
+    background: linear-gradient(to top, rgba(6,6,8,0.98) 0%, rgba(91,45,158,0.3) 60%, transparent 100%);
+  }
+
+  .raid-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+    filter: saturate(0.6) brightness(0.7);
+  }
+
+  .raid-card:hover .raid-card-bg {
+    transform: scale(1.05);
+    filter: saturate(0.8) brightness(0.8);
+  }
+
+  .raid-card-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.3s;
+  }
+
+  .raid-type-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s 0.05s;
+  }
+
+  .raid-card:hover .raid-type-badge {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .raid-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .raid-quote {
+    font-family: 'Rajdhani', sans-serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(192, 192, 200, 0.6);
+    margin-bottom: 0.8rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+
+  .raid-card:hover .raid-quote {
+    max-height: 50px;
+  }
+
+  .raid-guide-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.3s 0.1s;
+  }
+
+  .raid-card:hover .raid-guide-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .raid-guide-link::after {
+    content: '→';
+  }
+
+  /* Placeholder BGs for raids using gradients */
+  .bg-se { background: linear-gradient(135deg, #0a0510 0%, #1a0a2a 40%, #2d1240 60%, #0a0510 100%); }
+  .bg-ce { background: linear-gradient(135deg, #050a05 0%, #0a1a0a 40%, #0d2e0d 60%, #050a05 100%); }
+  .bg-ron { background: linear-gradient(135deg, #080512 0%, #130820 40%, #1a0a2a 60%, #080512 100%); }
+  .bg-kf { background: linear-gradient(135deg, #0a0800 0%, #1a1200 40%, #2e2000 60%, #0a0800 100%); }
+  .bg-vow { background: linear-gradient(135deg, #000810 0%, #001220 40%, #001a30 60%, #000810 100%); }
+  .bg-vog { background: linear-gradient(135deg, #080005 0%, #150008 40%, #200010 60%, #080005 100%); }
+  .bg-dsc { background: linear-gradient(135deg, #000508 0%, #000a12 40%, #000f1a 60%, #000508 100%); }
+  .bg-gos { background: linear-gradient(135deg, #040a00 0%, #081500 40%, #0d2000 60%, #040a00 100%); }
+  .bg-lw { background: linear-gradient(135deg, #0a0000 0%, #1a0000 40%, #2a0808 60%, #0a0000 100%); }
+  .bg-sd { background: linear-gradient(135deg, #080808 0%, #121218 40%, #1a1a28 60%, #080808 100%); }
+  .bg-vh { background: linear-gradient(135deg, #000a0a 0%, #001818 40%, #002828 60%, #000a0a 100%); }
+  .bg-wr { background: linear-gradient(135deg, #050800 0%, #0a1200 40%, #121e00 60%, #050800 100%); }
+  .bg-god { background: linear-gradient(135deg, #000210 0%, #000520 40%, #000830 60%, #000210 100%); }
+  .bg-sow { background: linear-gradient(135deg, #080a00 0%, #141800 40%, #202800 60%, #080a00 100%); }
+  .bg-dual { background: linear-gradient(135deg, #0a0005 0%, #180008 40%, #250010 60%, #0a0005 100%); }
+  .bg-goa { background: linear-gradient(135deg, #0a0500 0%, #1a0a00 40%, #2a1200 60%, #0a0500 100%); }
+  .bg-proph { background: linear-gradient(135deg, #08000a 0%, #160015 40%, #200020 60%, #08000a 100%); }
+  .bg-poh { background: linear-gradient(135deg, #000008 0%, #000010 40%, #000020 60%, #000008 100%); }
+  .bg-tst { background: linear-gradient(135deg, #05000a 0%, #0a0018 40%, #100025 60%, #05000a 100%); }
+
+  /* Decorative orb overlays on raid cards */
+  .raid-card-bg::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    top: 10%;
+    right: 10%;
+    background: radial-gradient(circle, rgba(155, 93, 229, 0.15) 0%, transparent 70%);
+    filter: blur(20px);
+  }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    background: var(--lift);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+    clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+  }
+
+  .feature-card:hover {
+    border-color: rgba(155, 93, 229, 0.4);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+
+  .feature-desc {
+    font-size: 0.95rem;
+    color: rgba(192, 192, 200, 0.7);
+    line-height: 1.7;
+  }
+
+  /* ─── JOIN ─── */
+  .join-section {
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .join-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91, 45, 158, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .join-section .section-title { margin-bottom: 1rem; }
+
+  .join-section p {
+    color: var(--silver);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    font-size: 1.05rem;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-logo span { color: var(--purple-glow); }
+
+  .footer-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(192, 192, 200, 0.35);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.25s; }
+  .fade-up-3 { animation-delay: 0.4s; }
+  .fade-up-4 { animation-delay: 0.55s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    nav ul { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">IN<span>FR</span>INGE</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#raids">Raid Guides</a></li>
+    <li><a href="#features">Features</a></li>
+  </ul>
+  <a href="#join" class="nav-join">Join Clan</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\Infringe Logo.png" alt="Infringe Clan Logo" class="hero-logo-img fade-up fade-up-1">
+    <div class="hero-sub fade-up fade-up-2">Destiny 2 Clan</div>
+    <h1 class="fade-up fade-up-2">INFRINGE</h1>
+    <p class="hero-tagline fade-up fade-up-3"><em>"We don't play by the rules—</em><br>we break them."</p>
+    <div class="hero-cta fade-up fade-up-4">
+      <a href="#raids" class="btn-primary">Raid Guides</a>
+      <a href="#join" class="btn-secondary">Join the Clan</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>scroll</span>
+  </div>
+</header>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number"><span>21</span>+</div>
+      <div class="stat-label">Clan Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span>1.5</span>K</div>
+      <div class="stat-label">Raid Completions</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span>1</span></div>
+      <div class="stat-label">Active Sherpas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span>∞</span></div>
+      <div class="stat-label">Hours Wasted</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number"><span>300</span>K+</div>
+      <div class="stat-label">Triumph Score</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\Infringe Logo.png" alt="Infringe" style="filter: saturate(1) brightness(0.9); background: #0a080f;">
+    </div>
+    <div class="about-text">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">Born in the Dark.<br>Forged in the Void.</h2>
+      <div class="section-divider"></div>
+      <p>Infringe is a Destiny 2 clan built for Guardians who want to push beyond the edge — whether that's your first raid clear or your thousandth flawless run. We don't gatekeep. We sherpa. We grind. We die to the same mechanics seventeen times and laugh about it.</p>
+      <p>We run all endgame content — raids, dungeons, GMs, Trials — and we do it as a team. New Light or seasoned veteran, if you want to get better and have a crew to do it with, you found your clan.</p>
+      <div class="about-pills">
+        <span class="pill">All Platforms</span>
+        <span class="pill">All Skill Levels</span>
+        <span class="pill">PvE Focused</span>
+        <span class="pill">Mics Preferred</span>
+        <span class="pill">Active Sherpas</span>
+        <span class="pill">No Drama</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background: var(--deep); padding: 6rem 2rem;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-label">What We Offer</div>
+    <h2 class="section-title">Clan Features</h2>
+    <div class="section-divider"></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Active Sherpas</div>
+        <p class="feature-desc">Veteran players ready to guide you through any raid or dungeon, from first clear to optimized runs.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗡️</span>
+        <div class="feature-title">Full Raid Guides</div>
+        <p class="feature-desc">Detailed mechanics breakdowns for every active raid and dungeon in the game, updated with each expansion.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔮</span>
+        <div class="feature-title">Build Crafting</div>
+        <p class="feature-desc">Theorycrafters and min-maxers on standby. We'll help you optimize your loadout for whatever you're running.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌌</span>
+        <div class="feature-title">Chill Community</div>
+        <p class="feature-desc">A no-toxicity zone. We're here to have fun, kill gods, and turn them into exotic weapons. In that order.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAID GUIDES -->
+<section id="raids" class="section-full" style="padding: 6rem 0; background: var(--void);">
+  <div class="section-inner">
+    <div class="section-label">Endgame Content</div>
+    <h2 class="section-title">Activity Guides</h2>
+    <div class="section-divider"></div>
+
+    <div class="raid-tabs">
+      <button class="tab-btn active" onclick="switchTab('raids-tab', this)">Raids</button>
+      <button class="tab-btn" onclick="switchTab('dungeons-tab', this)">Dungeons</button>
+    </div>
+
+    <!-- RAIDS TAB -->
+    <div class="tab-panel active raid-grid" id="raids-tab">
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-se"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — The Final Shape</div>
+          <div class="raid-name">Salvation's Edge</div>
+          <div class="raid-quote">"Free the light."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\se_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-ce"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">Crota's End</div>
+          <div class="raid-quote">"He waits in the dark below."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\ce_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-ron"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Lightfall</div>
+          <div class="raid-name">Root of Nightmares</div>
+          <div class="raid-quote">"A sinister threat has taken root."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\ron_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-kf"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">King's Fall</div>
+          <div class="raid-quote">"Long live the King."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\kf_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-vow"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Witch Queen</div>
+          <div class="raid-name">Vow of the Disciple</div>
+          <div class="raid-quote">"The disciple beckons..."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\vow_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-vog"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">Vault of Glass</div>
+          <div class="raid-quote">"Beneath Venus, evil stirs."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\vog_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-dsc"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">Deep Stone Crypt</div>
+          <div class="raid-quote">"The chains of legacy must be broken."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\dsc_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-gos"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">Garden of Salvation</div>
+          <div class="raid-quote">"The Garden calls out to you."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\gos_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-lw"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Raid — Legacy</div>
+          <div class="raid-name">Last Wish</div>
+          <div class="raid-quote">"The opportunity of a lifetime."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\lw_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DUNGEONS TAB -->
+    <div class="tab-panel raid-grid" id="dungeons-tab">
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-sd"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Heresy</div>
+          <div class="raid-name">Sundered Doctrine</div>
+          <div class="raid-quote">"Power lies in the deepest vault."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\sd_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-vh"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Echoes</div>
+          <div class="raid-name">Vesper's Host</div>
+          <div class="raid-quote">"Defy the algorithm."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\vh_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-wr"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Season of the Wish</div>
+          <div class="raid-name">Warlord's Ruin</div>
+          <div class="raid-quote">"A blighted vengeance festers in the dirt."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\wr_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-god"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Season of the Deep</div>
+          <div class="raid-name">Ghosts of the Deep</div>
+          <div class="raid-quote">"Drown in the deep, or rise from it."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\god_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-sow"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Season of the Seraph</div>
+          <div class="raid-name">Spire of the Watcher</div>
+          <div class="raid-quote">"Bring the machinations to heel."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\sow_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-dual"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Season of the Haunted</div>
+          <div class="raid-name">Duality</div>
+          <div class="raid-quote">"Dive into the exiled emperor's mind."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\duality_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-goa"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Legacy</div>
+          <div class="raid-name">Grasp of Avarice</div>
+          <div class="raid-quote">"A cautionary tale for the greedy."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\goa_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-proph"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Legacy</div>
+          <div class="raid-name">Prophecy</div>
+          <div class="raid-quote">"What is the nature of the Darkness?"</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\prophecy_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-poh"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Legacy</div>
+          <div class="raid-name">Pit of Heresy</div>
+          <div class="raid-quote">"The Hive keep their darkest secrets."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\poh_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+      <div class="raid-card">
+        <div class="raid-card-bg bg-tst"></div>
+        <div class="raid-card-content">
+          <div class="raid-type-badge">Dungeon — Legacy</div>
+          <div class="raid-name">The Shattered Throne</div>
+          <div class="raid-quote">"Strike back at the curse."</div>
+          <a href="C:\Users\MirishNew\OneDrive\Desktop\Raid Guides\tst_guide.html" class="raid-guide-link">View Guide</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="join-section">
+  <div class="join-glow"></div>
+  <div style="position: relative; z-index: 1;">
+    <div class="section-label" style="justify-content: center; margin-bottom: 1rem;">Ready, Guardian?</div>
+    <h2 class="section-title">Join the Clan</h2>
+    <div class="section-divider" style="margin: 1rem auto 2rem;"></div>
+    <p>Whether you're a New Light wondering who Cayde-6 is, or a veteran with 5000 hours — there's a fireteam slot with your name on it. We'll carry you through your first raid. You'll carry someone else through theirs.</p>
+    <div class="hero-cta">
+      <a href="https://www.bungie.net/7/en/Clan/Profile/4655524" class="btn-primary">Find Us on Bungie.net</a>
+      <a href="https://discord.gg/bwXQKHn9T" class="btn-secondary">Join Our Discord</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IN<span>FR</span>INGE</div>
+  <div class="footer-sub" style="margin-top: 0.5rem;">Destiny 2 Clan &nbsp;·&nbsp; All platforms &nbsp;·&nbsp; All skill levels</div>
+  <div class="footer-sub" style="margin-top: 1.5rem;">© 2026 Infringe Clan. Not affiliated with Bungie, Inc.</div>
+</footer>
+
+<script>
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Make entire card clickable — clicking anywhere on the card opens the guide
+document.querySelectorAll('.raid-card').forEach(card => {
+  const link = card.querySelector('.raid-guide-link');
+  if (link && link.href && link.href !== window.location.href) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function(e) {
+      if (e.target.tagName !== 'A') {
+        window.open(link.href, '_blank', 'noopener');
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>
