@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Shattered Throne Guide — INFRINGE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
+    --purple-bright: #9b5de5; --purple-glow: #c77dff;
+    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
+    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px;
+    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
+  .nav-logo span { color: var(--purple-glow); }
+  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
+  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
+
+  /* HERO */
+  .guide-hero {
+    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  }
+  .guide-hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+  }
+  .guide-hero-bg::after {
+    content:''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 60px 52px;
+  }
+  .guide-hero-content { position: relative; z-index: 1; }
+  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
+  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
+  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
+  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
+
+  /* BREADCRUMB */
+  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
+  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--cyan-bright); }
+  .breadcrumb span { color: rgba(192,192,200,0.25); }
+
+  /* CONTENT */
+  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+  /* ENCOUNTER NAV */
+  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
+  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
+  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
+  .enc-nav ol { counter-reset: enc; }
+  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .enc-nav li a:hover { color: var(--cyan-bright); }
+
+  /* SECTION LABEL */
+  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
+  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+
+  /* ENCOUNTER BLOCK */
+  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
+  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
+  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
+  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
+  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
+  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
+  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
+  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
+  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
+  .encounter ol { counter-reset: li; }
+  .encounter strong { color: var(--white); font-weight: 600; }
+
+  /* ROLE CARDS */
+  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
+  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
+  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+
+  /* TIPS BOX */
+  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
+  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
+  .tips-box ul { margin: 0; }
+
+  /* LOADOUT BOX */
+  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
+  .loadout-box ul { margin: 0; }
+
+  /* SEPARATOR */
+  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+  /* FOOTER */
+  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
+  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
+  .footer-logo span { color: var(--purple-glow); }
+  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
+
+  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+</style>
+
+</head>
+<body>
+
+<nav>
+  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
+  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
+</nav>
+
+<header class="guide-hero">
+  <div class="guide-hero-bg"></div>
+  <div class="guide-hero-content">
+    <div class="guide-type-badge">Dungeon — Legacy</div>
+    <h1 class="guide-title">The Shattered Throne</h1>
+    <p class="guide-tagline">"Strike back at the curse."</p>
+    <div class="guide-divider"></div>
+  </div>
+</header>
+
+<div class="breadcrumb">
+  <a href="infringe_clan_site.html">Home</a>
+  <span>/</span>
+  <a href="infringe_clan_site.html#raids">Guides</a>
+  <span>/</span>
+  <span style="color:var(--silver)">The Shattered Throne</span>
+</div>
+
+<div class="guide-content">
+<div class="enc-nav">
+  <div class="enc-nav-label">Encounters</div>
+  <ol>
+    <li><a href="#spine">Spine of Keres</a></li>
+    <li><a href="#erebos">Erebos Vel</a></li>
+    <li><a href="#vorgeth">Vorgeth</a></li>
+    <li><a href="#dul_incaru">Dul Incaru</a></li>
+  </ol>
+</div><div class="encounter" id="spine">
+  <div class="encounter-header">
+    <div class="enc-number">01</div>
+    <div>
+      <div class="enc-name">Spine of Keres</div>
+      <div class="enc-type">Opening</div>
+    </div>
+  </div>
+  <p>Navigate the Dreaming City's cursed spires under Taken suppression. Eggs of Savathun are hidden throughout — destroying all of them unlocks a special triumph.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>A specific jumping puzzle sequence opens a room with a lore tablet — worth exploring</span></li>
+<li><span>The Taken Phalanxes are the main threat — use suppressor grenades to neutralize their shields</span></li>
+<li><span>Move steadily — the path is linear but has several vertical sections that can disorient</span></li></ul></div>
+</div>
+<hr class="enc-sep"><div class="encounter" id="erebos">
+  <div class="encounter-header">
+    <div class="enc-number">02</div>
+    <div>
+      <div class="enc-name">Erebos Vel</div>
+      <div class="enc-type">Encounter 1</div>
+    </div>
+  </div>
+  <p>A Taken Ogre boss. Erebos cycles between two platforms and cannot be damaged while moving — only vulnerable when stationary at a platform.</p><ol><li><span>Erebos arrives at a platform — DPS window opens immediately</span></li>
+<li><span>Focus fire on his eye while he's stationary</span></li>
+<li><span>He retreats to the second platform — follow and repeat</span></li>
+<li><span>After enough damage phases, he dies</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Anarchy or Witherhoard under Erebos maintains damage during the brief platform transit</span></li>
+<li><span>The Taken Hobgoblins on each platform must be cleared quickly — they suppress your DPS team</span></li></ul></div>
+</div>
+<hr class="enc-sep"><div class="encounter" id="vorgeth">
+  <div class="encounter-header">
+    <div class="enc-number">03</div>
+    <div>
+      <div class="enc-name">Vorgeth, the Boundless Hunger</div>
+      <div class="enc-type">Encounter 2</div>
+    </div>
+  </div>
+  <p>Four Ogres guard Vorgeth's arena. Vorgeth cannot be harmed until all four Ogres are dead — but they respawn if Vorgeth is left alone too long.</p><ol><li><span>Kill all four corner Ogres simultaneously (or near-simultaneously)</span></li>
+<li><span>Immediately pivot to Vorgeth and burn him — he only stays vulnerable briefly</span></li>
+<li><span>If time expires, the Ogres respawn — repeat</span></li>
+<li><span>Each clean clear brings Vorgeth closer to death</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Coordinated super usage on all four Ogres simultaneously is the cleanest method</span></li>
+<li><span>Assign one Ogre per player — call '3-2-1 kill' to synchronize</span></li>
+<li><span>Vorgeth's slam attack reaches the entire arena — stay mobile during the Ogre re-kill phase</span></li></ul></div>
+</div>
+<hr class="enc-sep"><div class="encounter" id="dul_incaru">
+  <div class="encounter-header">
+    <div class="enc-number">04</div>
+    <div>
+      <div class="enc-name">Dul Incaru, the Eternal Return</div>
+      <div class="enc-type">Final Boss</div>
+    </div>
+  </div>
+  <p>Dul Incaru, champion of the curse. Her three Taken Wizards must be killed to damage her. Killing a Wizard grants a temporary damage buff — maximize it.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Best-in-slot burst DPS — rockets or linears</span></li>
+<li><span>Tether or Well for the damage window</span></li>
+<li><span>Suppressor grenades for Dul Incaru's immunity phase</span></li></ul></div><ol><li><span>Kill the three Taken Wizards at the arena edges</span></li>
+<li><span>Each Wizard killed grants a Skull of Dire Ahamkara-style buff — stack all three</span></li>
+<li><span>With three buffs active, dump DPS into Dul Incaru</span></li>
+<li><span>Buffs expire — repeat Wizard phase</span></li>
+<li><span>Dul Incaru dies — the dungeon completes</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Killing Wizards quickly back-to-back maximizes the time all three buffs are active simultaneously</span></li>
+<li><span>Dul Incaru teleports if players stand in her melee range — stay at mid-distance</span></li>
+<li><span>On a Flawless run, Dul Incaru's Taken Thrall swarms are the main death risk — clear them before moving to Wizards</span></li></ul></div>
+</div>
+<hr class="enc-sep">
+</div>
+
+<footer>
+  <div class="footer-logo">IN<span>FR</span>INGE</div>
+  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: The Shattered Throne &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
+</footer>
+
+</body>
+</html>
