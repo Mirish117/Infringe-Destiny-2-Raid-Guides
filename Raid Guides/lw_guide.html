@@ -7,28 +7,30 @@
 <title>Last Wish Guide — INFRINGE</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
   }
 
   :root {
-    --void: #060608;
-    --deep: #0a080f;
-    --surface: #0f0c18;
-    --lift: #16121f;
-    --purple-bright: #9b5de5;
-    --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8;
-    --silver: #c0c0c8;
-    --light: #e8e4f0;
-    --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15);
-    --border-cyan: rgba(0,212,232,0.2);
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --panel-3: #20202c;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --good: #8dffb0;
+    --warn: #ffd27a;
+    --danger: #ff8c8c;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
   }
 
   html {
@@ -36,565 +38,431 @@
   }
 
   body {
-    background: var(--void);
-    color: var(--light);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 17px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 3rem;
-    height: 64px;
-
-    background: rgba(6,6,8,0.9);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 1.1rem;
-    letter-spacing: 0.2em;
-    color: var(--white);
-    text-decoration: none;
-  }
-
-  .nav-logo span {
-    color: var(--purple-glow);
-  }
-
-  .nav-back {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--cyan-bright);
-    border: 1px solid var(--cyan-bright);
-    padding: 0.35rem 1rem;
-    text-decoration: none;
-    clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
-    transition: all 0.2s;
-  }
-
-  .nav-back:hover {
-    background: var(--cyan-bright);
-    color: var(--void);
-  }
-
-  .guide-hero {
-    min-height: 38vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-
-    padding: 8rem 2rem 4rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .guide-hero-bg {
-    position: absolute;
-    inset: 0;
+    margin: 0;
     background:
-      radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
   }
 
-  .guide-hero-bg::after {
-    content:'';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 52px;
+  img {
+    max-width: 100%;
   }
 
-  .guide-hero-content {
-    position: relative;
-    z-index: 1;
+  a {
+    color: inherit;
   }
 
-  .guide-type-badge {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--cyan-bright);
-    margin-bottom: 0.6rem;
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
   }
 
-  .guide-title {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: clamp(2.2rem,5vw,4rem);
-    color: var(--white);
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 60px rgba(155,93,229,0.5);
-    margin-bottom: 0.6rem;
-  }
-
-  .guide-tagline {
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--silver);
-  }
-
-  .guide-divider {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright));
-    margin: 1.5rem auto 0;
-  }
-
-  .breadcrumb {
-    max-width: 960px;
-    margin: 2.5rem auto 0;
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(192,192,200,0.4);
-  }
-
-  .breadcrumb a {
-    color: var(--purple-glow);
-    text-decoration: none;
-  }
-
-  .breadcrumb a:hover {
-    color: var(--cyan-bright);
-  }
-
-  .breadcrumb span {
-    color: rgba(192,192,200,0.25);
-  }
-
-  .guide-content {
-    max-width: 960px;
+  .topbar-inner {
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 3rem 2rem 6rem;
-  }
-
-  .enc-nav {
-    background: var(--deep);
-    border: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    margin-bottom: 3rem;
-    clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px);
-  }
-
-  .enc-nav-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--cyan-bright);
-    margin-bottom: 0.8rem;
-  }
-
-  .enc-nav ol {
-    list-style: none;
+    padding: 0.8rem 1.4rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    counter-reset: enc;
-  }
-
-  .enc-nav ol li {
-    counter-increment: enc;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .enc-nav li::before {
-    content: counter(enc);
-    font-family: 'Orbitron', monospace;
-    font-size: 0.65rem;
-    color: var(--purple-glow);
-    background: rgba(155,93,229,0.1);
-    border: 1px solid rgba(155,93,229,0.2);
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .enc-nav li a {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--silver);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .enc-nav li a:hover {
-    color: var(--cyan-bright);
-  }
-
-  .sec-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--cyan-bright);
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    margin: 2rem 0 0.5rem;
-  }
-
-  .sec-label::before {
-    content:'';
-    width: 24px;
-    height: 1px;
-    background: var(--cyan-bright);
-  }
-
-  .encounter {
-    margin-bottom: 4rem;
-    scroll-margin-top: 80px;
-  }
-
-  .encounter-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .enc-number {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 2rem;
-    color: rgba(155,93,229,0.25);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 48px;
-    text-align: right;
-  }
-
-  .enc-name {
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-
-  .enc-type {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--purple-glow);
-  }
-
-  .encounter p {
-    color: var(--silver);
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-
-  .encounter ul,
-  .encounter ol {
-    color: var(--silver);
-    font-size: 1rem;
-    padding-left: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .encounter li {
-    display: flex;
-    gap: 0.8rem;
-    align-items: flex-start;
-  }
-
-  .encounter li::before {
-    content: '›';
-    color: var(--purple-glow);
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    line-height: 1.5;
-  }
-
-  .encounter ol {
-    counter-reset: li;
-  }
-
-  .encounter ol li::before {
-    content: counter(li) '.';
-    counter-increment: li;
-    color: var(--cyan-bright);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    padding-top: 0.2rem;
-  }
-
-  .encounter strong {
-    color: var(--white);
-    font-weight: 600;
-  }
-
-  .roles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    justify-content: space-between;
     gap: 1rem;
-    margin: 1.5rem 0;
+    align-items: center;
   }
 
-  .role-card {
-    background: var(--lift);
-    border: 1px solid var(--border);
-    padding: 1rem 1.2rem;
-    clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);
-  }
-
-  .role-name {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.75rem;
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.16em;
+    text-decoration: none;
     text-transform: uppercase;
-    color: var(--cyan-bright);
-    margin-bottom: 0.5rem;
   }
 
-  .role-desc {
+  .brand span {
+    color: var(--accent);
+  }
+
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     font-size: 0.9rem;
-    color: rgba(192,192,200,0.75);
-    line-height: 1.5;
   }
 
-  .tips-box {
-    background: rgba(155,93,229,0.05);
-    border: 1px solid rgba(155,93,229,0.2);
-    border-left: 3px solid var(--purple-bright);
-    padding: 1.2rem 1.5rem;
-    margin: 1.5rem 0;
-  }
-
-  .tips-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: var(--purple-glow);
-    margin-bottom: 0.6rem;
   }
 
-  .loadout-box {
-    background: rgba(0,212,232,0.03);
-    border: 1px solid rgba(0,212,232,0.15);
-    border-left: 3px solid var(--cyan-bright);
-    padding: 1.2rem 1.5rem;
-    margin: 1.5rem 0;
+  .subtitle {
+    max-width: 780px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
   }
 
-  .loadout-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--cyan-bright);
-    margin-bottom: 0.6rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .hr {
+    height: 1px;
+    background: var(--line);
+    margin: 1.25rem 0;
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
   }
 
   .guide-image {
     width: 100%;
-    max-width: 900px;
     display: block;
-    margin: 1.5rem auto 0.5rem;
-    border: 1px solid var(--border-cyan);
-    border-radius: 10px;
-    background: var(--deep);
-    box-shadow: 0 0 30px rgba(0, 212, 232, 0.08);
+    border-radius: 12px;
+    background: #050507;
   }
 
   .image-caption {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(192, 192, 200, 0.65);
+    color: var(--soft);
+    font-size: 0.85rem;
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-top: 0.55rem;
   }
 
-
-
-  /* Cropped encounter image: shows only the top/map portion of large guide images */
-  .image-crop-top {
-    width: 100%;
-    max-width: 900px;
-    height: clamp(220px, 36vw, 340px);
-    margin: 1.5rem auto 0.5rem;
+  .crop-top {
+    height: clamp(260px, 42vw, 430px);
     overflow: hidden;
-    border: 1px solid var(--border-cyan);
-    border-radius: 10px;
-    background: var(--deep);
-    box-shadow: 0 0 30px rgba(0, 212, 232, 0.08);
+    border-radius: 12px;
+    background: #050507;
   }
 
-  .image-crop-top img {
+  .crop-top img {
     width: 100%;
     height: 100%;
-    display: block;
     object-fit: cover;
     object-position: top center;
+    display: block;
   }
 
-  .mechanic-text-box {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--cyan-bright);
-    padding: 1.2rem 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 10px;
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
   }
 
-  .mechanic-text-box h4 {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.82rem;
-    letter-spacing: 0.12em;
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.45rem;
   }
 
-  .mechanic-text-box p {
-    margin-bottom: 0.7rem;
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  .mechanic-text-box p:last-child {
-    margin-bottom: 0;
-  }
-
-  .loot-grid {
-    grid-template-columns: 1fr;
-    gap: 1.4rem;
-  }
-
-  .loot-grid .image-card {
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
     padding: 1rem;
   }
 
-  .loot-grid .image-card img {
-    max-height: none;
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
   }
 
-  .loot-grid .image-card-title {
-    font-size: 0.8rem;
-    margin-top: 0.9rem;
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
   }
 
-  .image-grid {
+  .weapon-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
+    gap: 1.2rem;
   }
 
-  .image-card {
-    background: var(--lift);
-    border: 1px solid var(--border);
-    padding: 0.8rem;
-    border-radius: 10px;
+  .weapon-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
   }
 
-  .image-card img {
+  .weapon-card img {
     width: 100%;
-    display: block;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
+    min-height: 220px;
+    object-fit: contain;
+    background: #050507;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.6rem;
   }
 
-  .image-card-title {
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--cyan-bright);
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 0.7rem;
+  .weapon-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.6rem;
+  }
+
+  .weapon-card .type {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .weapon-card p {
+    margin-bottom: 0.6rem;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .pill {
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  .hidden-fallback {
+    display: none;
+    color: var(--danger);
+    font-weight: 700;
     text-align: center;
+    padding: 1rem;
   }
 
-  hr.enc-sep {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 3rem 0;
-  }
-
-  footer {
-    background: var(--deep);
-    border-top: 1px solid var(--border);
-    padding: 2.5rem;
-    text-align: center;
-  }
-
-  .footer-logo {
-    font-family: 'Orbitron', monospace;
-    font-weight: 900;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
-    color: var(--white);
-  }
-
-  .footer-logo span {
-    color: var(--purple-glow);
-  }
-
-  .footer-sub {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(192,192,200,0.3);
-    margin-top: 0.4rem;
-  }
-
-  @media (max-width: 680px) {
-    nav {
-      padding: 0 1.2rem;
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
     }
 
-    .guide-title {
-      font-size: 1.8rem;
+    .toc {
+      position: static;
     }
 
-    .breadcrumb,
-    .guide-content {
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .weapon-card {
+      grid-template-columns: 1fr;
+    }
+
+    .weapon-card img {
+      min-height: 260px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
       padding-left: 1rem;
       padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
     }
   }
 </style>
@@ -602,580 +470,515 @@
 
 <body>
 
-<nav>
-  <a href="../infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="../infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
-</nav>
-
-<header class="guide-hero">
-  <div class="guide-hero-bg"></div>
-
-  <div class="guide-hero-content">
-    <div class="guide-type-badge">Raid — Forsaken</div>
-    <h1 class="guide-title">Last Wish</h1>
-    <p class="guide-tagline">"The opportunity of a lifetime."</p>
-    <div class="guide-divider"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../infringe_clan_site.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../infringe_clan_site.html#raids" class="back-link">← Back to Guides</a>
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="../infringe_clan_site.html">Home</a>
-  <span>/</span>
-  <a href="../infringe_clan_site.html#raids">Guides</a>
-  <span>/</span>
-  <span style="color:var(--silver)">Last Wish</span>
-</div>
-
-<main class="guide-content">
-
-  <section class="enc-nav">
-    <div class="enc-nav-label">Encounters</div>
-    <ol>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#wish-wall">Wish Wall</a></li>
-      <li><a href="#kalli">Kalli</a></li>
-      <li><a href="#shuro">Shuro Chi</a></li>
-      <li><a href="#morgeth">Morgeth</a></li>
-      <li><a href="#vault">Vault</a></li>
-      <li><a href="#riven">Riven</a></li>
-      <li><a href="#queenswalk">Queenswalk</a></li>
-      <li><a href="#loot">Raid Loot</a></li>
-    </ol>
-  </section>
-
-  <!-- RAID OVERVIEW -->
-  <section class="encounter" id="overview">
-    <div class="encounter-header">
-      <div class="enc-number">00</div>
-      <div>
-        <div class="enc-name">Raid Overview</div>
-        <div class="enc-type">Start Here</div>
-      </div>
-    </div>
-
-    <p>
-      Last Wish is a full raid with multiple symbol-heavy encounters. The team needs strong communication,
-      clear callouts, and assigned roles before starting each fight.
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · Forsaken</div>
+    <h1>Last Wish Guide</h1>
+    <p class="subtitle">
+      A clean, readable raid guide layout with encounter images, written mechanics, a symbol reference,
+      Wish Wall section, and large weapon cards for easier reading.
     </p>
-
-    <img
-      src="../Assets/Last Wish Symbols.png"
-      alt="Last Wish symbol reference chart"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Symbol callout reference</div>
-
-    <div class="loadout-box">
-      <div class="loadout-label">Recommended Preparation</div>
-      <ul>
-        <li><span>Assign symbol readers before encounters that require callouts.</span></li>
-        <li><span>Keep damage weapons ready for bosses and add-clear weapons ready for Taken waves.</span></li>
-        <li><span>Make sure every player understands the wipe mechanic before starting each encounter.</span></li>
-      </ul>
-    </div>
   </section>
 
-  <hr class="enc-sep">
-
-  <!-- WISH WALL -->
-  <section class="encounter" id="wish-wall">
-    <div class="encounter-header">
-      <div class="enc-number">01</div>
-      <div>
-        <div class="enc-name">Wish Wall</div>
-        <div class="enc-type">Optional Raid Start / Codes</div>
-      </div>
-    </div>
-
-    <p>
-      The Wish Wall lets your fireteam enter specific symbol codes to activate wishes before or during the raid.
-      Use the image below as your quick code reference.
-    </p>
-
-    <img
-      src="../Assets/Wish Wall Codes.png"
-      alt="Wish Wall code chart"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Wish Wall codes</div>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Have one player shoot the wall while another confirms the symbols.</span></li>
-        <li><span>Double-check every symbol before activating the wish.</span></li>
-        <li><span>Use the symbol reference above if your team uses different callout names.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- KALLI -->
-  <section class="encounter" id="kalli">
-    <div class="encounter-header">
-      <div class="enc-number">02</div>
-      <div>
-        <div class="enc-name">Kalli, the Corrupted</div>
-        <div class="enc-type">Encounter 1</div>
-      </div>
-    </div>
-
-    <p>
-      Kalli is the first main encounter. Players activate correct plates, survive Taken waves,
-      then group for damage while avoiding the wipe mechanic.
-    </p>
-
-    <img
-      src="../Assets/Last Wish Kalli Encounter.png"
-      alt="Kalli encounter layout"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Kalli encounter layout</div>
-
-    <img
-      src="../Assets/Last Wish Kalli Encounter Instructions.png"
-      alt="Kalli encounter instructions"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Kalli encounter instructions</div>
-
-    <div class="roles-grid">
-      <div class="role-card">
-        <div class="role-name">Readers</div>
-        <div class="role-desc">Call out the symbols and make sure players know which plates to take.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Plate Players</div>
-        <div class="role-desc">Stand on assigned plates, clear Taken Knights, and rotate safely.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Damage Team</div>
-        <div class="role-desc">Group up for DPS when the safe damage window opens.</div>
-      </div>
-    </div>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Do not stand on the wrong plate.</span></li>
-        <li><span>Kill the Taken Knight that spawns on your plate.</span></li>
-        <li><span>When doors open under Kalli, hide inside the correct safe doors to survive.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- SHURO CHI -->
-  <section class="encounter" id="shuro">
-    <div class="encounter-header">
-      <div class="enc-number">03</div>
-      <div>
-        <div class="enc-name">Shuro Chi, the Corrupted</div>
-        <div class="enc-type">Encounter 2</div>
-      </div>
-    </div>
-
-    <p>
-      Shuro Chi is a fast encounter with add clear, damage phases, and puzzle rooms.
-      Your team needs to move quickly because the wipe timer is constantly counting down.
-    </p>
-
-    <img
-      src="../Assets/Last Wish Shuro Chi Encounter.png"
-      alt="Shuro Chi encounter layout"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Shuro Chi encounter layout</div>
-
-    <img
-      src="../Assets/Last Wish Shuro Chi Encounter Puzzles.png"
-      alt="Shuro Chi puzzle room diagram"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Shuro Chi puzzle rooms</div>
-
-    <div class="sec-label">Mechanic: Puzzle Rooms</div>
-
-    <ol>
-      <li><span>Clear enemies quickly and push forward as a group.</span></li>
-      <li><span>Damage Shuro Chi when the phase opens.</span></li>
-      <li><span>Move into the puzzle room when the team reaches it.</span></li>
-      <li><span>Players stand on correct plates to complete the image puzzle.</span></li>
-      <li><span>Repeat until Shuro Chi is defeated.</span></li>
-    </ol>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Assign puzzle players before starting.</span></li>
-        <li><span>Do not step on the same puzzle plate twice unless your team’s strategy requires it.</span></li>
-        <li><span>Keep moving because the wipe timer does not stop.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- MORGETH -->
-  <section class="encounter" id="morgeth">
-    <div class="encounter-header">
-      <div class="enc-number">04</div>
-      <div>
-        <div class="enc-name">Morgeth, the Spirekeeper</div>
-        <div class="enc-type">Encounter 3</div>
-      </div>
-    </div>
-
-    <p>
-      Morgeth focuses on collecting Taken Strength and managing trapped players.
-      Communication is important because players need to track who has strength and who needs to be cleansed.
-    </p>
-
-    <div class="image-crop-top">
-      <img
-        src="../Assets/Last Wish Morgeth Encounter.png"
-        alt="Morgeth encounter top layout"
-        loading="lazy"
-        onerror="this.onerror=null; this.src='../Assets/Morgeth Encounter.png';"
-      >
-    </div>
-    <div class="image-caption">Morgeth encounter top layout</div>
-
-    <div class="mechanic-text-box">
-      <h4>Morgeth Mechanics — Readable Text Version</h4>
-      <p><strong>Main goal:</strong> Collect Taken Strength around the arena, free trapped players, and start damage before Morgeth reaches full strength.</p>
-      <p><strong>Taken Strength:</strong> Players pick up Taken Strength orbs and call out their stack count. Do not let one player accidentally take too many stacks.</p>
-      <p><strong>Trapped player:</strong> Morgeth can trap a teammate. A player with Taken Essence must cleanse them quickly before the team loses control of the encounter.</p>
-      <p><strong>Damage phase:</strong> Once the team has managed the required Taken Strength and everyone is safe, group up and damage Morgeth.</p>
-    </div>
-
-    <div class="roles-grid">
-      <div class="role-card">
-        <div class="role-name">Strength Collectors</div>
-        <div class="role-desc">Pick up Taken Strength and call out your stacks.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Cleanse Player</div>
-        <div class="role-desc">Use the Taken Essence to free trapped teammates.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Add Clear</div>
-        <div class="role-desc">Control enemies so collectors can safely move around the arena.</div>
-      </div>
-    </div>
-
-    <ol>
-      <li><span>Start the encounter and begin clearing enemies.</span></li>
-      <li><span>Collect Taken Strength while calling out stack counts.</span></li>
-      <li><span>Free trapped players using Taken Essence.</span></li>
-      <li><span>Begin damage when the team is ready.</span></li>
-      <li><span>Repeat if Morgeth survives the damage phase.</span></li>
-    </ol>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Do not let one player accidentally take too many stacks.</span></li>
-        <li><span>Call out immediately when trapped.</span></li>
-        <li><span>Save heavy ammo and supers for the main damage phase.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- VAULT -->
-  <section class="encounter" id="vault">
-    <div class="encounter-header">
-      <div class="enc-number">05</div>
-      <div>
-        <div class="enc-name">The Vault</div>
-        <div class="enc-type">Encounter 4</div>
-      </div>
-    </div>
-
-    <p>
-      The Vault is one of the most communication-heavy parts of Last Wish.
-      Players read symbols, call out Penumbra or Antumbra, and cleanse the correct plates.
-    </p>
-
-    <img
-      src="../Assets/Last Wish The Vault Encounter.png"
-      alt="Vault encounter layout"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Vault encounter overview</div>
-
-    <img
-      src="../Assets/Last Wish The Vault Encounter Diagram.png"
-      alt="Vault encounter diagram"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Vault encounter diagram</div>
-
-    <img
-      src="../Assets/Last Wish The Vaule Encounter Instrucitons.png"
-      alt="Vault encounter instructions"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Vault encounter instructions</div>
-
-    <div class="roles-grid">
-      <div class="role-card">
-        <div class="role-name">Plate Readers</div>
-        <div class="role-desc">Read the center symbol and call the matching left or right symbol.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Runners</div>
-        <div class="role-desc">Pick up the Taken Essence and cleanse the correct plate.</div>
-      </div>
-
-      <div class="role-card">
-        <div class="role-name">Add Clear</div>
-        <div class="role-desc">Keep the rooms controlled so readers and runners can focus.</div>
-      </div>
-    </div>
-
-    <ol>
-      <li><span>Three players stand on the plates and read their symbols.</span></li>
-      <li><span>Call out which symbol is duplicated between plates.</span></li>
-      <li><span>Determine which plates need Penumbra or Antumbra.</span></li>
-      <li><span>Runner picks up Taken Essence and cleanses the correct plate.</span></li>
-      <li><span>Repeat until the vault is complete.</span></li>
-    </ol>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Use consistent callouts: left, middle, right.</span></li>
-        <li><span>Do not cleanse a plate unless the team confirms it.</span></li>
-        <li><span>Keep Knights away from the plates.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- RIVEN -->
-  <section class="encounter" id="riven">
-    <div class="encounter-header">
-      <div class="enc-number">06</div>
-      <div>
-        <div class="enc-name">Riven of a Thousand Voices</div>
-        <div class="enc-type">Final Boss</div>
-      </div>
-    </div>
-
-    <p>
-      Riven is the final boss encounter before Queenswalk. The encounter uses split teams,
-      symbol reading, eye callouts, floor patterns, and coordinated damage.
-    </p>
-
-    <img
-      src="../Assets/Last Wish Riven Encounter.png"
-      alt="Riven encounter layout"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Riven encounter overview</div>
-
-    <img
-      src="../Assets/Last Wish Riven Eye Pattern.png"
-      alt="Riven eye pattern callout chart"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Riven eye pattern callouts</div>
-
-    <img
-      src="../Assets/Last Wish Riven Floor Pattern.png"
-      alt="Riven floor pattern diagram"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Riven floor pattern</div>
-
-    <img
-      src="../Assets/Last Wish Riven Floor Pattern 2.png"
-      alt="Riven second floor pattern diagram"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Riven floor pattern 2</div>
-
-    <div class="sec-label">Mechanic: Eye Callouts</div>
-
-    <ol>
-      <li><span>Split into two teams.</span></li>
-      <li><span>Identify which eyes need to be shot.</span></li>
-      <li><span>Call eye positions clearly using the eye chart.</span></li>
-      <li><span>Shoot only the correct eyes.</span></li>
-      <li><span>Group for damage when the encounter reaches the damage phase.</span></li>
-    </ol>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Bad eye callouts can wipe the team quickly.</span></li>
-        <li><span>Use the same eye names every run.</span></li>
-        <li><span>Make sure every player knows whether your team is doing normal mechanics or a cheese strategy.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- FINAL STAND / QUEENSWALK -->
-  <section class="encounter" id="queenswalk">
-    <div class="encounter-header">
-      <div class="enc-number">07</div>
-      <div>
-        <div class="enc-name">Riven Final Stand & Queenswalk</div>
-        <div class="enc-type">Final Encounter</div>
-      </div>
-    </div>
-
-    <p>
-      After Riven is defeated, the team must complete Queenswalk by carrying Riven’s Heart.
-      Players rotate heart carrier duties while the rest of the team clears the path and protects the run.
-    </p>
-
-    <img
-      src="../Assets/Last Wish Final Stand Encounter.png"
-      alt="Riven final stand encounter"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Riven final stand encounter</div>
-
-    <img
-      src="../Assets/Last Wish Final Stand Dunk Ending.png"
-      alt="Final dunk ending"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Final dunk ending</div>
-
-    <img
-      src="../Assets/Last Wish Final Stand Encounter Instructions.png"
-      alt="Final stand encounter instructions"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Final stand instructions</div>
-
-    <ol>
-      <li><span>Pick up Riven’s Heart.</span></li>
-      <li><span>Move together through the path.</span></li>
-      <li><span>Rotate carriers when the heart pulls players inside.</span></li>
-      <li><span>Clear enemies quickly and keep the path safe.</span></li>
-      <li><span>Dunk the heart to complete the raid.</span></li>
-    </ol>
-
-    <div class="tips-box">
-      <div class="tips-label">Tips & Notes</div>
-      <ul>
-        <li><span>Call out when your timer is low.</span></li>
-        <li><span>Stay together so no one gets left behind.</span></li>
-        <li><span>Inside players should collect Taken Strength to extend the carrier’s timer.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <hr class="enc-sep">
-
-  <!-- RAID LOOT -->
-  <section class="encounter" id="loot">
-    <div class="encounter-header">
-      <div class="enc-number">08</div>
-      <div>
-        <div class="enc-name">Last Wish Raid Loot</div>
-        <div class="enc-type">Weapons & Exotic</div>
-      </div>
-    </div>
-
-    <p>
-      These are the Last Wish raid reward images you have in your Assets folder.
-      This section works well at the bottom of the guide so players can see what drops from the raid.
-    </p>
-
-    <div class="image-grid loot-grid">
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Age Old Bond.png" alt="Age Old Bond" loading="lazy">
-        <div class="image-card-title">Age Old Bond</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Apex Predator.png" alt="Apex Predator" loading="lazy">
-        <div class="image-card-title">Apex Predator</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Chattering Bone.png" alt="Chattering Bone" loading="lazy">
-        <div class="image-card-title">Chattering Bone</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Nation of Beast.png" alt="Nation of Beasts" loading="lazy">
-        <div class="image-card-title">Nation of Beasts</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Techeun Force.png" alt="Techeun Force" loading="lazy">
-        <div class="image-card-title">Techeun Force</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish The Supremacy.png" alt="The Supremacy" loading="lazy">
-        <div class="image-card-title">The Supremacy</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Tyranny of Heaven.png" alt="Tyranny of Heaven" loading="lazy">
-        <div class="image-card-title">Tyranny of Heaven</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Exotic Thousand Voices.png" alt="One Thousand Voices exotic weapon" loading="lazy">
-        <div class="image-card-title">One Thousand Voices</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Origin Trait.png" alt="Last Wish origin trait" loading="lazy">
-        <div class="image-card-title">Origin Trait</div>
-      </div>
-
-      <div class="image-card">
-        <img src="../Assets/Last Wish Weapons.png" alt="Last Wish weapons overview" loading="lazy">
-        <div class="image-card-title">Weapons Overview</div>
-      </div>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#symbols">Symbols</a>
+        <a href="#wish-wall">Wishing Wall</a>
+        <a href="#kalli">1. Kalli</a>
+        <a href="#shuro">2. Shuro Chi</a>
+        <a href="#morgeth">3. Morgeth</a>
+        <a href="#vault">4. The Vault</a>
+        <a href="#riven">5. Riven</a>
+        <a href="#heart">6. Riven's Heart</a>
+        <a href="#weapons">Weapons</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this section as the quick reference point for Last Wish rewards. The larger weapon cards are at the bottom of this guide.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Weapons.png" alt="Last Wish weapons overview" class="guide-image" loading="lazy">
+          <div class="image-caption">Last Wish weapons overview</div>
+        </div>
+      </section>
+
+      <section class="section" id="symbols">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Symbols to Memorize</h2>
+        </div>
+
+        <p>
+          Last Wish relies heavily on symbol callouts. Your team does not have to use one exact naming system, but everyone
+          should agree on the same names before starting the raid.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Symbols.png" alt="Last Wish symbol callout reference" class="guide-image" loading="lazy">
+          <div class="image-caption">Symbol callout reference</div>
+        </div>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            Keep one player responsible for confirming symbol calls. Most wipes in this raid happen from mixed callouts,
+            rushed calls, or two players using different names for the same symbol.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="wish-wall">
+        <div class="section-header">
+          <div class="num">02</div>
+          <h2>Wishing Wall</h2>
+        </div>
+
+        <p>
+          The Wishing Wall lets your fireteam enter wish codes by shooting symbols into the wall. Double-check each symbol
+          before activating the plate.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Wish Wall Codes.png" alt="Wish Wall codes" class="guide-image" loading="lazy">
+          <div class="image-caption">Wish Wall codes</div>
+        </div>
+      </section>
+
+      <section class="section" id="kalli">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Kalli, the Corrupted</h2>
+        </div>
+
+        <p>
+          Kalli teaches the raid's core symbol language. Players match symbols, cleanse plates, kill Taken Knights,
+          damage Kalli, then hide inside safe doors to survive her wipe attack.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Kalli Encounter.png" alt="Kalli encounter layout" class="guide-image" loading="lazy">
+          <div class="image-caption">Kalli encounter layout</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Kalli Encounter Instructions.png" alt="Kalli encounter instructions" class="guide-image" loading="lazy">
+          <div class="image-caption">Kalli encounter instructions</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Read the symbols in the center of the arena.</li>
+          <li>Each player goes to a plate matching one of those symbols.</li>
+          <li>Stand on the clear section of the plate and avoid the Taken blights.</li>
+          <li>Kill the Taken Knight that spawns after cleansing the plate.</li>
+          <li>Group in the center for damage when Kalli becomes vulnerable.</li>
+          <li>When Kalli prepares her weapon, enter one open door. Only one player should use each door.</li>
+        </ol>
+
+        <div class="callout">
+          <div class="callout-title">Challenge Mode</div>
+          <p>Cleanse all nine plates before the damage phase begins.</p>
+        </div>
+      </section>
+
+      <section class="section" id="shuro">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>Shuro Chi, the Corrupted</h2>
+        </div>
+
+        <p>
+          Shuro Chi is a timed encounter with add clear, crystal shield breaks, damage windows, and puzzle rooms.
+          The team must move quickly because Shuro Chi's Song acts as the wipe timer.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Shuro Chi Encounter.png" alt="Shuro Chi encounter layout" class="guide-image" loading="lazy">
+          <div class="image-caption">Shuro Chi encounter layout</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Shuro Chi Encounter Puzzles.png" alt="Shuro Chi puzzle room diagram" class="guide-image" loading="lazy">
+          <div class="image-caption">Shuro Chi puzzle room guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-2">
+          <div class="role-card">
+            <h4>Shield Breakers</h4>
+            <p>Three players pick up crystals and connect beams to break Shuro Chi's shield.</p>
+          </div>
+          <div class="role-card">
+            <h4>Puzzle Players</h4>
+            <p>Four players handle the puzzle room plates and complete the missing-image pattern.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Clear enemies quickly and move forward as a team.</li>
+          <li>Shield breakers pick up crystals and form a triangle beam to remove Shuro Chi's shield.</li>
+          <li>Damage Shuro Chi until the health gate is reached.</li>
+          <li>Enter the puzzle room and complete the wall pattern using the floor plates.</li>
+          <li>Repeat the process until Shuro Chi is defeated.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="morgeth">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Morgeth, the Spirekeeper</h2>
+        </div>
+
+        <p>
+          Morgeth is about collecting Taken Strength, freeing trapped players, and starting damage before Morgeth reaches full strength.
+        </p>
+
+        <div class="image-frame">
+          <div class="crop-top">
+            <img
+              src="../Assets/Last Wish Morgeth Encounter.png"
+              alt="Morgeth encounter top layout"
+              loading="lazy"
+              data-fallbacks="../Assets/Morgeth Encounter.png|../Assets/Morgeth.png|../Assets/Last Wish Morgeth.png|../Assets/Last Wish Morgeth Encounter.PNG"
+            >
+          </div>
+          <div class="image-caption">
+            Morgeth encounter layout. This view is cropped to the top portion so the map stays readable.
+          </div>
+          <div class="hidden-fallback">Morgeth image failed to load. Check the exact file name in your Assets folder.</div>
+        </div>
+
+        <h3>Morgeth Mechanics Written Out</h3>
+        <ol>
+          <li>Start the encounter by picking up the first Taken Strength orb.</li>
+          <li>Taken Strength appears around the arena. Assigned players collect it and call out their stack count.</li>
+          <li>A player can become trapped. Call out immediately when trapped.</li>
+          <li>Kill the Eye of Riven and pick up the Taken Essence.</li>
+          <li>Use the Taken Essence grenade ability to cleanse/free the trapped player.</li>
+          <li>Do not let Morgeth reach 100% strength. Start damage before the wipe occurs.</li>
+          <li>During damage, group at the agreed damage spot and use heavy weapons, supers, and debuffs.</li>
+          <li>If Morgeth survives, repeat the Strength collection and cleanse cycle.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Simple Callouts</div>
+          <p>
+            Use clear location names such as <strong>left front</strong>, <strong>left back</strong>, <strong>right front</strong>,
+            <strong>right back</strong>, and <strong>middle</strong>. The cleaner your callouts are, the easier this encounter becomes.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="role-card">
+            <h4>Strength Collectors</h4>
+            <p>Pick up Taken Strength and constantly call your stack count.</p>
+          </div>
+          <div class="role-card">
+            <h4>Cleanser</h4>
+            <p>Use Taken Essence to free trapped players before the team loses control.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="vault">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>The Vault</h2>
+        </div>
+
+        <p>
+          The Vault is a symbol-reading encounter. Players read plates, identify matching symbols, determine Penumbra or Antumbra,
+          then runners cleanse the correct plates with Taken Essence.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish The Vault Encounter.png" alt="Vault encounter layout" class="guide-image" loading="lazy">
+          <div class="image-caption">Vault encounter layout</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish The Vault Encounter Diagram.png" alt="Vault encounter diagram" class="guide-image" loading="lazy">
+          <div class="image-caption">Vault encounter diagram</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish The Vaule Encounter Instrucitons.png" alt="Vault encounter instructions" class="guide-image" loading="lazy">
+          <div class="image-caption">Vault encounter instructions</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Three readers stand on the plates and read their symbols.</li>
+          <li>Readers identify which symbol appears on another player's plate.</li>
+          <li>The team determines whether each plate needs Penumbra or Antumbra.</li>
+          <li>The runner grabs Taken Essence and cleanses the correct plate.</li>
+          <li>Kill Knights before they reach the plates.</li>
+          <li>Repeat until the Vault is complete.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="riven">
+        <div class="section-header">
+          <div class="num">5</div>
+          <h2>Riven of a Thousand Voices</h2>
+        </div>
+
+        <p>
+          Riven is the final boss encounter. It uses split teams, symbol reading, elevator rooms, eye callouts,
+          and coordinated damage.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Riven Encounter.png" alt="Riven encounter layout" class="guide-image" loading="lazy">
+          <div class="image-caption">Riven encounter layout</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Riven Eye Pattern.png" alt="Riven eye callout chart" class="guide-image" loading="lazy">
+          <div class="image-caption">Riven eye callout chart</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Riven Floor Pattern.png" alt="Riven floor pattern" class="guide-image" loading="lazy">
+          <div class="image-caption">Riven floor pattern</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Riven Floor Pattern 2.png" alt="Riven floor pattern 2" class="guide-image" loading="lazy">
+          <div class="image-caption">Riven floor pattern 2</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into two teams of three.</li>
+          <li>Call out Riven's real eyes using the eye chart.</li>
+          <li>Shoot only the correct eyes. Shooting the wrong eye can wipe the team.</li>
+          <li>Handle symbol/floor pattern mechanics when assigned.</li>
+          <li>Regroup for damage and repeat until Riven is defeated.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="heart">
+        <div class="section-header">
+          <div class="num">6</div>
+          <h2>Riven's Heart</h2>
+        </div>
+
+        <p>
+          After Riven is defeated, the fireteam carries Riven's Heart through Queenswalk. The heart pulls players inside one by one,
+          so carrier rotation and clean pathing are the key mechanics.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Final Stand Encounter.png" alt="Riven final stand encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Riven final stand encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Final Stand Encounter Instructions.png" alt="Final stand instructions" class="guide-image" loading="lazy">
+          <div class="image-caption">Final stand instructions</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Assets/Last Wish Final Stand Dunk Ending.png" alt="Final dunk ending" class="guide-image" loading="lazy">
+          <div class="image-caption">Final dunk ending</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Pick up Riven's Heart and move as a group.</li>
+          <li>The carrier calls out the timer clearly.</li>
+          <li>When the carrier gets pulled inside, the next player picks up the heart.</li>
+          <li>Players inside collect Taken Strength to extend the outside timer.</li>
+          <li>Continue rotating carriers until the final dunk.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="weapons">
+        <div class="section-header">
+          <div class="num">07</div>
+          <h2>Weapons</h2>
+        </div>
+
+        <p>
+          Weapon images are displayed as large readable cards instead of small thumbnails.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Origin Trait</div>
+          <p>
+            <strong>Explosive Pact:</strong> activating a grenade ability grants bonus stability and reload speed.
+            Healing grenades and grenade final blows grant additional stacks.
+          </p>
+          <div class="image-frame">
+            <img src="../Assets/Last Wish Origin Trait.png" alt="Last Wish origin trait" class="guide-image" loading="lazy">
+            <div class="image-caption">Last Wish origin trait</div>
+          </div>
+        </div>
+
+        <div class="weapon-list">
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Chattering Bone.png" alt="Chattering Bone" loading="lazy">
+            <div>
+              <h3>Chattering Bone</h3>
+              <div class="type">Legendary Pulse Rifle</div>
+              <p>Solid primary option for general play. Works well when paired with consistency and damage perks.</p>
+              <div class="pill-row">
+                <span class="pill">Pulse Rifle</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Nation of Beast.png" alt="Nation of Beasts" loading="lazy">
+            <div>
+              <h3>Nation of Beasts</h3>
+              <div class="type">Legendary Hand Cannon</div>
+              <p>A strong add-clear hand cannon option, especially when built around explosive or elemental perks.</p>
+              <div class="pill-row">
+                <span class="pill">Hand Cannon</span>
+                <span class="pill">Arc</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Age Old Bond.png" alt="Age-Old Bond" loading="lazy">
+            <div>
+              <h3>Age-Old Bond</h3>
+              <div class="type">Legendary Auto Rifle</div>
+              <p>A void auto rifle that fits well into Void builds and general add-clear setups.</p>
+              <div class="pill-row">
+                <span class="pill">Auto Rifle</span>
+                <span class="pill">Void</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Tyranny of Heaven.png" alt="Tyranny of Heaven" loading="lazy">
+            <div>
+              <h3>Tyranny of Heaven</h3>
+              <div class="type">Legendary Bow</div>
+              <p>A lightweight bow that can be useful for safer ranged play and solar-focused setups.</p>
+              <div class="pill-row">
+                <span class="pill">Bow</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Techeun Force.png" alt="Techeun Force" loading="lazy">
+            <div>
+              <h3>Techeun Force</h3>
+              <div class="type">Legendary Fusion Rifle</div>
+              <p>A fusion rifle option for players who want a special weapon with strong burst potential.</p>
+              <div class="pill-row">
+                <span class="pill">Fusion Rifle</span>
+                <span class="pill">Arc</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish The Supremacy.png" alt="The Supremacy" loading="lazy">
+            <div>
+              <h3>The Supremacy</h3>
+              <div class="type">Legendary Sniper Rifle</div>
+              <p>A sniper rifle that can work as a backup damage option or precision special weapon.</p>
+              <div class="pill-row">
+                <span class="pill">Sniper Rifle</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Apex Predator.png" alt="Apex Predator" loading="lazy">
+            <div>
+              <h3>Apex Predator</h3>
+              <div class="type">Legendary Rocket Launcher</div>
+              <p>One of the most important Last Wish weapons to highlight because it is commonly used for boss damage setups.</p>
+              <div class="pill-row">
+                <span class="pill">Rocket Launcher</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Damage Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Assets/Last Wish Exotic Thousand Voices.png" alt="One Thousand Voices" loading="lazy">
+            <div>
+              <h3>One Thousand Voices</h3>
+              <div class="type">Exotic Fusion Rifle</div>
+              <p>The Last Wish exotic weapon. Fires a powerful beam that creates delayed explosions.</p>
+              <div class="pill-row">
+                <span class="pill">Exotic</span>
+                <span class="pill">Fusion Rifle</span>
+                <span class="pill">Raid Exotic</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="small-note">
+          If any weapon image does not load, copy the exact image filename from GitHub's Assets folder and update the matching src path.
+        </p>
+      </section>
 
     </div>
-  </section>
-
+  </div>
 </main>
 
-<footer>
-  <div class="footer-logo">IN<span>FR</span>INGE</div>
-  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: Last Wish &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
-</footer>
+<script>
+  document.querySelectorAll("img[data-fallbacks]").forEach((img) => {
+    const fallbacks = img.dataset.fallbacks.split("|");
+    let index = 0;
+
+    img.addEventListener("error", () => {
+      if (index < fallbacks.length) {
+        img.src = fallbacks[index];
+        index++;
+      } else {
+        const frame = img.closest(".image-frame");
+        const fallbackMessage = frame ? frame.querySelector(".hidden-fallback") : null;
+        if (fallbackMessage) fallbackMessage.style.display = "block";
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
