@@ -450,6 +450,73 @@
     margin-bottom: 1.5rem;
   }
 
+
+
+  /* Cropped encounter image: shows only the top/map portion of large guide images */
+  .image-crop-top {
+    width: 100%;
+    max-width: 900px;
+    height: clamp(220px, 36vw, 340px);
+    margin: 1.5rem auto 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border-cyan);
+    border-radius: 10px;
+    background: var(--deep);
+    box-shadow: 0 0 30px rgba(0, 212, 232, 0.08);
+  }
+
+  .image-crop-top img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .mechanic-text-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--cyan-bright);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 10px;
+  }
+
+  .mechanic-text-box h4 {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+  }
+
+  .mechanic-text-box p {
+    margin-bottom: 0.7rem;
+  }
+
+  .mechanic-text-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .loot-grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .loot-grid .image-card {
+    padding: 1rem;
+  }
+
+  .loot-grid .image-card img {
+    max-height: none;
+  }
+
+  .loot-grid .image-card-title {
+    font-size: 0.8rem;
+    margin-top: 0.9rem;
+  }
+
   .image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -774,13 +841,23 @@
       Communication is important because players need to track who has strength and who needs to be cleansed.
     </p>
 
-    <img
-      src="../Assets/Last Wish Morgeth Encounter.png"
-      alt="Morgeth encounter layout"
-      class="guide-image"
-      loading="lazy"
-    >
-    <div class="image-caption">Morgeth encounter layout</div>
+    <div class="image-crop-top">
+      <img
+        src="../Assets/Last Wish Morgeth Encounter.png"
+        alt="Morgeth encounter top layout"
+        loading="lazy"
+        onerror="this.onerror=null; this.src='../Assets/Morgeth Encounter.png';"
+      >
+    </div>
+    <div class="image-caption">Morgeth encounter top layout</div>
+
+    <div class="mechanic-text-box">
+      <h4>Morgeth Mechanics — Readable Text Version</h4>
+      <p><strong>Main goal:</strong> Collect Taken Strength around the arena, free trapped players, and start damage before Morgeth reaches full strength.</p>
+      <p><strong>Taken Strength:</strong> Players pick up Taken Strength orbs and call out their stack count. Do not let one player accidentally take too many stacks.</p>
+      <p><strong>Trapped player:</strong> Morgeth can trap a teammate. A player with Taken Essence must cleanse them quickly before the team loses control of the encounter.</p>
+      <p><strong>Damage phase:</strong> Once the team has managed the required Taken Strength and everyone is safe, group up and damage Morgeth.</p>
+    </div>
 
     <div class="roles-grid">
       <div class="role-card">
@@ -1038,7 +1115,7 @@
       This section works well at the bottom of the guide so players can see what drops from the raid.
     </p>
 
-    <div class="image-grid">
+    <div class="image-grid loot-grid">
 
       <div class="image-card">
         <img src="../Assets/Last Wish Age Old Bond.png" alt="Age Old Bond" loading="lazy">
