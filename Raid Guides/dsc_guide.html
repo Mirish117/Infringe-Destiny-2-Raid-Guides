@@ -1,223 +1,963 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+GitHub folder structure expected:
+
+Project Root/
+├── Deep Stone Crypt Assets/
+│   ├── DSC Loot Table.png
+│   ├── DSC Weapons.png
+│   ├── DSC Security.png
+│   └── etc...
+└── Raid Guides/
+    └── this Deep Stone Crypt HTML file
+
+Because this page is inside "Raid Guides", images use:
+../Deep Stone Crypt Assets/File Name.png
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Deep Stone Crypt Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+
+  html {
+    scroll-behavior: smooth;
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
-  .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
   }
-  .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+
+  img {
+    max-width: 100%;
   }
-  .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 52px;
+
+  a {
+    color: inherit;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--cyan-bright); }
-  .breadcrumb span { color: rgba(192,192,200,0.25); }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
-  .enc-nav li a:hover { color: var(--cyan-bright); }
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .brand span {
+    color: var(--accent);
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
-  .tips-box ul { margin: 0; }
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .loadout-box ul { margin: 0; }
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
-  .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
+  .subtitle {
+    max-width: 840px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
+  }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #050507;
+  }
+
+  .image-caption {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .weapon-list {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .weapon-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .weapon-card img {
+    width: 100%;
+    min-height: 220px;
+    object-fit: contain;
+    background: #050507;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.6rem;
+  }
+
+  .weapon-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.6rem;
+  }
+
+  .weapon-card .type {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .weapon-card p {
+    margin-bottom: 0.6rem;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .pill {
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .weapon-card {
+      grid-template-columns: 1fr;
+    }
+
+    .weapon-card img {
+      min-height: 260px;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-
 </head>
+
 <body>
 
-<nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
-</nav>
-
-<header class="guide-hero">
-  <div class="guide-hero-bg"></div>
-  <div class="guide-hero-content">
-    <div class="guide-type-badge">Raid — Beyond Light</div>
-    <h1 class="guide-title">Deep Stone Crypt</h1>
-    <p class="guide-tagline">"The chains of legacy must be broken."</p>
-    <div class="guide-divider"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../index.html#raids" class="back-link">← Back to Guides</a>
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
-  <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
-  <span>/</span>
-  <span style="color:var(--silver)">Deep Stone Crypt</span>
-</div>
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · Beyond Light</div>
+    <h1>Deep Stone Crypt Guide</h1>
+    <p class="subtitle">
+      A clean, readable Deep Stone Crypt raid guide with large encounter images, written augment mechanics,
+      traversal guides, loot references, and large readable weapon cards.
+    </p>
+  </section>
 
-<div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#recon">Recon</a></li>
-    <li><a href="#crypt">Crypt Security</a></li>
-    <li><a href="#atraks">Atraks-1</a></li>
-    <li><a href="#taniks">Taniks</a></li>
-  </ol>
-</div><div class="encounter" id="recon">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Recon</div>
-      <div class="enc-type">Opening</div>
-    </div>
-  </div>
-  <p>Traverse Europa's snowfields while staying inside the safety of light pylons. Players take turns activating the pylons to advance.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The debuff 'Frostbite' stacks outside pylons — move quickly between them</span></li>
-<li><span>One player can activate multiple pylons in sequence — assign a lead runner</span></li>
-<li><span>The hidden caches along the route are worth hunting for extra ammo</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="crypt">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Crypt Security</div>
-      <div class="enc-type">Encounter 1</div>
-    </div>
-  </div>
-  <p>Split the fireteam between two separated rooms — Upstairs and Downstairs. Players in each room must charge their Scanner and Operator augments and share information across rooms.</p><div class="sec-label">Mechanic: Augments</div><p>Two augments exist — Scanner (glows yellow) and Operator (glows red). The Scanner can read information. The Operator can interact with devices. Augments can only be transferred by shooting a specific Augment Terminal.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Scanner</div><div class="role-desc">Reads the active column of lamps in your room and calls it out to the Operator across the team</div></div>
-<div class="role-card"><div class="role-name">Operator</div><div class="role-desc">Shoots the correct column panel based on the Scanner's callout</div></div></div><ol><li><span>Downstairs Scanner reads which of the three columns is lit</span></li>
-<li><span>Calls it to the Upstairs Operator — e.g. 'Left column'</span></li>
-<li><span>Upstairs Operator shoots the corresponding panel</span></li>
-<li><span>Augments transfer when the Operator shoots the Scanner's terminal</span></li>
-<li><span>Repeat until both sides are charged — then damage phase</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Transfer augments before they expire — the debuff kills the holder</span></li>
-<li><span>Assign permanent Upstairs and Downstairs teams before the encounter begins</span></li>
-<li><span>The order of columns to charge is random each attempt — always re-read fresh</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="atraks">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Atraks-1</div>
-      <div class="enc-type">Encounter 2</div>
-    </div>
-  </div>
-  <p>Fight four copies of Atraks-1 spread across two floors. Only the correct copy in each room can be damaged — identified by which copy is glowing.</p><div class="sec-label">Structure</div><p>Three copies of Atraks are on each floor (six total). One on each floor is vulnerable at a time. You damage the correct copies and then dunk their Replication core before time expires.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Top (3)</div><div class="role-desc">Fight the three Atraks copies in the space station above — find and damage the glowing one</div></div>
-<div class="role-card"><div class="role-name">Bottom (3)</div><div class="role-desc">Fight the three Atraks on the lower floor — damage the glowing copy</div></div>
-<div class="role-card"><div class="role-name">Dunk Runner</div><div class="role-desc">After damaging a copy, collect the Replication and dunk it in the trash chute before time expires</div></div></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The glowing Atraks is never the same one two rounds in a row — reset your eyes each phase</span></li>
-<li><span>Dunking the Replication in the wrong chute on the wrong floor does nothing</span></li>
-<li><span>In the final phase, all four Atraks go vulnerable simultaneously — all four must be dunked quickly</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="taniks">
-  <div class="encounter-header">
-    <div class="enc-number">04</div>
-    <div>
-      <div class="enc-name">Taniks</div>
-      <div class="enc-type">Final Boss</div>
-    </div>
-  </div>
-  <p>Taniks, The Abomination — combines the Replication mechanic with a nuclear core and a rotating vulnerability pattern across four engine pods.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Best DPS — Lament exotic sword is exceptional here</span></li>
-<li><span>Stasis for shutting down Taniks's movement during nuke phase</span></li>
-<li><span>Well of Radiance for DPS phases</span></li></ul></div><div class="sec-label">Phase 1 — Augments</div><ol><li><span>Kill adds to generate Scanner and Operator augments</span></li>
-<li><span>Scanner identifies which two of the four engine pods are glowing</span></li>
-<li><span>Operator shoots the glowing pods to open them</span></li>
-<li><span>Relic Runner grabs the nuclear core from a killed Abomination</span></li>
-<li><span>Dunk the core into one of the two open pods</span></li></ol><div class="sec-label">Phase 2 — DPS</div><p>After two cores are dunked, Taniks kneels. All six players focus DPS on his engine weak points.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The Nuke phase activates if cores aren't dunked fast enough — hold still and survive it</span></li>
-<li><span>Dunking wrong cores causes a wipe — always confirm the Scanner's call before dunking</span></li>
-<li><span>In Challenge Mode: each player may only dunk one core per damage phase</span></li></ul></div>
-</div>
-<hr class="enc-sep">
-</div>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#weapons-overview">Weapons Overview</a>
+        <a href="#desolation">1. Desolation</a>
+        <a href="#security">2. Crypt Security</a>
+        <a href="#atraks">3. Atraks-1</a>
+        <a href="#descent">4. Descent</a>
+        <a href="#taniks-reborn">5. Taniks Reborn</a>
+        <a href="#taniks">6. Taniks</a>
+        <a href="#sparrow">Sparrow Route</a>
+        <a href="#weapons">Weapons</a>
+      </nav>
+    </aside>
 
-<footer>
-  <div class="footer-logo">IN<span>FR</span>INGE</div>
-  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: Deep Stone Crypt &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
-</footer>
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this as the quick drop reference for Deep Stone Crypt. Keep this near the top so players can quickly see what drops from the raid.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Loot Table.png" alt="Deep Stone Crypt loot table" class="guide-image" loading="lazy">
+          <div class="image-caption">Deep Stone Crypt loot table</div>
+        </div>
+      </section>
+
+      <section class="section" id="weapons-overview">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Weapons Overview</h2>
+        </div>
+
+        <p>
+          This image gives the quick visual overview of Deep Stone Crypt weapons. Larger individual weapon cards are included near the bottom.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Weapons.png" alt="Deep Stone Crypt weapons overview" class="guide-image" loading="lazy">
+          <div class="image-caption">Deep Stone Crypt weapons overview</div>
+        </div>
+      </section>
+
+      <section class="section" id="desolation">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Desolation</h2>
+        </div>
+
+        <p>
+          Desolation is the opening sparrow route through the Europa storm. Players move from shelter bubble to shelter bubble
+          while avoiding Frostbite stacks.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Desolation.png" alt="Desolation traversal" class="guide-image" loading="lazy">
+          <div class="image-caption">Desolation traversal</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Sparrow Guide.png" alt="Deep Stone Crypt sparrow guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Sparrow route guide</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move between shelter bubbles to remove Frostbite.</li>
+          <li>Do not stay outside too long or Frostbite will kill you.</li>
+          <li>Follow the sparrow path and regroup at each safe zone.</li>
+          <li>Open the route forward once the team reaches the final shelter.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            New players should follow one confident sparrow lead. Getting split up in the storm is the easiest way to lose time.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="security">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>Crypt Security</h2>
+        </div>
+
+        <p>
+          Crypt Security introduces Deep Stone Crypt's augment system. Scanner reads correct panels,
+          Operator shoots controls, and the team transfers augments through terminals.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Security.png" alt="Crypt Security encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Crypt Security encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Security Guides.png" alt="Crypt Security guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Crypt Security guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Scanner</h4>
+            <p>Reads which panels are glowing and calls them out clearly.</p>
+          </div>
+          <div class="role-card">
+            <h4>Operator</h4>
+            <p>Shoots the correct panels/buttons based on Scanner calls.</p>
+          </div>
+          <div class="role-card">
+            <h4>Add Clear</h4>
+            <p>Keeps Servitors, Vandals, and adds under control while augments rotate.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into light side and dark side teams.</li>
+          <li>Scanner identifies the correct underground panels.</li>
+          <li>Operator goes below and shoots the panels called by Scanner.</li>
+          <li>Transfer Scanner upstairs for fuse callouts.</li>
+          <li>Damage the correct fuses in the order Scanner calls.</li>
+          <li>Repeat until Crypt Security is destroyed.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="atraks">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Atraks-1</h2>
+        </div>
+
+        <p>
+          Atraks-1 splits the fireteam between Europa and the space station. Scanner identifies the correct Atraks clone,
+          the team bursts it down, and players manage Replication debuffs before they expire.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Atraks.png" alt="Atraks-1 encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Atraks-1 encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Atraks Guide.png" alt="Atraks-1 guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Atraks-1 guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Scanner</h4>
+            <p>Identifies the correct Atraks clone to damage.</p>
+          </div>
+          <div class="role-card">
+            <h4>Operator</h4>
+            <p>Shoots Replication off players and opens airlocks when needed.</p>
+          </div>
+          <div class="role-card">
+            <h4>Damage Teams</h4>
+            <p>Split between top and bottom and burst the correct clone immediately.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into top and bottom teams.</li>
+          <li>Scanner calls the glowing Atraks clone.</li>
+          <li>Damage only the correct clone.</li>
+          <li>Pick up Replication after damage and manage the timer.</li>
+          <li>Operator shoots Replication off players in the correct location.</li>
+          <li>Repeat until final stand, then quickly kill the correct copies.</li>
+        </ol>
+
+        <div class="callout">
+          <div class="callout-title">Important</div>
+          <p>
+            Atraks is a burst-damage encounter. Save heavy ammo and supers for the exact clone call instead of spreading damage randomly.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="descent">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>Descent</h2>
+        </div>
+
+        <p>
+          Descent is the nuclear core encounter aboard the Morning Star. Players manage Scanner, Operator, and Suppressor augments
+          while dunking nuclear cores into the correct bins.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Descent.png" alt="Descent encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Descent encounter</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Scanner</h4>
+            <p>Calls the correct dunk bins for nuclear cores.</p>
+          </div>
+          <div class="role-card">
+            <h4>Operator</h4>
+            <p>Opens doors and frees trapped core carriers.</p>
+          </div>
+          <div class="role-card">
+            <h4>Suppressor</h4>
+            <p>Suppresses Taniks by standing under drones and shooting him.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Pick up augments and assign Scanner, Operator, and Suppressor.</li>
+          <li>Kill enemies until nuclear cores spawn.</li>
+          <li>Scanner calls the correct bins.</li>
+          <li>Core carriers pick up nukes and dunk them in the called bins.</li>
+          <li>Operator frees trapped players if a core carrier gets detained.</li>
+          <li>Suppressor stuns Taniks from the drone positions.</li>
+          <li>Repeat until all dunk phases are complete.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="taniks-reborn">
+        <div class="section-header">
+          <div class="num">5</div>
+          <h2>Taniks Reborn</h2>
+        </div>
+
+        <p>
+          Taniks Reborn continues the augment and nuclear core flow while increasing pressure on the team.
+          Clean role discipline matters more than raw damage here.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Tanik's Reborn.png" alt="Taniks Reborn encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Taniks Reborn encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Tanik's Reborn Guide.png" alt="Taniks Reborn guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Taniks Reborn guide</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Keep Scanner, Operator, and Suppressor roles assigned.</li>
+          <li>Use Scanner to identify correct dunk locations.</li>
+          <li>Carry nuclear cores to the called bins.</li>
+          <li>Operator handles detain/trapped player mechanics.</li>
+          <li>Suppressor stuns Taniks from the correct drone positions.</li>
+          <li>Deposit cores cleanly and prepare for the final crash transition.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="taniks">
+        <div class="section-header">
+          <div class="num">6</div>
+          <h2>Taniks, the Abomination</h2>
+        </div>
+
+        <p>
+          Taniks is the final boss. The team shoots Taniks' engines to create nuclear cores, carries them to the correct bins,
+          handles detain, suppresses Taniks, and then groups for damage.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Tanik's.png" alt="Taniks final boss encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Taniks final boss encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Taniks Guide.png" alt="Taniks guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Taniks guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Scanner</h4>
+            <p>Calls which bins are active for nuclear core deposits.</p>
+          </div>
+          <div class="role-card">
+            <h4>Operator</h4>
+            <p>Shoots detain bubbles off core carriers.</p>
+          </div>
+          <div class="role-card">
+            <h4>Suppressor</h4>
+            <p>Suppresses Taniks from drone positions to allow dunking.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Damage Taniks' engine thrusters to drop nuclear cores.</li>
+          <li>Core carriers pick up nukes and move to the called bins.</li>
+          <li>Operator frees any detained players immediately.</li>
+          <li>Suppressor stuns Taniks from the drone positions.</li>
+          <li>Dunk cores in correct bins.</li>
+          <li>Group in the damage zone and DPS Taniks.</li>
+          <li>Repeat until final stand, then finish him quickly.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Damage Tip</div>
+          <p>
+            Group cleanly for damage and avoid standing too close to Taniks' debris field. Clear callouts are more important than rushing the dunk.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="sparrow">
+        <div class="section-header">
+          <div class="num">07</div>
+          <h2>Sparrow Route Reference</h2>
+        </div>
+
+        <p>
+          Keep this image available for teams learning the opening Desolation sparrow route.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Deep Stone Crypt Assets/DSC Sparrow Guide.png" alt="Deep Stone Crypt sparrow route guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Sparrow route guide</div>
+        </div>
+      </section>
+
+      <section class="section" id="weapons">
+        <div class="section-header">
+          <div class="num">08</div>
+          <h2>Weapons</h2>
+        </div>
+
+        <p>
+          Weapon images are displayed as large readable cards instead of small thumbnails.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Origin Trait</div>
+          <p>
+            <strong>Bray Inheritance:</strong> dealing damage generates a small amount of ability energy for the ability closest to full.
+          </p>
+        </div>
+
+        <div class="weapon-list">
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Heritage.png" alt="Heritage" loading="lazy">
+            <div>
+              <h3>Heritage</h3>
+              <div class="type">Legendary Shotgun</div>
+              <p>A kinetic slug shotgun, widely valued for precision special-weapon damage.</p>
+              <div class="pill-row">
+                <span class="pill">Shotgun</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Succession.png" alt="Succession" loading="lazy">
+            <div>
+              <h3>Succession</h3>
+              <div class="type">Legendary Sniper Rifle</div>
+              <p>A precision sniper rifle option from Deep Stone Crypt, useful for backup damage and utility rolls.</p>
+              <div class="pill-row">
+                <span class="pill">Sniper Rifle</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Trustee.png" alt="Trustee" loading="lazy">
+            <div>
+              <h3>Trustee</h3>
+              <div class="type">Legendary Scout Rifle</div>
+              <p>A solar scout rifle with strong general-use potential for add clear and ranged play.</p>
+              <div class="pill-row">
+                <span class="pill">Scout Rifle</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Posterity.png" alt="Posterity" loading="lazy">
+            <div>
+              <h3>Posterity</h3>
+              <div class="type">Legendary Hand Cannon</div>
+              <p>An arc hand cannon option for players who prefer precision primary weapons.</p>
+              <div class="pill-row">
+                <span class="pill">Hand Cannon</span>
+                <span class="pill">Arc</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Bequest.png" alt="Bequest" loading="lazy">
+            <div>
+              <h3>Bequest</h3>
+              <div class="type">Legendary Sword</div>
+              <p>An arc sword option from Deep Stone Crypt for close-range heavy weapon builds.</p>
+              <div class="pill-row">
+                <span class="pill">Sword</span>
+                <span class="pill">Arc</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Commemoration.png" alt="Commemoration" loading="lazy">
+            <div>
+              <h3>Commemoration</h3>
+              <div class="type">Legendary Machine Gun</div>
+              <p>A void machine gun that is excellent for sustained add clear and general PvE usage.</p>
+              <div class="pill-row">
+                <span class="pill">Machine Gun</span>
+                <span class="pill">Void</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Deep Stone Crypt Assets/DSC Eyes of Tomorrow.png" alt="Eyes of Tomorrow" loading="lazy">
+            <div>
+              <h3>Eyes of Tomorrow</h3>
+              <div class="type">Exotic Rocket Launcher</div>
+              <p>The Deep Stone Crypt raid exotic. Locks onto multiple targets and fires a volley of tracking rockets.</p>
+              <div class="pill-row">
+                <span class="pill">Exotic</span>
+                <span class="pill">Rocket Launcher</span>
+                <span class="pill">Raid Exotic</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="small-note">
+          If any image does not load, copy the exact filename from GitHub's <strong>Deep Stone Crypt Assets</strong> folder and update the matching src path.
+        </p>
+      </section>
+
+      <footer>
+        INFRINGE · Destiny 2 Clan · Deep Stone Crypt Guide · Not affiliated with Bungie, Inc.
+      </footer>
+
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
