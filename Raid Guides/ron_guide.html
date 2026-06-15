@@ -1,222 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+GitHub folder structure expected:
+
+Project Root/
+├── Root of Nightmares Assets/
+│   ├── RoN Loot Table.png
+│   ├── RoN Weapons.png
+│   ├── RoN Cataclysm.png
+│   └── etc...
+└── Raid Guides/
+    └── this Root of Nightmares HTML file
+
+Because this page is inside "Raid Guides", images use:
+../Root of Nightmares Assets/File Name.png
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Root of Nightmares Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+
+  html {
+    scroll-behavior: smooth;
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
-  .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
   }
-  .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+
+  img {
+    max-width: 100%;
   }
-  .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 52px;
+
+  a {
+    color: inherit;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--cyan-bright); }
-  .breadcrumb span { color: rgba(192,192,200,0.25); }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
-  .enc-nav li a:hover { color: var(--cyan-bright); }
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .brand span {
+    color: var(--accent);
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
-  .tips-box ul { margin: 0; }
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .loadout-box ul { margin: 0; }
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
-  .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
+  .subtitle {
+    max-width: 860px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
+  }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #050507;
+  }
+
+  .image-caption {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .weapon-list {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .weapon-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .weapon-card img {
+    width: 100%;
+    min-height: 220px;
+    object-fit: contain;
+    background: #050507;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.6rem;
+  }
+
+  .weapon-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.6rem;
+  }
+
+  .weapon-card .type {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .weapon-card p {
+    margin-bottom: 0.6rem;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .pill {
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .weapon-card {
+      grid-template-columns: 1fr;
+    }
+
+    .weapon-card img {
+      min-height: 260px;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-
 </head>
+
 <body>
 
-<nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
-</nav>
-
-<header class="guide-hero">
-  <div class="guide-hero-bg"></div>
-  <div class="guide-hero-content">
-    <div class="guide-type-badge">Raid — Lightfall</div>
-    <h1 class="guide-title">Root of Nightmares</h1>
-    <p class="guide-tagline">"A sinister threat has taken root."</p>
-    <div class="guide-divider"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../index.html#raids" class="back-link">← Back to Guides</a>
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
-  <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
-  <span>/</span>
-  <span style="color:var(--silver)">Root of Nightmares</span>
-</div>
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · Lightfall</div>
+    <h1>Root of Nightmares Guide</h1>
+    <p class="subtitle">
+      A clean, readable Root of Nightmares raid guide with large encounter images, written Light/Dark node mechanics,
+      deepsight references, loot visuals, and large readable weapon cards.
+    </p>
+  </section>
 
-<div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#cataclysm">Cataclysm</a></li>
-    <li><a href="#scission">Scission</a></li>
-    <li><a href="#macrocosm">Macrocosm</a></li>
-    <li><a href="#nezarec">Nezarec</a></li>
-  </ol>
-</div><div class="encounter" id="cataclysm">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Cataclysm</div>
-      <div class="enc-type">Encounter 1</div>
-    </div>
-  </div>
-  <p>Navigate a branching, vine-covered arena by passing Light and Dark energy between players to destroy planetary flowers.</p><div class="sec-label">Mechanic: Light & Dark</div><p>Two players begin with buffs — one Light, one Dark. Standing near a flower node of the matching type destroys it and passes your buff to a new player. The goal is to chain-destroy all flower nodes across the arena.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Light Carrier</div><div class="role-desc">Destroys Light-aligned flower nodes and passes the buff</div></div>
-<div class="role-card"><div class="role-name">Dark Carrier</div><div class="role-desc">Destroys Dark-aligned nodes and passes the buff</div></div>
-<div class="role-card"><div class="role-name">Add Clear</div><div class="role-desc">Keeps Cabal ads and Tormentors suppressed so carriers can navigate</div></div></div><ol><li><span>Identify the nearest flower node matching your buff color</span></li>
-<li><span>Run to it and destroy it — your buff transfers to a nearby teammate</span></li>
-<li><span>Chain this across the arena until all flowers in a section are cleared</span></li>
-<li><span>The path to the next section opens once all flowers are destroyed</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Flowers of the wrong color cannot be destroyed — always check the color before running to one</span></li>
-<li><span>The buff transfer radius is generous — you don't need to be directly on a teammate</span></li>
-<li><span>Tormentors spawn mid-encounter — kill them before they suppress the buff carrier</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="scission">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Scission</div>
-      <div class="enc-type">Encounter 2</div>
-    </div>
-  </div>
-  <p>The Light/Dark flower mechanic continues on a vertical, multi-level arena. Teams split across platforms to clear nodes in parallel.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Wave-frame grenade launchers for grouping Cabal ads</span></li>
-<li><span>Rocket or LFR for the Tormentor mini-bosses</span></li>
-<li><span>Healing grenades or Well for buff carriers</span></li></ul></div><ol><li><span>Split fireteam — 3 left side, 3 right side</span></li>
-<li><span>Each side chains Light/Dark flowers upward through their section</span></li>
-<li><span>Meeting at the top unlocks the damage phase</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>If one side finishes early, the other side's carrier can cross over — call it out</span></li>
-<li><span>The Tormentor on this encounter spawns mid-way — burst it immediately before it disrupts a carrier</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="macrocosm">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Macrocosm</div>
-      <div class="enc-type">Encounter 3</div>
-    </div>
-  </div>
-  <p>A traversal and planting encounter. Players collect Planet fragments from destroyed flower nodes and plant them on a rotating set of platforms to charge the boss arena.</p><div class="sec-label">Flow</div><ol><li><span>Destroy flower nodes to collect Planetary fragments</span></li>
-<li><span>Carry fragments to the assigned platform and interact to plant</span></li>
-<li><span>Once all platforms are charged the damage phase triggers</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>You can carry multiple fragments — collect them before running to a platform</span></li>
-<li><span>Platforms rotate each round — don't plant on the wrong one or it wastes the fragment</span></li>
-<li><span>Wave-frames are excellent for grouping the dense Cabal waves here</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="nezarec">
-  <div class="encounter-header">
-    <div class="enc-number">04</div>
-    <div>
-      <div class="enc-name">Nezarec</div>
-      <div class="enc-type">Final Boss</div>
-    </div>
-  </div>
-  <p>Nezarec, Final God of Pain. A two-phase encounter combining the Light/Dark flower mechanic with a direct boss fight in the same arena.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Top-tier burst DPS — rockets or linear fusions</span></li>
-<li><span>Suppressor grenades to interrupt Nezarec's ground slam</span></li>
-<li><span>Well of Radiance for damage phases</span></li></ul></div><div class="sec-label">Phase 1 — Drain Nezarec</div><p>Destroy flower nodes around the arena to drain Nezarec's shield. One team chains Light flowers, the other chains Dark. Nezarec roams and attacks — kite him around pillars while the chains complete.</p><div class="sec-label">Phase 2 — DPS</div><p>Once the shield breaks, Nezarec becomes vulnerable. All six players unload into him. He has a distinct weak point on his chest.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Nezarec's lunge is telegraphed — dodge sideways not backwards</span></li>
-<li><span>If the Light or Dark carrier dies mid-chain, the closest player to the last node can pick up the buff — don't panic</span></li>
-<li><span>Two-phasing Nezarec is achievable with coordinated supers and heavies — aim for it</span></li></ul></div>
-</div>
-<hr class="enc-sep">
-</div>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#weapons-overview">Weapons Overview</a>
+        <a href="#deepsight">Deepsight Chest</a>
+        <a href="#chasm">1. Crossing the Chasm</a>
+        <a href="#cataclysm">2. Cataclysm</a>
+        <a href="#scission">3. Scission</a>
+        <a href="#macrocosm">4. Macrocosm</a>
+        <a href="#nezarec">5. Nezarec</a>
+        <a href="#weapons">Weapons</a>
+      </nav>
+    </aside>
 
-<footer>
-  <div class="footer-logo">IN<span>FR</span>INGE</div>
-  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: Root of Nightmares &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
-</footer>
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this as the quick drop reference for Root of Nightmares. Keep this near the top so players can quickly see what drops from the raid.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Loot Table.png" alt="Root of Nightmares loot table" class="guide-image" loading="lazy">
+          <div class="image-caption">Root of Nightmares loot table</div>
+        </div>
+      </section>
+
+      <section class="section" id="weapons-overview">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Weapons Overview</h2>
+        </div>
+
+        <p>
+          This image gives the quick visual overview of Root of Nightmares weapons. Larger individual weapon cards are included near the bottom.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Weapons.png" alt="Root of Nightmares weapons overview" class="guide-image" loading="lazy">
+          <div class="image-caption">Root of Nightmares weapons overview</div>
+        </div>
+      </section>
+
+      <section class="section" id="deepsight">
+        <div class="section-header">
+          <div class="num">02</div>
+          <h2>Deepsight Chest Reference</h2>
+        </div>
+
+        <p>
+          Use these references when your team is doing the red-border chest / deepsight node route.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Deepsight Chest Pattern.png" alt="Root of Nightmares deepsight chest pattern" class="guide-image" loading="lazy">
+          <div class="image-caption">Deepsight chest pattern</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Deepsight Node Rooms.png" alt="Root of Nightmares deepsight node rooms" class="guide-image" loading="lazy">
+          <div class="image-caption">Deepsight node rooms</div>
+        </div>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            Assign one player to track the deepsight pattern and confirm every node before the fireteam leaves each room.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="chasm">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Crossing the Chasm</h2>
+        </div>
+
+        <p>
+          This traversal section introduces the Light and Dark node flow. Players use refuge, launchers, and node connections to cross the chasm.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Crossing the Chasm.png" alt="Crossing the Chasm" class="guide-image" loading="lazy">
+          <div class="image-caption">Crossing the Chasm</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move through the route while using Light and Dark node connections.</li>
+          <li>Use launchers carefully and wait for the team when needed.</li>
+          <li>Create refuge if the wipe pulse is approaching.</li>
+          <li>Regroup before starting Cataclysm.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="cataclysm">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>Cataclysm</h2>
+        </div>
+
+        <p>
+          Cataclysm is the first encounter. The runner connects Light nodes while the rest of the team kills Psions,
+          Tormentors, and enemies to extend the Sweeping Terror timer.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Cataclysm.png" alt="Cataclysm encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Cataclysm encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Cataclysm Guide.png" alt="Cataclysm guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Cataclysm guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-2">
+          <div class="role-card">
+            <h4>Runner</h4>
+            <p>Connects Light nodes in order and keeps the encounter moving.</p>
+          </div>
+          <div class="role-card">
+            <h4>Add Clear / Tormentor Team</h4>
+            <p>Kills Psions, spawns Tormentors, and defeats Tormentors to extend the timer.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Runner shoots the starting Light node to gain the Field of Light buff.</li>
+          <li>Runner connects the next glowing node in the chain.</li>
+          <li>Add clear kills Psions to spawn Tormentors.</li>
+          <li>Kill Tormentors quickly to extend Sweeping Terror.</li>
+          <li>Repeat node chain sections until the encounter completes.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="scission">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Scission</h2>
+        </div>
+
+        <p>
+          Scission splits the team across two sides. Runners connect Light and Dark nodes while players use launchers to cross the gap
+          and maintain progress on both sides.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Scission.png" alt="Scission encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Scission encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Scission Guide.png" alt="Scission guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Scission guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Light Runner</h4>
+            <p>Connects Field of Light nodes.</p>
+          </div>
+          <div class="role-card">
+            <h4>Dark Runner</h4>
+            <p>Connects Flux of Darkness nodes.</p>
+          </div>
+          <div class="role-card">
+            <h4>Add Clear</h4>
+            <p>Kills shielded enemies after getting the correct buff.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into left and right groups.</li>
+          <li>Runners connect Light and Dark node chains.</li>
+          <li>Players use launchers to cross between sides when needed.</li>
+          <li>Use the correct buff to kill shielded enemies.</li>
+          <li>Complete all floors before the timer ends.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="macrocosm">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>Macrocosm</h2>
+        </div>
+
+        <p>
+          Macrocosm is the planet encounter. Players swap Light and Dark planets between plates, then match planets in the center
+          to start damage.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Macrochasm.png" alt="Macrocosm encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Macrocosm encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Macrochasm Guide.png" alt="Macrocosm guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Macrocosm guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Planet Runners</h4>
+            <p>Identify incorrect planets and move them to the matching side.</p>
+          </div>
+          <div class="role-card">
+            <h4>Colossus Killers</h4>
+            <p>Kill Lieutenants/Colossi to reveal which planets need to move.</p>
+          </div>
+          <div class="role-card">
+            <h4>DPS Team</h4>
+            <p>Groups for damage on the correct center plates.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Kill Colossi to reveal planet alignment.</li>
+          <li>Call out which planet on each plate is wrong.</li>
+          <li>Pick up and swap planets between Light and Dark sides.</li>
+          <li>Match the center planets for damage order.</li>
+          <li>Stand on the correct plate color and damage Zo'aurc.</li>
+          <li>Repeat until the boss is defeated.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="nezarec">
+        <div class="section-header">
+          <div class="num">5</div>
+          <h2>Nezarec, Final God of Pain</h2>
+        </div>
+
+        <p>
+          Nezarec is the final boss. Runners complete Light and Dark node chains, one player manages Nezarec's hatred,
+          and the team creates refuge when needed before damage.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Nezarec.png" alt="Nezarec encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Nezarec encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Root of Nightmares Assets/RoN Nezarec Guide.png" alt="Nezarec guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Nezarec guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Light Runner</h4>
+            <p>Completes Field of Light node chain.</p>
+          </div>
+          <div class="role-card">
+            <h4>Dark Runner</h4>
+            <p>Completes Flux of Darkness node chain.</p>
+          </div>
+          <div class="role-card">
+            <h4>Hatred Holder</h4>
+            <p>Controls Nezarec's aggression and calls when refuge is needed.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Light and Dark runners begin their node chains.</li>
+          <li>Hatred holder shoots Nezarec's weak points to control his attention.</li>
+          <li>Identify the wipe color and create the correct refuge if needed.</li>
+          <li>Complete both node chains to start damage.</li>
+          <li>Group for DPS and avoid Nezarec's slam attacks.</li>
+          <li>Repeat until final stand, then finish Nezarec quickly.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Refuge Rule</div>
+          <p>
+            Use <strong>Light Refuge</strong> to survive a Dark wipe pulse and <strong>Dark Refuge</strong> to survive a Light wipe pulse.
+            Call the color early so players have time to move.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="weapons">
+        <div class="section-header">
+          <div class="num">06</div>
+          <h2>Weapons</h2>
+        </div>
+
+        <p>
+          Weapon images are displayed as large readable cards instead of small thumbnails.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Raid Weapons</div>
+          <p>
+            These are the Root of Nightmares weapon images from your <strong>Root of Nightmares Assets</strong> folder.
+          </p>
+        </div>
+
+        <div class="weapon-list">
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Rufus's Fury.png" alt="Rufus's Fury" loading="lazy">
+            <div>
+              <h3>Rufus's Fury</h3>
+              <div class="type">Legendary Auto Rifle</div>
+              <p>A strand auto rifle from Root of Nightmares, useful for add clear and strand-focused builds.</p>
+              <div class="pill-row">
+                <span class="pill">Auto Rifle</span>
+                <span class="pill">Strand</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Mykel's Reverence.png" alt="Mykel's Reverence" loading="lazy">
+            <div>
+              <h3>Mykel's Reverence</h3>
+              <div class="type">Legendary Sidearm</div>
+              <p>A strand sidearm option for close-range primary play and strand synergy.</p>
+              <div class="pill-row">
+                <span class="pill">Sidearm</span>
+                <span class="pill">Strand</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Acasia's Dejection.png" alt="Acasia's Dejection" loading="lazy">
+            <div>
+              <h3>Acasia's Dejection</h3>
+              <div class="type">Legendary Trace Rifle</div>
+              <p>A solar trace rifle with strong utility for sustained special-weapon damage.</p>
+              <div class="pill-row">
+                <span class="pill">Trace Rifle</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Koraxis's Distress.png" alt="Koraxis's Distress" loading="lazy">
+            <div>
+              <h3>Koraxis's Distress</h3>
+              <div class="type">Legendary Grenade Launcher</div>
+              <p>A strand heavy grenade launcher for burst damage and heavy weapon utility.</p>
+              <div class="pill-row">
+                <span class="pill">Grenade Launcher</span>
+                <span class="pill">Strand</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Nessa's Oblation.png" alt="Nessa's Oblation" loading="lazy">
+            <div>
+              <h3>Nessa's Oblation</h3>
+              <div class="type">Legendary Shotgun</div>
+              <p>A void shotgun option from Root of Nightmares for close-range special weapon use.</p>
+              <div class="pill-row">
+                <span class="pill">Shotgun</span>
+                <span class="pill">Void</span>
+                <span class="pill">Special Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Briar's Contempt.png" alt="Briar's Contempt" loading="lazy">
+            <div>
+              <h3>Briar's Contempt</h3>
+              <div class="type">Legendary Linear Fusion Rifle</div>
+              <p>A solar linear fusion rifle option for precision heavy damage.</p>
+              <div class="pill-row">
+                <span class="pill">Linear Fusion Rifle</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Root of Nightmares Assets/RoN Conditional Finality.png" alt="Conditional Finality" loading="lazy">
+            <div>
+              <h3>Conditional Finality</h3>
+              <div class="type">Exotic Shotgun</div>
+              <p>The Root of Nightmares raid exotic. Fires Stasis and Solar shots with freeze and ignition potential.</p>
+              <div class="pill-row">
+                <span class="pill">Exotic</span>
+                <span class="pill">Shotgun</span>
+                <span class="pill">Raid Exotic</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="small-note">
+          If any image does not load, copy the exact filename from GitHub's <strong>Root of Nightmares Assets</strong> folder and update the matching src path.
+        </p>
+      </section>
+
+      <footer>
+        INFRINGE · Destiny 2 Clan · Root of Nightmares Guide · Not affiliated with Bungie, Inc.
+      </footer>
+
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
