@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+GitHub folder structure expected:
+
+Project Root/
+├── Desert Perpetual Assets/
+│   ├── DP Agarios Guide.png
+│   ├── DP Iatros Guide.png
+│   ├── DP Epoptes Guide.png
+│   ├── DP Keragos Guide.png
+│   └── etc...
+└── Raid Guides/
+    └── this Desert Perpetual HTML file
+
+Because this page is inside "Raid Guides", images use:
+../Desert Perpetual Assets/File Name.png
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Desert Perpetual Guide — INFRINGE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .brand span {
+    color: var(--accent);
+  }
+
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .subtitle {
+    max-width: 900px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #050507;
+  }
+
+  .image-caption {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .weapon-list {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .weapon-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .weapon-card img {
+    width: 100%;
+    min-height: 220px;
+    object-fit: contain;
+    background: #050507;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.6rem;
+  }
+
+  .weapon-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.6rem;
+  }
+
+  .weapon-card .type {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .weapon-card p {
+    margin-bottom: 0.6rem;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .pill {
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .weapon-card {
+      grid-template-columns: 1fr;
+    }
+
+    .weapon-card img {
+      min-height: 260px;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../index.html#raids" class="back-link">← Back to Guides</a>
+  </div>
+</header>
+
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · The Edge of Fate</div>
+    <h1>Desert Perpetual Guide</h1>
+    <p class="subtitle">
+      A clean, readable Desert Perpetual raid guide with large encounter images, written Chronon and Temporality mechanics,
+      boss sections, final Keregos guidance, loot references, and large readable weapon cards.
+    </p>
+  </section>
+
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#hub">Predestination / Hub</a>
+        <a href="#agarios">1. Agarios</a>
+        <a href="#iatros">2. Iatros</a>
+        <a href="#epoptes">3. Epoptes</a>
+        <a href="#keregos">4. Keregos</a>
+        <a href="#weapons">Weapons</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this as the quick drop reference for The Desert Perpetual. Keep this near the top so players can quickly see what drops from the raid.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/GoS Loot Table.png" alt="Desert Perpetual loot table" class="guide-image" loading="lazy">
+          <div class="image-caption">Desert Perpetual loot table</div>
+        </div>
+      </section>
+
+      <section class="section" id="hub">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Predestination / Raid Hub</h2>
+        </div>
+
+        <p>
+          Desert Perpetual uses a non-linear flow for the first three bosses. After the opening section, the fireteam can choose
+          which boss route to take before returning to the central structure and selecting the next encounter.
+        </p>
+
+        <div class="callout cyan">
+          <div class="callout-title">Boss Order</div>
+          <p>
+            The first three boss encounters can be completed in any order. Once Agarios, Iatros, and Epoptes are cleared,
+            the raid progresses into the final encounter against Keregos.
+          </p>
+        </div>
+
+        <h3>Basic Hub Flow</h3>
+        <ol>
+          <li>Clear enemies in the central raid space.</li>
+          <li>Interact with the chosen route object to select a boss path.</li>
+          <li>Complete the selected encounter.</li>
+          <li>Return to the hub and choose the next remaining boss.</li>
+          <li>After all three are complete, move into Keregos.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="agarios">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Agarios, Inherent</h2>
+        </div>
+
+        <p>
+          Agarios is the Hobgoblin-style boss encounter. The team manages Chronons, portals, Temporality alignment,
+          sniper-line-of-sight pressure, and damage extensions.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/DP Agarios Guide.png" alt="Agarios encounter guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Agarios encounter guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Plate Players</h4>
+            <p>Stand on assigned plates, receive Temporality buffs, and start alignment with the matching boss form.</p>
+          </div>
+          <div class="role-card">
+            <h4>Chronon Team</h4>
+            <p>Collects Chronons and banks them into the correct active portals.</p>
+          </div>
+          <div class="role-card">
+            <h4>Aligned Player</h4>
+            <p>Runs the portal chain, gains full alignment, then uses the grenade input to deflect the sniper shot.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Clear adds until Chronons begin dropping.</li>
+          <li>Use Chronons to activate portals around the arena.</li>
+          <li>Plate players stand on plates and identify their Temporality buff.</li>
+          <li>Interact with the boss form that matches the active buff.</li>
+          <li>Call the inactive portals so the Chronon team can bank into them.</li>
+          <li>Aligned player runs through portals to complete alignment.</li>
+          <li>Break line of sight from the sniper shot, then deflect it to start or extend damage.</li>
+          <li>Damage Agarios and repeat until defeated.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Damage Extension</div>
+          <p>
+            During damage, one player should prepare the next full alignment so the team can deflect another sniper shot and extend DPS.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="iatros">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>Iatros, Inward-Turned</h2>
+        </div>
+
+        <p>
+          Iatros is the Wyvern-style encounter. The team banks Chronons through the hoop, uses metronome timing,
+          shoots pillar nodes, creates climbing platforms, and reaches a damage phase.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/DP Iatros Guide.png" alt="Iatros encounter guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Iatros encounter guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Pillar Players</h4>
+            <p>Watch assigned pillars and shoot the correct nodes on timing.</p>
+          </div>
+          <div class="role-card">
+            <h4>Runner / Climber</h4>
+            <p>Uses spawned platforms to climb and interact with the objective.</p>
+          </div>
+          <div class="role-card">
+            <h4>Chronon / Add Clear</h4>
+            <p>Kills Minotaurs, collects Chronons, and runs them through the hoop.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Kill Minotaurs in the middle to create Chronons.</li>
+          <li>Run Chronons through the hoop until the hourglass fills.</li>
+          <li>Shoot the Vex node under the hourglass to begin the timing phase.</li>
+          <li>Pillar players watch the metronome and shoot their assigned pillar on the correct tick.</li>
+          <li>The runner uses platforms to climb and interact with the objective.</li>
+          <li>Repeat the build sequence until damage starts.</li>
+          <li>Group for damage and burn Iatros.</li>
+        </ol>
+
+        <div class="callout">
+          <div class="callout-title">Timing Rule</div>
+          <p>
+            Pillar shots need to happen together. Count the metronome out loud so all pillar players shoot on the same beat.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="epoptes">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Epoptes, Lord of Quanta</h2>
+        </div>
+
+        <p>
+          Epoptes is the Hydra-style encounter. Treat it as a communication-heavy boss fight built around lens/objective calls,
+          Chronon handling, room control, and damage setup.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/DP Epoptes Guide.png" alt="Epoptes encounter guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Epoptes encounter guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Callout Team</h4>
+            <p>Reads the active mechanic information and tells the team where to move or shoot.</p>
+          </div>
+          <div class="role-card">
+            <h4>Chronon Team</h4>
+            <p>Collects and banks Chronons when the encounter requires progression.</p>
+          </div>
+          <div class="role-card">
+            <h4>Add Clear</h4>
+            <p>Controls Vex pressure and protects players handling the mechanics.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Assign readers/callers before starting the fight.</li>
+          <li>Clear enemies and watch for objective/lens information.</li>
+          <li>Use callouts to identify which mechanic location needs attention.</li>
+          <li>Move Chronons or interact with the required mechanic based on the active call.</li>
+          <li>Prepare for damage once the boss becomes vulnerable.</li>
+          <li>Repeat the mechanic cycle until Epoptes is defeated.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            Keep callouts short and consistent. Epoptes becomes much easier when one player controls the callout flow.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="keregos">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>Keregos, the Worldline</h2>
+        </div>
+
+        <p>
+          Keregos is the final encounter. It brings together Desert Perpetual's Chronon, Temporality, portal, and damage-extension ideas
+          into a final boss fight.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/DP Keragos Guide.png" alt="Keregos encounter guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Keregos encounter guide</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Desert Perpetual Assets/DP Keragos Damage Phase.png" alt="Keregos damage phase guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Keregos damage phase</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Chronon Handlers</h4>
+            <p>Collect and route Chronons to keep the encounter progressing.</p>
+          </div>
+          <div class="role-card">
+            <h4>Mechanic Callers</h4>
+            <p>Read portal, alignment, or phase information and direct the team.</p>
+          </div>
+          <div class="role-card">
+            <h4>DPS Team</h4>
+            <p>Prepares burst damage and rotates safely during the damage phase.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Clear enemies and establish safe control of the arena.</li>
+          <li>Use Chronons and portal mechanics to advance the phase.</li>
+          <li>Follow caller instructions for alignment or room-specific objectives.</li>
+          <li>When the damage phase opens, group at the agreed location.</li>
+          <li>Use heavy weapons, supers, debuffs, and survivability tools together.</li>
+          <li>Handle the extension or transition mechanic shown in your guide image.</li>
+          <li>Repeat until final stand and finish Keregos.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Final Boss Rule</div>
+          <p>
+            Do not let damage phase callouts get buried under DPS chatter. Assign one person to call movement,
+            one person to call timer/extension, and everyone else should keep comms clear.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="weapons">
+        <div class="section-header">
+          <div class="num">05</div>
+          <h2>Weapons</h2>
+        </div>
+
+        <p>
+          Weapon images are displayed as large readable cards instead of small thumbnails.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Raid Weapons</div>
+          <p>
+            These are the Desert Perpetual weapon images from your <strong>Desert Perpetual Assets</strong> folder.
+          </p>
+        </div>
+
+        <div class="weapon-list">
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/DP Antedate.png" alt="Antedate" loading="lazy">
+            <div>
+              <h3>Antedate</h3>
+              <div class="type">Legendary Submachine Gun</div>
+              <p>A Desert Perpetual raid weapon for close-range primary add clear and aggressive play.</p>
+              <div class="pill-row">
+                <span class="pill">SMG</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/GoS Intercalary.png" alt="Intercalary" loading="lazy">
+            <div>
+              <h3>Intercalary</h3>
+              <div class="type">Legendary Auto Rifle</div>
+              <p>A raid auto rifle option for sustained primary fire and general PvE use.</p>
+              <div class="pill-row">
+                <span class="pill">Auto Rifle</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/GoS Lance Ephemeral.png" alt="Lance Ephemeral" loading="lazy">
+            <div>
+              <h3>Lance Ephemeral</h3>
+              <div class="type">Legendary Sniper Rifle</div>
+              <p>A precision special weapon option from Desert Perpetual.</p>
+              <div class="pill-row">
+                <span class="pill">Sniper Rifle</span>
+                <span class="pill">Special Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/GoS Finite Maybe.png" alt="Finite Maybe" loading="lazy">
+            <div>
+              <h3>Finite Maybe</h3>
+              <div class="type">Legendary Fusion Rifle</div>
+              <p>A fusion rifle option for burst damage and utility rolls.</p>
+              <div class="pill-row">
+                <span class="pill">Fusion Rifle</span>
+                <span class="pill">Special Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/DP The When And Where.png" alt="The When And Where" loading="lazy">
+            <div>
+              <h3>The When And Where</h3>
+              <div class="type">Legendary Rocket Launcher</div>
+              <p>A heavy weapon option for boss damage and burst DPS setups.</p>
+              <div class="pill-row">
+                <span class="pill">Rocket Launcher</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/DP Opaque Hourglass.png" alt="Opaque Hourglass" loading="lazy">
+            <div>
+              <h3>Opaque Hourglass</h3>
+              <div class="type">Legendary Bow</div>
+              <p>A bow option for safe ranged play and precision-focused add clear.</p>
+              <div class="pill-row">
+                <span class="pill">Bow</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Desert Perpetual Assets/GoS Whirling Ovation.png" alt="Whirling Ovation" loading="lazy">
+            <div>
+              <h3>Whirling Ovation</h3>
+              <div class="type">Exotic Rocket Launcher</div>
+              <p>The Desert Perpetual raid exotic. Keep this highlighted so players know the chase reward.</p>
+              <div class="pill-row">
+                <span class="pill">Exotic</span>
+                <span class="pill">Rocket Launcher</span>
+                <span class="pill">Raid Exotic</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="small-note">
+          If any image does not load, copy the exact filename from GitHub's <strong>Desert Perpetual Assets</strong> folder and update the matching src path.
+        </p>
+      </section>
+
+      <footer>
+        INFRINGE · Destiny 2 Clan · Desert Perpetual Guide · Not affiliated with Bungie, Inc.
+      </footer>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
