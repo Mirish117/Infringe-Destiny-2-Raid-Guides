@@ -1,269 +1,787 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+GitHub folder structure expected:
+
+Project Root/
+├── Salvation Edge Assets/
+│   ├── SE Loot Table.png
+│   ├── SE Substratum Guide.png
+│   ├── SE Witness.png
+│   └── etc...
+└── Raid Guides/
+    └── this Salvation's Edge HTML file
+
+Because this page is inside "Raid Guides", images use:
+../Salvation Edge Assets/File Name.png
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Salvation's Edge Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+
+  html {
+    scroll-behavior: smooth;
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
-  .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
   }
-  .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+
+  img {
+    max-width: 100%;
   }
-  .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 52px;
+
+  a {
+    color: inherit;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--cyan-bright); }
-  .breadcrumb span { color: rgba(192,192,200,0.25); }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
-  .enc-nav li a:hover { color: var(--cyan-bright); }
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .brand span {
+    color: var(--accent);
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
-  .tips-box ul { margin: 0; }
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .loadout-box ul { margin: 0; }
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
-  .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
+  .subtitle {
+    max-width: 880px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
+  }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #050507;
+  }
+
+  .image-caption {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-
 </head>
+
 <body>
 
-<nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
-</nav>
-
-<header class="guide-hero">
-  <div class="guide-hero-bg"></div>
-  <div class="guide-hero-content">
-    <div class="guide-type-badge">Raid — The Final Shape</div>
-    <h1 class="guide-title">Salvation's Edge</h1>
-    <p class="guide-tagline">"Free the light."</p>
-    <div class="guide-divider"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../index.html#raids" class="back-link">← Back to Guides</a>
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
-  <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
-  <span>/</span>
-  <span style="color:var(--silver)">Salvation's Edge</span>
-</div>
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · The Final Shape</div>
+    <h1>Salvation's Edge Guide</h1>
+    <p class="subtitle">
+      A clean, readable Salvation's Edge raid guide with large encounter images, written resonance and shape mechanics,
+      deepsight references, secret chest visuals, glyph references, and Witness encounter guidance.
+    </p>
+  </section>
 
-<div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#approach">Monolith Approach</a></li>
-    <li><a href="#substratum">Substratum</a></li>
-    <li><a href="#herald">Herald of Finality</a></li>
-    <li><a href="#warren">Warren</a></li>
-    <li><a href="#repository">Repository</a></li>
-    <li><a href="#verity">Verity</a></li>
-    <li><a href="#witness">The Witness</a></li>
-  </ol>
-</div><div class="encounter" id="approach">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Monolith Approach</div>
-      <div class="enc-type">Traversal</div>
-    </div>
-  </div>
-  <p>Navigate the exterior of the Witness's monolith structure. The path winds up the side of the raid's alien architecture.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Any movement exotics — Eager Edge for fast traversal</span></li>
-<li><span>Ranged weapons to deal with snipers along the path</span></li></ul></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The deepsight red border chest requires activating pylons in hidden rooms 1, 3, and 5 — look for glowing conductor plates on your way through</span></li>
-<li><span>Watch the third column from the left in the first enclosed chamber — its shape tells you which resonance room symbols correspond to which rooms</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="substratum">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Substratum</div>
-      <div class="enc-type">Encounter 1</div>
-    </div>
-  </div>
-  <p>A 9x9 grid of interconnected rooms. Split into two teams of three and navigate Vex-filled chambers by clearing enemies and charging conduits with resonance buffs.</p><div class="sec-label">Roles</div><div class="roles-grid"><div class="role-card"><div class="role-name">Team Alpha</div><div class="role-desc">Takes one of the two starting doors that open from the central chamber. Clears rooms sequentially.</div></div>
-<div class="role-card"><div class="role-name">Team Bravo</div><div class="role-desc">Takes the second opening door. Clears rooms in parallel with Team Alpha.</div></div>
-<div class="role-card"><div class="role-name">Floater</div><div class="role-desc">Either team can designate a caller to track conduit shapes and communicate across fireteam.</div></div></div><div class="sec-label">Mechanic: Resonance</div><p>Resonance pickups spawn as geometric shapes — Triangle (Pyramidal), Circle (Spherical), Square (Hexahedron). Carry up to 3 stacks; a 4th kills you instantly. Depositing resonance into a conduit requires matching the shape to what the conduit displays.</p><div class="sec-label">Flow</div><ol><li><span>Pick up triangle resonance in the starting room and bank it to reveal The Witness's hand</span></li>
-<li><span>Two doors open — each team enters one and clears Vex</span></li>
-<li><span>Kill the Quantum Minotaur in your room to spawn a Hydra in the opposing team's room</span></li>
-<li><span>Clear the Hydra to open the next door for the opposite team</span></li>
-<li><span>Room 3 contains an Overload Minotaur Champion — kill it to spawn the Threshold Sentinel Tormentor in the central room</span></li>
-<li><span>Kill the Tormentor, then charge the two unlocked conduit pairs with matching resonance and step on the plate at the right moment</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Do not step on a plate too early or too late — wait for the energy pulse to reach the plate before stepping</span></li>
-<li><span>If a conduit is locked, all resonance from that plate pair disappears — communicate clearly</span></li>
-<li><span>Doors always open from north/south/east/west first, then a corner direction second</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="herald">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Herald of Finality</div>
-      <div class="enc-type">Boss Encounter</div>
-    </div>
-  </div>
-  <p>A large Tormentor-class boss. The encounter requires maintaining resonance conduits while simultaneously dealing damage and avoiding the boss's suppression attacks.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>High-damage primaries for add clear</span></li>
-<li><span>Heavy weapons for DPS — linear fusion rifles or rockets</span></li>
-<li><span>Anti-Overload mods required</span></li></ul></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The Herald suppresses on heavy attacks — maintain distance and bait the lunge</span></li>
-<li><span>Assign one player per conduit pair so nobody doubles up on resonance</span></li>
-<li><span>Damage phase begins after all conduits in the current round are fully charged</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="warren">
-  <div class="encounter-header">
-    <div class="enc-number">04</div>
-    <div>
-      <div class="enc-name">Warren</div>
-      <div class="enc-type">Encounter 2</div>
-    </div>
-  </div>
-  <p>The mechanic from Substratum evolves — all three resonance shapes are now in play simultaneously. Teams must deposit resonance into banks faster while managing tougher enemies.</p><div class="sec-label">Flow</div><ol><li><span>Split 3-3 as before but now coordinate Pyramidal, Spherical, and Hexahedron resonances</span></li>
-<li><span>Each conduit displays a shape — only the player with the matching resonance can activate it</span></li>
-<li><span>Shoot the conduit shape while a teammate steps on the plate — timing is everything</span></li>
-<li><span>Once all conduits are charged, bank resonance at the main bank to reset the timer</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Call out your shape clearly — 'Triangle left', 'Circle right'</span></li>
-<li><span>Never carry more than 2 stacks unless you are about to deposit immediately</span></li>
-<li><span>If you pick up a different shape it overwrites your current shape — be intentional</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="repository">
-  <div class="encounter-header">
-    <div class="enc-number">05</div>
-    <div>
-      <div class="enc-name">Repository</div>
-      <div class="enc-type">Encounter 3</div>
-    </div>
-  </div>
-  <p>The most mechanically complex encounter before the final boss. All three shapes are active and the team must manage multiple plates and conduits simultaneously across a much larger arena.</p><div class="sec-label">Flow</div><ol><li><span>The fireteam splits into two groups responsible for opposite sides of the arena</span></li>
-<li><span>Each side activates a conduit by matching resonance and timing plate steps</span></li>
-<li><span>As conduits charge, heavier enemies spawn — clear them without losing your resonance stack</span></li>
-<li><span>Bank excess resonance at the central bank to extend the timer</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Call dead conduits immediately so your partner can re-unlock them</span></li>
-<li><span>Tormentors prioritize whoever has the most resonance stacks — kite them around pillars</span></li>
-<li><span>This encounter has the most punishing timer — efficiency matters more than perfection</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="verity">
-  <div class="encounter-header">
-    <div class="enc-number">06</div>
-    <div>
-      <div class="enc-name">Verity</div>
-      <div class="enc-type">Encounter 4</div>
-    </div>
-  </div>
-  <p>A solo-mechanic encounter. Each of the six Guardians is placed in a solo room with a Subjugator and a set of 3D geometric shapes displayed on a statue.</p><div class="sec-label">Solo Room</div><ol><li><span>Kill the Subjugator in your room</span></li>
-<li><span>Observe which shapes your statue is NOT holding — that is your shape to contribute to the central team</span></li>
-<li><span>Shoot the correct shape on the central statue outside your room while teammates do the same</span></li></ol><div class="sec-label">Inside vs Outside</div><p>Three Guardians are locked inside solo rooms. Three are working the outside arena. Outside players dunk shapes to deposit them while inside players communicate what's needed.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Inside</div><div class="role-desc">Kill subjugator, read your missing shape, shoot it on the outside</div></div>
-<div class="role-card"><div class="role-name">Outside</div><div class="role-desc">Receive shapes from inside players, dunk them on the statues while fighting the main boss</div></div></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Communication is everything — inside players must call their missing shape the moment their subjugator dies</span></li>
-<li><span>Outside players: never deposit a shape that wasn't called for</span></li>
-<li><span>The encounter resets if the outside boss is not defeated in time</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="witness">
-  <div class="encounter-header">
-    <div class="enc-number">07</div>
-    <div>
-      <div class="enc-name">The Witness</div>
-      <div class="enc-type">Final Boss</div>
-    </div>
-  </div>
-  <p>The raid's climactic encounter. The Witness attacks the fireteam across a collapsing arena while mechanics from all previous encounters combine.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Best-in-slot DPS weapons — rockets with autoload + surplus or linear fusions</span></li>
-<li><span>Healing grenades and Well of Radiance recommended</span></li>
-<li><span>Resistance mods for the specific damage type the Witness uses in the current rotation</span></li></ul></div><div class="sec-label">Phase 1 — Geometric Shapes</div><p>Mechanics mirror Verity — match and deposit shapes on the correct pylons to open the damage phase. Each incorrect shape slows progress and extends the encounter.</p><div class="sec-label">Damage Phase</div><p>Unload everything into the Witness's weak point. The window closes quickly — coordinate supers and heavy ammo for maximum output.</p><div class="sec-label">Phase 2 — Enrage</div><p>After surviving enough damage phases, the Witness begins its enrage sequence. The final damage phase must bring it to zero or the raid wipes.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Assign a lead caller to manage shape distribution in Phase 1</span></li>
-<li><span>Save your super for the opening seconds of each damage phase — Supers do the most DPS in the first 5 seconds</span></li>
-<li><span>The second secret chest is in the traversal section just before this fight — check the bottom-right wall near the large door</span></li></ul></div>
-</div>
-<hr class="enc-sep">
-</div>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#deepsight">Deepsight / Chests</a>
+        <a href="#approach">1. Monolith Approach</a>
+        <a href="#substratum">2. Substratum</a>
+        <a href="#dissipation">3. Dissipation</a>
+        <a href="#repository">4. Repository</a>
+        <a href="#verity">5. Verity</a>
+        <a href="#witness">6. The Witness</a>
+      </nav>
+    </aside>
 
-<footer>
-  <div class="footer-logo">IN<span>FR</span>INGE</div>
-  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: Salvation's Edge &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
-</footer>
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this as the quick drop reference for Salvation's Edge. Keep this near the top so players can quickly see what drops from the raid.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Loot Table.png" alt="Salvation's Edge loot table" class="guide-image" loading="lazy">
+          <div class="image-caption">Salvation's Edge loot table</div>
+        </div>
+      </section>
+
+      <section class="section" id="deepsight">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Deepsight & Secret Chest References</h2>
+        </div>
+
+        <p>
+          Use these references when your team is hunting the deepsight chest pattern and secret chests during the run.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Deepsight Chest Pattern.png" alt="Salvation's Edge deepsight chest pattern" class="guide-image" loading="lazy">
+          <div class="image-caption">Deepsight chest pattern</div>
+        </div>
+
+        <div class="grid-3">
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Deepsight Chest Room 1.png" alt="Deepsight chest room 1" class="guide-image" loading="lazy">
+            <div class="image-caption">Deepsight chest room 1</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Deepsight Chest Room 2.png" alt="Deepsight chest room 2" class="guide-image" loading="lazy">
+            <div class="image-caption">Deepsight chest room 2</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Deepsight Chest Room 3.png" alt="Deepsight chest room 3" class="guide-image" loading="lazy">
+            <div class="image-caption">Deepsight chest room 3</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Deepsight Chest Room 4.png" alt="Deepsight chest room 4" class="guide-image" loading="lazy">
+            <div class="image-caption">Deepsight chest room 4</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Deepsight Chest Room 5.png" alt="Deepsight chest room 5" class="guide-image" loading="lazy">
+            <div class="image-caption">Deepsight chest room 5</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Secret Chest 1.png" alt="Secret chest 1" class="guide-image" loading="lazy">
+            <div class="image-caption">Secret chest 1</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Secret Chest 2.png" alt="Secret chest 2" class="guide-image" loading="lazy">
+            <div class="image-caption">Secret chest 2</div>
+          </div>
+        </div>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            Assign one player to track chest rooms and call confirmations. The safest workflow is to confirm each room before moving the fireteam forward.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="approach">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Monolith Approach</h2>
+        </div>
+
+        <p>
+          Monolith Approach is the opening traversal section into the Witness's monolith. The route teaches visual language,
+          traversal spacing, and preparation for the resonance encounters.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Monolith Approach.png" alt="Monolith Approach" class="guide-image" loading="lazy">
+          <div class="image-caption">Monolith Approach</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move through the approach route while clearing enemies.</li>
+          <li>Watch for hidden deepsight rooms and secret chest routes.</li>
+          <li>Call out resonance shapes and visual clues when players are learning the raid.</li>
+          <li>Regroup before starting Substratum.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="substratum">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>Substratum</h2>
+        </div>
+
+        <p>
+          Substratum introduces resonance shapes, plates, conductors, and split-team room clearing.
+          The team must keep the timer alive while using matching resonance to complete conduits.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Substratum Guide.png" alt="Substratum guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Substratum guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Left Team</h4>
+            <p>Clears one path of rooms and communicates resonance/conductor status.</p>
+          </div>
+          <div class="role-card">
+            <h4>Right Team</h4>
+            <p>Clears the other path of rooms and keeps pace with the opposite team.</p>
+          </div>
+          <div class="role-card">
+            <h4>Shape Caller</h4>
+            <p>Tracks which resonance shape is needed for each conductor.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into two teams of three.</li>
+          <li>Clear rooms and defeat key enemies to open the next route.</li>
+          <li>Collect matching resonance shapes without over-stacking.</li>
+          <li>Use plate timing and conductor shots to charge the correct nodes.</li>
+          <li>Bank resonance when needed to extend the timer.</li>
+          <li>Repeat until the encounter completes.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Resonance Rule</div>
+          <p>
+            Do not grab random shapes. Carry only the shape your conductor requires, and avoid taking too many stacks unless you are ready to deposit.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="dissipation">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Dissipation / Herald of Finality</h2>
+        </div>
+
+        <p>
+          Dissipation is the Herald of Finality boss encounter. The team handles resonance/conductor mechanics while controlling the boss
+          and preparing for damage phases.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Dissipation Guide.png" alt="Dissipation guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Dissipation guide</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Herald of Finality.png" alt="Herald of Finality" class="guide-image" loading="lazy">
+          <div class="image-caption">Herald of Finality</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Conductor Players</h4>
+            <p>Handle resonance shape matching and conductor completion.</p>
+          </div>
+          <div class="role-card">
+            <h4>Boss Control</h4>
+            <p>Keeps the Herald positioned and survives suppression attacks.</p>
+          </div>
+          <div class="role-card">
+            <h4>Add Clear</h4>
+            <p>Controls adds so mechanic players can complete resonance safely.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Assign players to conductor positions.</li>
+          <li>Collect the correct resonance shapes and complete conductor interactions.</li>
+          <li>Clear adds and manage boss pressure while conduits are completed.</li>
+          <li>When the damage window opens, group and burn the Herald.</li>
+          <li>Repeat until the Herald is defeated.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="repository">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>Repository</h2>
+        </div>
+
+        <p>
+          Repository builds on the resonance and plate timing systems. The arena is larger, more punishing,
+          and requires cleaner shape communication.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Repository.png" alt="Repository encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Repository encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Repository Guide.png" alt="Repository guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Repository guide</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Glyph Wipe Patterns.png" alt="Glyph wipe patterns" class="guide-image" loading="lazy">
+          <div class="image-caption">Glyph wipe patterns</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into assigned sides or plate groups.</li>
+          <li>Identify required shapes for each conductor.</li>
+          <li>Collect and bank correct resonance.</li>
+          <li>Use plate timing to complete conductor sequences.</li>
+          <li>Clear dangerous enemies quickly so resonance players can move safely.</li>
+          <li>Repeat until all required sequences are complete.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="verity">
+        <div class="section-header">
+          <div class="num">5</div>
+          <h2>Verity</h2>
+        </div>
+
+        <p>
+          Verity is a communication-heavy shape encounter. Players inside solo rooms and outside in the main room must identify,
+          pass, and build the correct 2D/3D shape combinations.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Verity.png" alt="Verity encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Verity encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Verity Guide.png" alt="Verity guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Verity guide</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Verity Shape Example 1.png" alt="Verity shape example 1" class="guide-image" loading="lazy">
+            <div class="image-caption">Verity shape example 1</div>
+          </div>
+
+          <div class="image-frame">
+            <img src="../Salvation Edge Assets/SE Verity Shape Example 2.png" alt="Verity shape example 2" class="guide-image" loading="lazy">
+            <div class="image-caption">Verity shape example 2</div>
+          </div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-2">
+          <div class="role-card">
+            <h4>Inside Players</h4>
+            <p>Read statues, identify needed shapes, and communicate clearly to outside players.</p>
+          </div>
+          <div class="role-card">
+            <h4>Outside Players</h4>
+            <p>Build the correct shape combinations on statues based on inside callouts.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Inside players identify their statue and call needed shapes.</li>
+          <li>Outside players kill enemies and collect shapes.</li>
+          <li>Outside team distributes shapes to match the required combinations.</li>
+          <li>Inside players prepare their rooms and confirm when ready.</li>
+          <li>Complete shape matching to escape and move into the next cycle.</li>
+          <li>Repeat until the encounter is complete.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Communication Rule</div>
+          <p>
+            Use simple calls: <strong>circle</strong>, <strong>triangle</strong>, and <strong>square</strong>.
+            Do not let multiple people talk over the inside callouts.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="witness">
+        <div class="section-header">
+          <div class="num">6</div>
+          <h2>The Witness</h2>
+        </div>
+
+        <p>
+          The Witness is the final encounter. Players dodge hand attacks, read attack patterns, break glyphs,
+          gain resonance, and damage the Witness during the exposed phase.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Salvation Edge Assets/SE Witness.png" alt="The Witness encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">The Witness encounter</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Assign players to handle hand/glyph mechanics and add control.</li>
+          <li>Read the Witness attack pattern and dodge the floor attacks.</li>
+          <li>Break the correct hand/glyph interactions to progress the phase.</li>
+          <li>Gain and manage resonance safely.</li>
+          <li>When damage starts, stand in the correct area and damage the Witness while dodging attacks.</li>
+          <li>Repeat until final stand and finish the boss quickly.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">DPS Rule</div>
+          <p>
+            Damage is only clean if the team survives the attack pattern. Prioritize dodging first, then damage.
+            Dead players do no DPS.
+          </p>
+        </div>
+      </section>
+
+      <footer>
+        INFRINGE · Destiny 2 Clan · Salvation's Edge Guide · Not affiliated with Bungie, Inc.
+      </footer>
+
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
