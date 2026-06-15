@@ -1,258 +1,1070 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+GitHub folder structure expected:
+
+Project Root/
+├── Kings Fall Assets/
+│   ├── KF Loot Table.png
+│   ├── KF Weapons.png
+│   ├── KF Court of Oryx.png
+│   ├── KF Basilica.png
+│   └── etc...
+└── Raid Guides/
+    └── this King's Fall HTML file
+
+Because this page is inside "Raid Guides", images use:
+../Kings Fall Assets/File Name.png
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>King's Fall Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --bg: #07070a;
+    --panel: #111118;
+    --panel-2: #171721;
+    --panel-3: #20202c;
+    --text: #f1f1f5;
+    --muted: #b7b7c8;
+    --soft: #88889a;
+    --line: rgba(255,255,255,0.12);
+    --line-strong: rgba(255,255,255,0.22);
+    --accent: #b089ff;
+    --accent-2: #71d7ff;
+    --good: #8dffb0;
+    --warn: #ffd27a;
+    --danger: #ff8c8c;
+    --shadow: 0 18px 60px rgba(0,0,0,0.35);
+    --radius: 18px;
   }
-  html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+
+  html {
+    scroll-behavior: smooth;
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
-  .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(176,137,255,0.15), transparent 34rem),
+      radial-gradient(circle at top right, rgba(113,215,255,0.10), transparent 30rem),
+      var(--bg);
+    color: var(--text);
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    line-height: 1.65;
   }
-  .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+
+  img {
+    max-width: 100%;
   }
-  .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
-    background-size: 60px 52px;
+
+  a {
+    color: inherit;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
-  .breadcrumb a:hover { color: var(--cyan-bright); }
-  .breadcrumb span { color: rgba(192,192,200,0.25); }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(7,7,10,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0.8rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
-  .enc-nav li a:hover { color: var(--cyan-bright); }
+  .brand {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .brand span {
+    color: var(--accent);
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .back-link {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(113,215,255,0.45);
+    padding: 0.5rem 0.8rem;
+    border-radius: 999px;
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3rem 1.4rem 5rem;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
-  .tips-box ul { margin: 0; }
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .loadout-box ul { margin: 0; }
+  .eyebrow {
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  h1 {
+    margin: 0;
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
-  .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
+  .subtitle {
+    max-width: 820px;
+    color: var(--muted);
+    font-size: 1.12rem;
+    margin: 0;
+  }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5.2rem;
+    background: rgba(17,17,24,0.86);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .toc-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .toc a {
+    display: block;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0.55rem 0.65rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .toc a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .section {
+    background: rgba(17,17,24,0.72);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: clamp(1.1rem, 2vw, 1.7rem);
+    margin-bottom: 1.4rem;
+    scroll-margin-top: 5rem;
+  }
+
+  .section-header {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .num {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    min-width: 2.6rem;
+  }
+
+  h2 {
+    font-family: "Rajdhani", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  h3 {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--accent-2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.4rem 0 0.55rem;
+    font-size: 1.15rem;
+  }
+
+  p {
+    color: var(--muted);
+    margin: 0 0 1rem;
+  }
+
+  ul, ol {
+    color: var(--muted);
+    padding-left: 1.25rem;
+    margin: 0.4rem 0 1.1rem;
+  }
+
+  li {
+    margin: 0.35rem 0;
+  }
+
+  strong {
+    color: var(--text);
+  }
+
+  .image-frame {
+    background: var(--panel-2);
+    border: 1px solid var(--line-strong);
+    border-radius: 16px;
+    padding: 0.6rem;
+    margin: 1rem 0 1.2rem;
+    overflow: hidden;
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #050507;
+  }
+
+  .image-caption {
+    color: var(--soft);
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .callout {
+    background: rgba(176,137,255,0.10);
+    border: 1px solid rgba(176,137,255,0.30);
+    border-left: 4px solid var(--accent);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+  }
+
+  .callout.cyan {
+    background: rgba(113,215,255,0.08);
+    border-color: rgba(113,215,255,0.25);
+    border-left-color: var(--accent-2);
+  }
+
+  .callout-title {
+    font-family: "Rajdhani", sans-serif;
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .role-card {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem;
+  }
+
+  .role-card h4 {
+    margin: 0 0 0.35rem;
+    color: var(--accent-2);
+    font-family: "Rajdhani", sans-serif;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+  }
+
+  .role-card p {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .weapon-list {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .weapon-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1rem;
+  }
+
+  .weapon-card img {
+    width: 100%;
+    min-height: 220px;
+    object-fit: contain;
+    background: #050507;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.6rem;
+  }
+
+  .weapon-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.6rem;
+  }
+
+  .weapon-card .type {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+
+  .weapon-card p {
+    margin-bottom: 0.6rem;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 0.8rem;
+  }
+
+  .pill {
+    color: var(--text);
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .small-note {
+    color: var(--soft);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    margin-top: 3rem;
+    padding-top: 2rem;
+    color: var(--soft);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+    }
+
+    .toc-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .weapon-card {
+      grid-template-columns: 1fr;
+    }
+
+    .weapon-card img {
+      min-height: 260px;
+    }
+
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .topbar-inner {
+      padding: 0.75rem 1rem;
+    }
+
+    .brand {
+      font-size: 1.1rem;
+    }
+
+    .page {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+
+    .toc-links {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
-
 </head>
+
 <body>
 
-<nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
-</nav>
-
-<header class="guide-hero">
-  <div class="guide-hero-bg"></div>
-  <div class="guide-hero-content">
-    <div class="guide-type-badge">Raid — Legacy</div>
-    <h1 class="guide-title">King's Fall</h1>
-    <p class="guide-tagline">"Long live the King."</p>
-    <div class="guide-divider"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="../index.html" class="brand">IN<span>FR</span>INGE</a>
+    <a href="../index.html#raids" class="back-link">← Back to Guides</a>
   </div>
 </header>
 
-<div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
-  <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
-  <span>/</span>
-  <span style="color:var(--silver)">King's Fall</span>
-</div>
+<main class="page">
+  <section class="hero">
+    <div class="eyebrow">Raid Guide · Legacy</div>
+    <h1>King's Fall Guide</h1>
+    <p class="subtitle">
+      A clean, readable King's Fall raid guide with large encounter images, written mechanics,
+      deepsight symbol references, and large readable weapon cards.
+    </p>
+  </section>
 
-<div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#boat">Basilica</a></li>
-    <li><a href="#totems">Totems</a></li>
-    <li><a href="#warpriest">Warpriest</a></li>
-    <li><a href="#golgoroth">Golgoroth</a></li>
-    <li><a href="#daughters">Daughters</a></li>
-    <li><a href="#oryx">Oryx</a></li>
-  </ol>
-</div><div class="encounter" id="boat">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Basilica</div>
-      <div class="enc-type">Traversal</div>
-    </div>
-  </div>
-  <p>The opening section of King's Fall requires the fireteam to cross a collapsing platform section by staying in the light of a mobile lamp.</p><ol><li><span>Three players must grab the three Relic Crystals scattered around the starting area</span></li>
-<li><span>The team moves together — the lamp holder must stay ahead of the group</span></li>
-<li><span>Players too far from the lamp get wiped by the Darkness</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Never let the lamp get more than two platforms ahead — call 'hold' if you need a second</span></li>
-<li><span>The lamp transitions between players — communicate who picks it up each time</span></li>
-<li><span>Watch for the hidden chest in the platform area — it's below the main path on the right side</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="totems">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Totems</div>
-      <div class="enc-type">Encounter 1</div>
-    </div>
-  </div>
-  <p>Stand on two totem platforms simultaneously while managing a wipe mechanic caused by the Touch of Malice debuff.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Totem Holders (2)</div><div class="role-desc">Stand on the two outer totems — alternating between each other to shed the debuff before it stacks too high</div></div>
-<div class="role-card"><div class="role-name">Knightslayers (2)</div><div class="role-desc">Kill the Knight that spawns center-arena to prevent a wipe</div></div>
-<div class="role-card"><div class="role-name">Runner (1)</div><div class="role-desc">Collects the Aura of Immortality from the Knight kill and carries it to the pool</div></div>
-<div class="role-card"><div class="role-name">Floater (1)</div><div class="role-desc">Rotates help between totem holders and runners as needed</div></div></div><ol><li><span>Two players stand on the totems simultaneously</span></li>
-<li><span>Knightslayers kill the Knight in the center</span></li>
-<li><span>The player who lands the final blow gets the Aura — carry it to the pool</span></li>
-<li><span>Rotate totem holders before Touch of Malice reaches max stacks</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Assign Left Totem and Right Totem roles before the encounter starts</span></li>
-<li><span>The Aura runner should immediately start moving toward the pool the moment the Knight dies</span></li>
-<li><span>If both totem holders die simultaneously the encounter wipes — never leave both untended</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="warpriest">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Warpriest</div>
-      <div class="enc-type">Encounter 2</div>
-    </div>
-  </div>
-  <p>The Warpriest must be killed during a brief damage window. The damage window is only unlocked by activating three brand-bearer plates in a specific order.</p><div class="sec-label">Mechanic: Glyph Order</div><p>Three glyphs on the wall correspond to three plates in the arena. Before the encounter, read the glyph order (top glyph = first plate). The same three Guardians must stand on the three plates in the correct order to open the damage window.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Glyph Reader</div><div class="role-desc">Calls out plate order based on the glyphs — Left, Middle, Right</div></div>
-<div class="role-card"><div class="role-name">Brand Bearer (3)</div><div class="role-desc">Stand on the plates in the correct order to generate the damage window</div></div>
-<div class="role-card"><div class="role-name">Add Clear (2)</div><div class="role-desc">Suppresses Hive while the brand bearers activate plates and during DPS</div></div></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Read the glyphs before picking up any Brand — the order resets each attempt</span></li>
-<li><span>The Brand Bearer role rotates each DPS window to distribute the debuff</span></li>
-<li><span>Pop supers at the start of the damage window, not the end — you'll run out of time</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="golgoroth">
-  <div class="encounter-header">
-    <div class="enc-number">04</div>
-    <div>
-      <div class="enc-name">Golgoroth</div>
-      <div class="enc-type">Encounter 3</div>
-    </div>
-  </div>
-  <p>Golgoroth's gaze must be captured by one player to expose his weak point while the rest of the team deals damage. The gaze rotates on a timer.</p><div class="sec-label">Mechanic: Gaze</div><p>One player captures Golgoroth's attention by shooting a specific orb on the ceiling. Golgoroth turns to face them. The fireteam has a short window to damage his stomach weak point while the gaze holder stays alive.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Gaze Holder</div><div class="role-desc">Shoots the ceiling orb, faces Golgoroth, kites around the arena</div></div>
-<div class="role-card"><div class="role-name">DPS Team</div><div class="role-desc">Focus fire on Golgoroth's exposed stomach</div></div>
-<div class="role-card"><div class="role-name">Ogre Suppressor</div><div class="role-desc">Kill the Ogres that spawn from the pits to prevent adds from overwhelming</div></div></div><ol><li><span>Gaze Holder shoots the ceiling orb to claim Golgoroth's attention</span></li>
-<li><span>Team pivots to damage the glowing stomach</span></li>
-<li><span>Before the gaze timer expires, the next Gaze Holder shoots the next ceiling orb</span></li>
-<li><span>Gaze transfers — old holder rejoins DPS</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The new Gaze Holder MUST shoot their orb before the current timer expires or Golgoroth wipes the team</span></li>
-<li><span>Assign gaze order 1-2-3 before starting</span></li>
-<li><span>Orbs spawn in a fixed pattern around the ceiling — learn the rotation</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="daughters">
-  <div class="encounter-header">
-    <div class="enc-number">05</div>
-    <div>
-      <div class="enc-name">Daughters</div>
-      <div class="enc-type">Encounter 4</div>
-    </div>
-  </div>
-  <p>Two bosses — Ir Anûk and Ir Halak — stand on platforms at opposite ends of the arena. Players must alternate between killing adds and depositing Corrupted Light bombs.</p><div class="sec-label">Mechanic: Corrupted Light</div><p>Killing Tombship adds causes them to drop Corrupted Light bombs. These must be collected and detonated under the active Daughter before her shield resets.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Bomb Runner (2)</div><div class="role-desc">Pick up Corrupted Light and deposit it under the active Daughter</div></div>
-<div class="role-card"><div class="role-name">Add Clear (4)</div><div class="role-desc">Kill Tombships to generate bombs and suppress the Wizard reinforcements</div></div></div><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Both Daughters become active simultaneously in the final phase — split bomb runners accordingly</span></li>
-<li><span>Do not detonate Corrupted Light too early — wait for the Daughter to lower her shield by stepping on the plate</span></li>
-<li><span>Supers are best saved for the final phase when both are active</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="oryx">
-  <div class="encounter-header">
-    <div class="enc-number">06</div>
-    <div>
-      <div class="enc-name">Oryx</div>
-      <div class="enc-type">Final Boss</div>
-    </div>
-  </div>
-  <p>The Taken King himself. A multi-phase encounter requiring Corrupted Light, glyph plates, and a massive slam to stagger Oryx out of his shield.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Best DPS loadout possible — Anarchy, Rocket Launchers, or Cataclysmic</span></li>
-<li><span>Well of Radiance for all DPS phases</span></li>
-<li><span>Ward of Dawn optional for soaking Oryx's chest beam</span></li></ul></div><div class="sec-label">Phase 1 — Relic</div><ol><li><span>Kill four Ogres at the corners of the arena to spawn four Corrupted Light bombs</span></li>
-<li><span>Assign four players to each bomb</span></li>
-<li><span>All four detonate simultaneously — this stuns Oryx and exposes his chest</span></li>
-<li><span>Two players grab the Knights' Relics to bait Oryx's slam attack</span></li>
-<li><span>After the slam, Oryx is stunned — DPS his chest</span></li></ol><div class="sec-label">Phase 2 — Darkness Realm</div><p>After enough stagger phases, Oryx retreats into the Darkness Realm. The fireteam is sucked in and must kill a massive Shade of Oryx by shooting the correctly glowing glyph plates.</p><div class="sec-label">Enrage</div><p>If Oryx is not defeated within a set number of cycles, he enrages and oneshots the fireteam. Push for a clean six-phase or better.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>All four Corrupted Lights MUST detonate within a short window of each other — designate a countdown caller</span></li>
-<li><span>The Relic holders must wait for Oryx's hands to glow before triggering the slam — too early and the stagger fails</span></li>
-<li><span>In the Darkness Realm, only the correctly glowing plates damage Oryx's Shade — wrong plates do nothing</span></li></ul></div>
-</div>
-<hr class="enc-sep">
-</div>
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Encounters</div>
+      <nav class="toc-links">
+        <a href="#loot-table">Loot Table</a>
+        <a href="#weapons-overview">Weapons Overview</a>
+        <a href="#deepsight">Deepsight Chest</a>
+        <a href="#court">1. Court of Oryx</a>
+        <a href="#crux">2. The Crux</a>
+        <a href="#basilica">3. Basilica / Totems</a>
+        <a href="#warpriest">4. Warpriest</a>
+        <a href="#cellar">5. Golgoroth's Cellar</a>
+        <a href="#golgoroth">6. Golgoroth</a>
+        <a href="#transept">7. Transept</a>
+        <a href="#sisters">8. Sisters</a>
+        <a href="#oryx">9. Oryx</a>
+        <a href="#weapons">Weapons</a>
+      </nav>
+    </aside>
 
-<footer>
-  <div class="footer-logo">IN<span>FR</span>INGE</div>
-  <div class="footer-sub">Destiny 2 Clan &nbsp;·&nbsp; Guide: King's Fall &nbsp;·&nbsp; Not affiliated with Bungie, Inc.</div>
-</footer>
+    <div class="content">
+
+      <section class="section" id="loot-table">
+        <div class="section-header">
+          <div class="num">00</div>
+          <h2>Loot Table</h2>
+        </div>
+
+        <p>
+          Use this as the quick drop reference for King's Fall. Keep this near the top so players can quickly see what drops from each encounter.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Loot Table.png" alt="King's Fall loot table" class="guide-image" loading="lazy">
+          <div class="image-caption">King's Fall loot table</div>
+        </div>
+      </section>
+
+      <section class="section" id="weapons-overview">
+        <div class="section-header">
+          <div class="num">01</div>
+          <h2>Weapons Overview</h2>
+        </div>
+
+        <p>
+          This image gives the quick visual overview of King's Fall weapons. Larger individual weapon cards are included near the bottom.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Weapons.png" alt="King's Fall weapons overview" class="guide-image" loading="lazy">
+          <div class="image-caption">King's Fall weapons overview</div>
+        </div>
+      </section>
+
+      <section class="section" id="deepsight">
+        <div class="section-header">
+          <div class="num">02</div>
+          <h2>Deepsight Chest Symbols</h2>
+        </div>
+
+        <p>
+          The King's Fall red-border chest requires your team to identify and shoot the correct deepsight symbols throughout the raid.
+          Have one player track these symbols from the start.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Deepsight Rune Symbols.png" alt="King's Fall deepsight rune symbols" class="guide-image" loading="lazy">
+          <div class="image-caption">Deepsight rune symbols</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Deepsight Symbols location Pattern.png" alt="King's Fall deepsight symbol location pattern" class="guide-image" loading="lazy">
+          <div class="image-caption">Deepsight symbol location pattern</div>
+        </div>
+
+        <div class="callout cyan">
+          <div class="callout-title">Team Tip</div>
+          <p>
+            Call out symbols as soon as they appear. Do not wait until the end of the raid to confirm them,
+            because missed symbols can cost the red-border chest.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="court">
+        <div class="section-header">
+          <div class="num">1</div>
+          <h2>Court of Oryx</h2>
+        </div>
+
+        <p>
+          The opening Court of Oryx section is a relic dunk encounter. Players retrieve relics from both sides,
+          escort the runners, open taken barriers, and dunk relics into the statues.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Court of Oryx.png" alt="Court of Oryx encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Court of Oryx encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Court of Oryx Guide.png" alt="Court of Oryx guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Court of Oryx guide</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into left and right teams.</li>
+          <li>Relic runners pick up the orbs from each side.</li>
+          <li>Escort players shoot Taken barriers and clear enemies.</li>
+          <li>Both relics must be dunked close together at the statue.</li>
+          <li>Repeat until all statue deposits are complete.</li>
+          <li>Push through the opened portal to enter Oryx's throne world.</li>
+        </ol>
+
+        <div class="callout">
+          <div class="callout-title">Challenge / Triumph Note</div>
+          <p>
+            Rotate dunkers so the same player does not repeatedly deposit relics before everyone else has had a turn.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="crux">
+        <div class="section-header">
+          <div class="num">2</div>
+          <h2>The Crux & Portico</h2>
+        </div>
+
+        <p>
+          This section is mainly traversal. The fireteam crosses the tombship/crux area, times jumps,
+          and can open the hidden chest using pressure plates.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF the Crux.png" alt="The Crux traversal" class="guide-image" loading="lazy">
+          <div class="image-caption">The Crux traversal</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move as a team through the tombship path.</li>
+          <li>Time jumps carefully. Do not rush players who are still learning the ship pattern.</li>
+          <li>For the hidden chest, split players across the pressure plates to open the route.</li>
+          <li>Send the chest team through, then rotate so the remaining players can claim it.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="basilica">
+        <div class="section-header">
+          <div class="num">3</div>
+          <h2>Basilica / Totems</h2>
+        </div>
+
+        <p>
+          Basilica is the first major team-rotation encounter. Players hold the Annihilator Totems,
+          steal the Brand, build Deathsinger's Power, then deposit that power in the center plate.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Basilica.png" alt="Basilica encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Basilica encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Totems Guide.png" alt="Totems guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Totems guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Brand Holder</h4>
+            <p>Stands under the totem and kills enemies to build Deathsinger's Power.</p>
+          </div>
+          <div class="role-card">
+            <h4>Brand Stealer</h4>
+            <p>Kills the wizard and Blightguard, grabs the Brand Claimer, then steals the Brand.</p>
+          </div>
+          <div class="role-card">
+            <h4>Depositor</h4>
+            <p>Deposits Deathsinger's Power in the center plate and helps clear middle enemies.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Split into left and right teams of three.</li>
+          <li>Brand holders stand at their totems and kill enemies.</li>
+          <li>Brand stealers kill their wizard and Blightguard.</li>
+          <li>Stealers take the Brand Claimer and steal the Brand before the timer expires.</li>
+          <li>The old holder rotates to the center and deposits Deathsinger's Power.</li>
+          <li>Repeat the rotation until the center door opens.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Challenge Mode</div>
+          <p>
+            The Grass is Always Greener: players cannot take the same Brand type twice in a row.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="warpriest">
+        <div class="section-header">
+          <div class="num">4</div>
+          <h2>Warpriest</h2>
+        </div>
+
+        <p>
+          Warpriest is a plate-reading boss encounter. Players read the glowing sequence, step on plates in order,
+          gain the Brand, extend the Brand with Knight kills, and use pillars to survive the Oculus wipe mechanic.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Warpriest.png" alt="Warpriest encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Warpriest encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Warpriest Guide.png" alt="Warpriest guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Warpriest guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Plate Readers</h4>
+            <p>Stand left, middle, and right to read the plate order.</p>
+          </div>
+          <div class="role-card">
+            <h4>Brand Holder</h4>
+            <p>Holds the damage aura so the team can damage Warpriest.</p>
+          </div>
+          <div class="role-card">
+            <h4>Knight Killers</h4>
+            <p>Kill Brand Claimer Knights and refresh the Brand before time expires.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Clear enemies until the glyph sequence begins.</li>
+          <li>Read the plate order from the glowing plate/pillar sequence.</li>
+          <li>Step on the plates in the correct order.</li>
+          <li>Group for damage inside the Brand aura.</li>
+          <li>Kill Brand Claimer Knights to extend the damage phase.</li>
+          <li>Hide behind the correct pillar when Warpriest starts the Oculus wipe.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="cellar">
+        <div class="section-header">
+          <div class="num">5</div>
+          <h2>Golgoroth's Cellar</h2>
+        </div>
+
+        <p>
+          Golgoroth's Cellar is a maze/traversal section before the Golgoroth boss encounter.
+          Use the guide image to keep the team moving in the correct direction.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Golgoroth's Cellar Guide.png" alt="Golgoroth's Cellar guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Golgoroth's Cellar guide</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move as a group through the cellar.</li>
+          <li>Use the map/guide image to avoid getting separated.</li>
+          <li>Clear enemies before pushing into the next section.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="golgoroth">
+        <div class="section-header">
+          <div class="num">6</div>
+          <h2>Golgoroth</h2>
+        </div>
+
+        <p>
+          Golgoroth requires gaze management. One player holds Golgoroth's Gaze while the damage team stands in pools of reclaimed light
+          and damages his exposed weak point.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Golgoroth.png" alt="Golgoroth encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Golgoroth encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Golgoroth Guide.png" alt="Golgoroth guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Golgoroth guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-2">
+          <div class="role-card">
+            <h4>Gaze Holders</h4>
+            <p>Take Golgoroth's Gaze by shooting his back and manage the timer.</p>
+          </div>
+          <div class="role-card">
+            <h4>DPS Team</h4>
+            <p>Shoot the ceiling orb, stand in the damage pool, and damage Golgoroth's stomach.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Clear enemies until the center orb appears.</li>
+          <li>Drop a pool by shooting the orb above the arena.</li>
+          <li>One gaze holder shoots Golgoroth's back to take gaze.</li>
+          <li>DPS team stands in the pool and shoots Golgoroth's stomach.</li>
+          <li>Second gaze holder takes gaze before the timer runs out.</li>
+          <li>Repeat pool and gaze rotation until damage ends.</li>
+        </ol>
+
+        <div class="callout">
+          <div class="callout-title">Important</div>
+          <p>
+            Call gaze timer clearly. A missed gaze transfer can end the damage phase or wipe the team.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="transept">
+        <div class="section-header">
+          <div class="num">7</div>
+          <h2>Transept</h2>
+        </div>
+
+        <p>
+          The Transept is another traversal section with wall launchers and narrow platforms.
+          Slow movement and clean callouts are better than rushing.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Transept.png" alt="Transept traversal" class="guide-image" loading="lazy">
+          <div class="image-caption">Transept traversal</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Move across the platforms carefully.</li>
+          <li>Watch the wall launchers before jumping.</li>
+          <li>Call out safe timing for players behind you.</li>
+          <li>Regroup before entering the Sisters encounter.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="sisters">
+        <div class="section-header">
+          <div class="num">8</div>
+          <h2>Ir Halak & Ir Anûk</h2>
+        </div>
+
+        <p>
+          The Sisters encounter teaches the plate and torn-between-dimensions mechanics used again in Oryx.
+          Players build platforms, collect the Brand, then damage the active Sister.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Sisters.png" alt="Sisters encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Sisters encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Sisters Guide.png" alt="Sisters guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Sisters guide</div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Assign one player to each plate.</li>
+          <li>Find the starting plate and build the platform sequence.</li>
+          <li>The torn player jumps across the platforms to collect the Brand.</li>
+          <li>Use the Brand to protect the team during damage.</li>
+          <li>Damage the active Sister, then repeat on the other Sister.</li>
+        </ol>
+      </section>
+
+      <section class="section" id="oryx">
+        <div class="section-header">
+          <div class="num">9</div>
+          <h2>Oryx, the Taken King</h2>
+        </div>
+
+        <p>
+          Oryx combines plate mechanics, torn players, ogre bombs, Knight control, damage timing,
+          and final stand execution.
+        </p>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Oryx.png" alt="Oryx encounter" class="guide-image" loading="lazy">
+          <div class="image-caption">Oryx encounter</div>
+        </div>
+
+        <div class="image-frame">
+          <img src="../Kings Fall Assets/KF Oryx Guide.png" alt="Oryx guide" class="guide-image" loading="lazy">
+          <div class="image-caption">Oryx guide</div>
+        </div>
+
+        <h3>Roles</h3>
+        <div class="grid-3">
+          <div class="role-card">
+            <h4>Plate Players</h4>
+            <p>Stand on assigned plates and build the platform path for the torn player.</p>
+          </div>
+          <div class="role-card">
+            <h4>Ogre / Knight Killers</h4>
+            <p>Kill Light-Eater Ogres and Knights so bombs remain safe for detonation.</p>
+          </div>
+          <div class="role-card">
+            <h4>Torn Player</h4>
+            <p>Runs the platform path and steals the Brand from the Vessel.</p>
+          </div>
+        </div>
+
+        <h3>Mechanics</h3>
+        <ol>
+          <li>Assign plate positions before starting.</li>
+          <li>Kill Ogres as they spawn and leave their bombs on the ground.</li>
+          <li>Kill Light-Eater Knights before they consume bombs.</li>
+          <li>Build the plate path for the torn player.</li>
+          <li>Torn player steals the Brand from the Vessel.</li>
+          <li>Step into bombs on the countdown, then return to the aura for safety.</li>
+          <li>Damage Oryx by shooting his exposed chest.</li>
+          <li>Repeat until final stand, then detonate remaining bombs and finish Oryx.</li>
+        </ol>
+
+        <div class="callout cyan">
+          <div class="callout-title">Countdown Rule</div>
+          <p>
+            Bomb players should step into bombs together, then immediately return to the protective aura.
+            A messy countdown is one of the easiest ways to lose the Oryx encounter.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="weapons">
+        <div class="section-header">
+          <div class="num">10</div>
+          <h2>Weapons</h2>
+        </div>
+
+        <p>
+          Weapon images are displayed as large readable cards instead of small thumbnails.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Origin Trait</div>
+          <p>
+            <strong>Runneth Over:</strong> reloading near allies overflows the magazine. This makes King's Fall weapons especially useful
+            when your fireteam is grouped during raid damage phases.
+          </p>
+        </div>
+
+        <div class="weapon-list">
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Smite of Merain.png" alt="Smite of Merain" loading="lazy">
+            <div>
+              <h3>Smite of Merain</h3>
+              <div class="type">Legendary Pulse Rifle</div>
+              <p>Reliable primary weapon option with strong ability and add-clear perk combinations.</p>
+              <div class="pill-row">
+                <span class="pill">Pulse Rifle</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Defiance of Yasmin.png" alt="Defiance of Yasmin" loading="lazy">
+            <div>
+              <h3>Defiance of Yasmin</h3>
+              <div class="type">Legendary Sniper Rifle</div>
+              <p>A precision special weapon option with strong utility for PvE and PvP rolls.</p>
+              <div class="pill-row">
+                <span class="pill">Sniper Rifle</span>
+                <span class="pill">Kinetic</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Doom of Chelchis.png" alt="Doom of Chelchis" loading="lazy">
+            <div>
+              <h3>Doom of Chelchis</h3>
+              <div class="type">Legendary Scout Rifle</div>
+              <p>A strong scout rifle with excellent perk potential for add-clear and general PvE use.</p>
+              <div class="pill-row">
+                <span class="pill">Scout Rifle</span>
+                <span class="pill">Void</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Zaouli's Bane.png" alt="Zaouli's Bane" loading="lazy">
+            <div>
+              <h3>Zaouli's Bane</h3>
+              <div class="type">Legendary Hand Cannon</div>
+              <p>A highly valued solar hand cannon, especially for explosive and scorch-based add-clear builds.</p>
+              <div class="pill-row">
+                <span class="pill">Hand Cannon</span>
+                <span class="pill">Solar</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Midha's Reckoning.png" alt="Midha's Reckoning" loading="lazy">
+            <div>
+              <h3>Midha's Reckoning</h3>
+              <div class="type">Legendary Fusion Rifle</div>
+              <p>A fusion rifle option for players who want special-weapon burst damage and raid-origin synergy.</p>
+              <div class="pill-row">
+                <span class="pill">Fusion Rifle</span>
+                <span class="pill">Arc</span>
+                <span class="pill">Raid Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Quillim's Terminus.png" alt="Quillim's Terminus" loading="lazy">
+            <div>
+              <h3>Quillim's Terminus</h3>
+              <div class="type">Legendary Machine Gun</div>
+              <p>A heavy weapon option for add-clear and sustained fire when built around magazine overflow.</p>
+              <div class="pill-row">
+                <span class="pill">Machine Gun</span>
+                <span class="pill">Stasis</span>
+                <span class="pill">Heavy Weapon</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="weapon-card">
+            <img src="../Kings Fall Assets/KF Touch of Malice.png" alt="Touch of Malice" loading="lazy">
+            <div>
+              <h3>Touch of Malice</h3>
+              <div class="type">Exotic Scout Rifle</div>
+              <p>The King's Fall raid exotic. Powerful, risky, and built around its final-round self-damage loop.</p>
+              <div class="pill-row">
+                <span class="pill">Exotic</span>
+                <span class="pill">Scout Rifle</span>
+                <span class="pill">Raid Exotic</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="small-note">
+          If any image does not load, copy the exact filename from GitHub's <strong>Kings Fall Assets</strong> folder and update the matching src path.
+        </p>
+      </section>
+
+      <footer>
+        INFRINGE · Destiny 2 Clan · King's Fall Guide · Not affiliated with Bungie, Inc.
+      </footer>
+
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
