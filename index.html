@@ -139,29 +139,24 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 8rem 2rem 4rem;
+    padding: 7rem 2rem 4rem;
     overflow: hidden;
   }
 
-  /*
-    This is the main hero background.
-    The Infringe logo image is now being used as the large background image
-    behind the INFRINGE title.
-  */
   .hero-bg {
     position: absolute;
     inset: 0;
     background:
       linear-gradient(
-        rgba(6, 6, 8, 0.35),
-        rgba(6, 6, 8, 0.78)
+        rgba(6, 6, 8, 0.25),
+        rgba(6, 6, 8, 0.82)
       ),
       radial-gradient(ellipse 70% 60% at 50% 48%, rgba(155, 93, 229, 0.22) 0%, transparent 70%),
       radial-gradient(ellipse 60% 50% at 65% 55%, rgba(0, 212, 232, 0.10) 0%, transparent 75%),
       url("Assets/Infringe Logo.png");
 
-    background-size: min(90vw, 1150px) auto;
-    background-position: center 43%;
+    background-size: min(95vw, 1250px) auto;
+    background-position: center 36%;
     background-repeat: no-repeat;
     z-index: 0;
   }
@@ -179,61 +174,67 @@
   .hero-content {
     position: relative;
     z-index: 1;
+    width: min(100%, 980px);
+    margin: 0 auto;
+    transform: translateY(-2.5rem);
+    padding: 2rem;
   }
 
-  /*
-    The small hero logo image is no longer used in the HTML,
-    but this class can stay here safely in case you use it elsewhere later.
-  */
-  .hero-logo-img {
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
-    margin-bottom: 2rem;
-    filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2));
-    animation: pulse-logo 4s ease-in-out infinite;
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: min(100%, 860px);
+    height: 380px;
+    margin: auto;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(6, 6, 8, 0.58) 0%,
+      rgba(6, 6, 8, 0.32) 42%,
+      transparent 72%
+    );
+    z-index: -1;
+    pointer-events: none;
   }
 
-  @keyframes pulse-logo {
-    0%, 100% {
-      filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2));
-    }
-
-    50% {
-      filter: drop-shadow(0 0 60px rgba(155, 93, 229, 0.9)) drop-shadow(0 0 100px rgba(0, 212, 232, 0.35));
-    }
+  .hero-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    margin-bottom: 1.2rem;
+    text-shadow:
+      0 0 18px rgba(6, 6, 8, 1),
+      0 0 28px rgba(155, 93, 229, 0.75);
   }
 
   .hero h1 {
     font-family: 'Orbitron', monospace;
     font-weight: 900;
-    font-size: clamp(3rem, 8vw, 6rem);
-    letter-spacing: 0.15em;
+    font-size: clamp(3.6rem, 8vw, 7.2rem);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--white);
-    line-height: 1;
-    margin-bottom: 0.5rem;
+    line-height: 0.9;
+    margin-bottom: 1rem;
     text-shadow:
-      0 0 30px rgba(6, 6, 8, 0.95),
-      0 0 80px rgba(155, 93, 229, 0.65);
-  }
-
-  .hero-sub {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.85rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--purple-glow);
-    margin-bottom: 1.5rem;
+      0 0 22px rgba(6, 6, 8, 1),
+      0 0 48px rgba(6, 6, 8, 0.95),
+      0 0 95px rgba(155, 93, 229, 0.72);
   }
 
   .hero-tagline {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 1.3rem;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
     font-style: italic;
     color: var(--silver);
-    margin-bottom: 3rem;
-    max-width: 500px;
+    margin: 0 auto 2.6rem;
+    max-width: 620px;
+    line-height: 1.25;
+    text-shadow:
+      0 0 18px rgba(6, 6, 8, 1),
+      0 0 34px rgba(6, 6, 8, 0.95);
   }
 
   .hero-tagline em {
@@ -243,51 +244,59 @@
 
   .hero-cta {
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
   }
 
-  .btn-primary {
+  .btn-primary,
+  .btn-secondary {
+    min-width: 205px;
+    text-align: center;
     font-family: 'Orbitron', monospace;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--void);
-    background: var(--purple-bright);
-    border: none;
-    padding: 0.85rem 2.5rem;
+    padding: 0.95rem 2rem;
     text-decoration: none;
-    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-    transition: all 0.2s;
-    box-shadow: 0 0 30px rgba(155, 93, 229, 0.4);
+    clip-path: polygon(14px 0%, 100% 0%, calc(100% - 14px) 100%, 0% 100%);
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    color: var(--void);
+    background: linear-gradient(135deg, var(--purple-bright), var(--purple-glow));
+    border: 1px solid rgba(199, 125, 255, 0.65);
+    box-shadow:
+      0 0 28px rgba(155, 93, 229, 0.45),
+      inset 0 0 18px rgba(255, 255, 255, 0.08);
   }
 
   .btn-primary:hover {
     background: var(--purple-glow);
-    box-shadow: 0 0 50px rgba(155, 93, 229, 0.7);
+    box-shadow:
+      0 0 45px rgba(155, 93, 229, 0.75),
+      0 0 80px rgba(155, 93, 229, 0.35);
     transform: translateY(-2px);
   }
 
   .btn-secondary {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
     color: var(--cyan-bright);
-    background: transparent;
+    background: rgba(6, 6, 8, 0.35);
     border: 1px solid var(--cyan-bright);
-    padding: 0.85rem 2.5rem;
-    text-decoration: none;
-    clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-    transition: all 0.2s;
+    box-shadow:
+      0 0 24px rgba(0, 212, 232, 0.18),
+      inset 0 0 18px rgba(0, 212, 232, 0.05);
   }
 
   .btn-secondary:hover {
-    background: rgba(0, 212, 232, 0.1);
-    box-shadow: var(--glow-cyan);
+    background: rgba(0, 212, 232, 0.12);
+    box-shadow:
+      0 0 34px rgba(0, 212, 232, 0.42),
+      0 0 70px rgba(0, 212, 232, 0.18);
+    transform: translateY(-2px);
   }
 
   .scroll-hint {
@@ -344,7 +353,6 @@
     padding: 0 2rem;
   }
 
-  /* ─── SECTION HEADER ─── */
   .section-label {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.7rem;
@@ -669,7 +677,6 @@
   .bg-poh { background: linear-gradient(135deg, #000008 0%, #000010 40%, #000020 60%, #000008 100%); }
   .bg-tst { background: linear-gradient(135deg, #05000a 0%, #0a0018 40%, #100025 60%, #05000a 100%); }
 
-  /* Decorative orb overlays on raid cards */
   .raid-card-bg::after {
     content: '';
     position: absolute;
@@ -835,13 +842,33 @@
       grid-template-columns: 1fr;
     }
 
-    .hero h1 {
-      font-size: 2.5rem;
+    .hero {
+      padding: 7rem 1rem 4rem;
+    }
+
+    .hero-content {
+      transform: translateY(-1rem);
+      padding: 1rem;
     }
 
     .hero-bg {
-      background-size: min(130vw, 850px) auto;
-      background-position: center 42%;
+      background-size: min(140vw, 900px) auto;
+      background-position: center 38%;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 12vw, 4rem);
+      letter-spacing: 0.1em;
+    }
+
+    .hero-sub {
+      letter-spacing: 0.25em;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: min(100%, 280px);
+      min-width: 0;
     }
   }
 </style>
@@ -868,7 +895,9 @@
 
   <div class="hero-content">
     <div class="hero-sub fade-up fade-up-2">Destiny 2 Clan</div>
+
     <h1 class="fade-up fade-up-2">INFRINGE</h1>
+
     <p class="hero-tagline fade-up fade-up-3">
       <em>"We don't play by the rules—</em><br>
       we break them."
@@ -925,7 +954,9 @@
 
     <div class="about-text">
       <div class="section-label">Who We Are</div>
+
       <h2 class="section-title">Born in the Dark.<br>Forged in the Void.</h2>
+
       <div class="section-divider"></div>
 
       <p>
@@ -952,7 +983,9 @@
 <section id="features" style="background: var(--deep); padding: 6rem 2rem;">
   <div style="max-width: 1200px; margin: 0 auto;">
     <div class="section-label">What We Offer</div>
+
     <h2 class="section-title">Clan Features</h2>
+
     <div class="section-divider"></div>
 
     <div class="features-grid">
@@ -995,7 +1028,9 @@
 <section id="raids" class="section-full" style="padding: 6rem 0; background: var(--void);">
   <div class="section-inner">
     <div class="section-label">Endgame Content</div>
+
     <h2 class="section-title">Activity Guides</h2>
+
     <div class="section-divider"></div>
 
     <div class="raid-tabs">
@@ -1221,7 +1256,9 @@
 
   <div style="position: relative; z-index: 1;">
     <div class="section-label" style="justify-content: center; margin-bottom: 1rem;">Ready, Guardian?</div>
+
     <h2 class="section-title">Join the Clan</h2>
+
     <div class="section-divider" style="margin: 1rem auto 2rem;"></div>
 
     <p>
