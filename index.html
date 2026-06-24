@@ -4,10 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>INFRINGE — Destiny 2 Clan</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
   :root {
     --void: #060608;
@@ -31,7 +37,9 @@
     --glow-cyan: 0 0 30px rgba(0, 212, 232, 0.25);
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+  }
 
   body {
     background: var(--void);
@@ -56,7 +64,9 @@
   /* ─── NAV ─── */
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -78,7 +88,9 @@
     text-transform: uppercase;
   }
 
-  .nav-logo span { color: var(--purple-glow); }
+  .nav-logo span {
+    color: var(--purple-glow);
+  }
 
   nav ul {
     display: flex;
@@ -96,7 +108,9 @@
     transition: color 0.2s;
   }
 
-  nav ul a:hover { color: var(--cyan-bright); }
+  nav ul a:hover {
+    color: var(--cyan-bright);
+  }
 
   .nav-join {
     font-family: 'Share Tech Mono', monospace;
@@ -129,13 +143,26 @@
     overflow: hidden;
   }
 
+  /*
+    This is the main hero background.
+    The Infringe logo image is now being used as the large background image
+    behind the INFRINGE title.
+  */
   .hero-bg {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 60% at 30% 40%, rgba(91, 45, 158, 0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0, 212, 232, 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(45, 31, 74, 0.3) 0%, transparent 80%);
+      linear-gradient(
+        rgba(6, 6, 8, 0.35),
+        rgba(6, 6, 8, 0.78)
+      ),
+      radial-gradient(ellipse 70% 60% at 50% 48%, rgba(155, 93, 229, 0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 65% 55%, rgba(0, 212, 232, 0.10) 0%, transparent 75%),
+      url("Assets/Infringe Logo.png");
+
+    background-size: min(90vw, 1150px) auto;
+    background-position: center 43%;
+    background-repeat: no-repeat;
     z-index: 0;
   }
 
@@ -149,8 +176,15 @@
     opacity: 0.8;
   }
 
-  .hero-content { position: relative; z-index: 1; }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
 
+  /*
+    The small hero logo image is no longer used in the HTML,
+    but this class can stay here safely in case you use it elsewhere later.
+  */
   .hero-logo-img {
     width: 200px;
     height: 200px;
@@ -161,8 +195,13 @@
   }
 
   @keyframes pulse-logo {
-    0%, 100% { filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2)); }
-    50% { filter: drop-shadow(0 0 60px rgba(155, 93, 229, 0.9)) drop-shadow(0 0 100px rgba(0, 212, 232, 0.35)); }
+    0%, 100% {
+      filter: drop-shadow(0 0 40px rgba(155, 93, 229, 0.6)) drop-shadow(0 0 80px rgba(0, 212, 232, 0.2));
+    }
+
+    50% {
+      filter: drop-shadow(0 0 60px rgba(155, 93, 229, 0.9)) drop-shadow(0 0 100px rgba(0, 212, 232, 0.35));
+    }
   }
 
   .hero h1 {
@@ -174,7 +213,9 @@
     color: var(--white);
     line-height: 1;
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 80px rgba(155, 93, 229, 0.5);
+    text-shadow:
+      0 0 30px rgba(6, 6, 8, 0.95),
+      0 0 80px rgba(155, 93, 229, 0.65);
   }
 
   .hero-sub {
@@ -195,7 +236,10 @@
     max-width: 500px;
   }
 
-  .hero-tagline em { color: var(--cyan-bright); font-style: normal; }
+  .hero-tagline em {
+    color: var(--cyan-bright);
+    font-style: normal;
+  }
 
   .hero-cta {
     display: flex;
@@ -271,8 +315,13 @@
   }
 
   @keyframes bob {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+      transform: translateX(-50%) translateY(8px);
+    }
   }
 
   /* ─── SECTIONS ─── */
@@ -361,7 +410,10 @@
   .about-img-wrap::after {
     content: '';
     position: absolute;
-    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    top: 12px;
+    left: 12px;
+    right: -12px;
+    bottom: -12px;
     border: 1px solid rgba(0, 212, 232, 0.15);
     z-index: -1;
   }
@@ -422,7 +474,9 @@
     margin-bottom: 0.4rem;
   }
 
-  .stat-number span { color: var(--purple-glow); }
+  .stat-number span {
+    color: var(--purple-glow);
+  }
 
   .stat-label {
     font-family: 'Share Tech Mono', monospace;
@@ -433,7 +487,9 @@
   }
 
   /* ─── RAID GRID ─── */
-  .guides-section { background: var(--deep); }
+  .guides-section {
+    background: var(--deep);
+  }
 
   .raid-tabs {
     display: flex;
@@ -462,10 +518,17 @@
     border-bottom-color: var(--cyan-bright);
   }
 
-  .tab-btn:hover:not(.active) { color: var(--light); }
+  .tab-btn:hover:not(.active) {
+    color: var(--light);
+  }
 
-  .tab-panel { display: none; }
-  .tab-panel.active { display: grid; }
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: grid;
+  }
 
   .raid-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -479,7 +542,6 @@
     background: var(--surface);
     aspect-ratio: 16/9;
     cursor: pointer;
-    group: true;
   }
 
   .raid-card::before {
@@ -511,7 +573,9 @@
 
   .raid-card-content {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 1.5rem;
     z-index: 2;
     transform: translateY(0);
@@ -681,7 +745,9 @@
     pointer-events: none;
   }
 
-  .join-section .section-title { margin-bottom: 1rem; }
+  .join-section .section-title {
+    margin-bottom: 1rem;
+  }
 
   .join-section p {
     color: var(--silver);
@@ -709,7 +775,9 @@
     margin-bottom: 0.5rem;
   }
 
-  .footer-logo span { color: var(--purple-glow); }
+  .footer-logo span {
+    color: var(--purple-glow);
+  }
 
   .footer-sub {
     font-family: 'Share Tech Mono', monospace;
@@ -721,8 +789,15 @@
 
   /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .fade-up {
@@ -730,46 +805,81 @@
     animation: fadeUp 0.7s ease forwards;
   }
 
-  .fade-up-1 { animation-delay: 0.1s; }
-  .fade-up-2 { animation-delay: 0.25s; }
-  .fade-up-3 { animation-delay: 0.4s; }
-  .fade-up-4 { animation-delay: 0.55s; }
+  .fade-up-1 {
+    animation-delay: 0.1s;
+  }
+
+  .fade-up-2 {
+    animation-delay: 0.25s;
+  }
+
+  .fade-up-3 {
+    animation-delay: 0.4s;
+  }
+
+  .fade-up-4 {
+    animation-delay: 0.55s;
+  }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
-    nav { padding: 0 1.5rem; }
-    nav ul { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.5rem; }
+    nav {
+      padding: 0 1.5rem;
+    }
+
+    nav ul {
+      display: none;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-bg {
+      background-size: min(130vw, 850px) auto;
+      background-position: center 42%;
+    }
   }
 </style>
 </head>
+
 <body>
 
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">IN<span>FR</span>INGE</a>
+
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#raids">Raid Guides</a></li>
     <li><a href="#features">Features</a></li>
   </ul>
+
   <a href="#join" class="nav-join">Join Clan</a>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
   <div class="hero-bg"></div>
+
   <div class="hero-content">
-    <img src="Assets/Infringe Logo.png" alt="Infringe Clan Logo" class="hero-logo-img fade-up fade-up-1">
     <div class="hero-sub fade-up fade-up-2">Destiny 2 Clan</div>
     <h1 class="fade-up fade-up-2">INFRINGE</h1>
-    <p class="hero-tagline fade-up fade-up-3"><em>"We don't play by the rules—</em><br>we break them."</p>
+    <p class="hero-tagline fade-up fade-up-3">
+      <em>"We don't play by the rules—</em><br>
+      we break them."
+    </p>
+
     <div class="hero-cta fade-up fade-up-4">
       <a href="#raids" class="btn-primary">Raid Guides</a>
       <a href="#join" class="btn-secondary">Join the Clan</a>
     </div>
   </div>
+
   <div class="scroll-hint">
     <div class="scroll-arrow"></div>
     <span>scroll</span>
@@ -783,18 +893,22 @@
       <div class="stat-number"><span>21</span>+</div>
       <div class="stat-label">Clan Members</div>
     </div>
+
     <div class="stat-item">
       <div class="stat-number"><span>1.5</span>K</div>
       <div class="stat-label">Raid Completions</div>
     </div>
+
     <div class="stat-item">
       <div class="stat-number"><span>1</span></div>
       <div class="stat-label">Active Sherpas</div>
     </div>
+
     <div class="stat-item">
       <div class="stat-number"><span>∞</span></div>
       <div class="stat-label">Hours Wasted</div>
     </div>
+
     <div class="stat-item">
       <div class="stat-number"><span>300</span>K+</div>
       <div class="stat-label">Triumph Score</div>
@@ -808,12 +922,20 @@
     <div class="about-img-wrap">
       <img src="Assets/Infringe Logo.png" alt="Infringe" style="filter: saturate(1) brightness(0.9); background: #0a080f;">
     </div>
+
     <div class="about-text">
       <div class="section-label">Who We Are</div>
       <h2 class="section-title">Born in the Dark.<br>Forged in the Void.</h2>
       <div class="section-divider"></div>
-      <p>Infringe is a Destiny 2 clan built for Guardians who want to push beyond the edge — whether that's your first raid clear or your thousandth flawless run. We don't gatekeep. We sherpa. We grind. We die to the same mechanics seventeen times and laugh about it.</p>
-      <p>We run all endgame content — raids, dungeons, GMs, Trials — and we do it as a team. New Light or seasoned veteran, if you want to get better and have a crew to do it with, you found your clan.</p>
+
+      <p>
+        Infringe is a Destiny 2 clan built for Guardians who want to push beyond the edge — whether that's your first raid clear or your thousandth flawless run. We don't gatekeep. We sherpa. We grind. We die to the same mechanics seventeen times and laugh about it.
+      </p>
+
+      <p>
+        We run all endgame content — raids, dungeons, GMs, Trials — and we do it as a team. New Light or seasoned veteran, if you want to get better and have a crew to do it with, you found your clan.
+      </p>
+
       <div class="about-pills">
         <span class="pill">All Platforms</span>
         <span class="pill">All Skill Levels</span>
@@ -832,26 +954,38 @@
     <div class="section-label">What We Offer</div>
     <h2 class="section-title">Clan Features</h2>
     <div class="section-divider"></div>
+
     <div class="features-grid">
       <div class="feature-card">
         <span class="feature-icon">⚡</span>
         <div class="feature-title">Active Sherpas</div>
-        <p class="feature-desc">Veteran players ready to guide you through any raid or dungeon, from first clear to optimized runs.</p>
+        <p class="feature-desc">
+          Veteran players ready to guide you through any raid or dungeon, from first clear to optimized runs.
+        </p>
       </div>
+
       <div class="feature-card">
         <span class="feature-icon">🗡️</span>
         <div class="feature-title">Full Raid Guides</div>
-        <p class="feature-desc">Detailed mechanics breakdowns for every active raid and dungeon in the game, updated with each expansion.</p>
+        <p class="feature-desc">
+          Detailed mechanics breakdowns for every active raid and dungeon in the game, updated with each expansion.
+        </p>
       </div>
+
       <div class="feature-card">
         <span class="feature-icon">🔮</span>
         <div class="feature-title">Build Crafting</div>
-        <p class="feature-desc">Theorycrafters and min-maxers on standby. We'll help you optimize your loadout for whatever you're running.</p>
+        <p class="feature-desc">
+          Theorycrafters and min-maxers on standby. We'll help you optimize your loadout for whatever you're running.
+        </p>
       </div>
+
       <div class="feature-card">
         <span class="feature-icon">🌌</span>
         <div class="feature-title">Chill Community</div>
-        <p class="feature-desc">A no-toxicity zone. We're here to have fun, kill gods, and turn them into exotic weapons. In that order.</p>
+        <p class="feature-desc">
+          A no-toxicity zone. We're here to have fun, kill gods, and turn them into exotic weapons. In that order.
+        </p>
       </div>
     </div>
   </div>
@@ -871,7 +1005,6 @@
 
     <!-- RAIDS TAB -->
     <div class="tab-panel active raid-grid" id="raids-tab">
-
 
       <div class="raid-card">
         <div class="raid-card-bg bg-dp"></div>
@@ -1085,11 +1218,16 @@
 <!-- JOIN -->
 <section id="join" class="join-section">
   <div class="join-glow"></div>
+
   <div style="position: relative; z-index: 1;">
     <div class="section-label" style="justify-content: center; margin-bottom: 1rem;">Ready, Guardian?</div>
     <h2 class="section-title">Join the Clan</h2>
     <div class="section-divider" style="margin: 1rem auto 2rem;"></div>
-    <p>Whether you're a New Light wondering who Cayde-6 is, or a veteran with 5000 hours — there's a fireteam slot with your name on it. We'll carry you through your first raid. You'll carry someone else through theirs.</p>
+
+    <p>
+      Whether you're a New Light wondering who Cayde-6 is, or a veteran with 5000 hours — there's a fireteam slot with your name on it. We'll carry you through your first raid. You'll carry someone else through theirs.
+    </p>
+
     <div class="hero-cta">
       <a href="https://www.bungie.net/7/en/Clan/Profile/4655524" class="btn-primary">Find Us on Bungie.net</a>
       <a href="https://discord.gg/bwXQKHn9T" class="btn-secondary">Join Our Discord</a>
@@ -1115,8 +1253,10 @@ function switchTab(tabId, btn) {
 // Make entire card clickable — clicking anywhere on the card opens the guide
 document.querySelectorAll('.raid-card').forEach(card => {
   const link = card.querySelector('.raid-guide-link');
+
   if (link && link.href && link.href !== window.location.href) {
     card.style.cursor = 'pointer';
+
     card.addEventListener('click', function(e) {
       if (e.target.tagName !== 'A') {
         window.open(link.href, '_blank', 'noopener');
