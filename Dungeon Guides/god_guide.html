@@ -1,126 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+Ghosts of the Deep guide generated for INFRINGE.
+
+Current folder structure based on your GitHub:
+
+Project Root/
+├── Ghost of the Deep/
+│   ├── Ecthar_Guide.jpg
+│   ├── Simmumah_Ur_Nokru_Guide.jpg
+│   └── The_Ritual_Guide.jpg
+└── Dungeon Guides/
+    └── ghosts_of_the_deep_guide.html
+
+Because this page is inside "Dungeon Guides", Ghost of the Deep images use:
+../Ghost of the Deep/File_Name.jpg
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ghosts of the Deep Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --void: #060608;
+    --deep: #0a080f;
+    --surface: #0f0c18;
+    --lift: #16121f;
+    --purple-bright: #9b5de5;
+    --purple-glow: #c77dff;
+    --cyan-bright: #00d4e8;
+    --silver: #c0c0c8;
+    --light: #e8e4f0;
+    --white: #f4f0ff;
+    --border: rgba(155,93,229,0.15);
+    --border-cyan: rgba(0,212,232,0.2);
   }
+
   html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
+
+  body {
+    background: var(--void);
+    color: var(--light);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(6,6,8,0.9);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--purple-glow); }
+
+  .nav-back {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    border: 1px solid var(--cyan-bright);
+    padding: 0.35rem 1rem;
+    text-decoration: none;
+    clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    transition: all 0.2s;
+  }
+
+  .nav-back:hover {
+    background: var(--cyan-bright);
+    color: var(--void);
+  }
+
   .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+    min-height: 38vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
+
   .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
   }
+
   .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
+    content:'';
+    position: absolute;
+    inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
     background-size: 60px 52px;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
+  .guide-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .guide-type-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .guide-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2.2rem,5vw,4rem);
+    color: var(--white);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 60px rgba(155,93,229,0.5);
+    margin-bottom: 0.6rem;
+  }
+
+  .guide-tagline {
+    font-family: 'Rajdhani', sans-serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--silver);
+  }
+
+  .guide-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright));
+    margin: 1.5rem auto 0;
+  }
+
+  .breadcrumb {
+    max-width: 960px;
+    margin: 2.5rem auto 0;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(192,192,200,0.4);
+  }
+
+  .breadcrumb a {
+    color: var(--purple-glow);
+    text-decoration: none;
+  }
+
   .breadcrumb a:hover { color: var(--cyan-bright); }
+
   .breadcrumb span { color: rgba(192,192,200,0.25); }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .guide-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .enc-nav {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px);
+  }
+
+  .enc-nav-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.8rem;
+  }
+
+  .enc-nav ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    counter-reset: enc;
+  }
+
+  .enc-nav ol li {
+    counter-increment: enc;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .enc-nav li::before {
+    content: counter(enc);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    color: var(--purple-glow);
+    background: rgba(155,93,229,0.1);
+    border: 1px solid rgba(155,93,229,0.2);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .enc-nav li a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
   .enc-nav li a:hover { color: var(--cyan-bright); }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .encounter {
+    margin-bottom: 4rem;
+    scroll-margin-top: 80px;
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .encounter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .enc-number {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 2rem;
+    color: rgba(155,93,229,0.25);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: right;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
+  .enc-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .enc-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+  }
+
+  .encounter p {
+    color: var(--silver);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .encounter ul,
+  .encounter ol {
+    color: var(--silver);
+    font-size: 1rem;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .encounter li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .encounter li::before {
+    content: '›';
+    color: var(--purple-glow);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+
+  .encounter ol {
+    counter-reset: li;
+  }
+
+  .encounter ol li::before {
+    content: counter(li) '.';
+    counter-increment: li;
+    color: var(--cyan-bright);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    padding-top: 0.2rem;
+  }
+
+  .encounter strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .image-frame {
+    background: var(--lift);
+    border: 1px solid var(--border-cyan);
+    padding: 0.6rem;
+    margin: 1.5rem 0;
+    clip-path: polygon(14px 0%,100% 0%,100% calc(100% - 14px),calc(100% - 14px) 100%,0% 100%,0% 14px);
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    background: var(--void);
+  }
+
+  .image-caption {
+    font-family: 'Share Tech Mono', monospace;
+    color: rgba(192,192,200,0.55);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .role-card {
+    background: var(--lift);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);
+  }
+
+  .role-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .role-desc {
+    font-size: 0.9rem;
+    color: rgba(192,192,200,0.75);
+    line-height: 1.5;
+  }
+
+  .tips-box {
+    background: rgba(155,93,229,0.05);
+    border: 1px solid rgba(155,93,229,0.2);
+    border-left: 3px solid var(--purple-bright);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+  }
+
+  .tips-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    margin-bottom: 0.6rem;
+  }
+
   .tips-box ul { margin: 0; }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
+  .loadout-box {
+    background: rgba(0,212,232,0.03);
+    border: 1px solid rgba(0,212,232,0.15);
+    border-left: 3px solid var(--cyan-bright);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .loadout-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.6rem;
+  }
+
   .loadout-box ul { margin: 0; }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  hr.enc-sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+  }
+
   .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .footer-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(192,192,200,0.3);
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 1.2rem; }
+    .guide-title { font-size: 1.8rem; }
+    .guide-content { padding-left: 1.2rem; padding-right: 1.2rem; }
+  }
 </style>
 
 </head>
+
 <body>
 
 <nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
+  <a href="../index.html" class="nav-logo">IN<span>FR</span>INGE</a>
+  <a href="../index.html#raids" class="nav-back">← Back to Guides</a>
 </nav>
 
 <header class="guide-hero">
@@ -134,83 +497,174 @@
 </header>
 
 <div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
+  <a href="../index.html">Home</a>
   <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
+  <a href="../index.html#raids">Guides</a>
   <span>/</span>
   <span style="color:var(--silver)">Ghosts of the Deep</span>
 </div>
 
 <div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#descent">Flooded Rig</a></li>
-    <li><a href="#hive_ritual">Hive Ritual</a></li>
-    <li><a href="#ecthar">Ecthar, Shield of Savathun</a></li>
-    <li><a href="#simmumah">Simmumah ur-Nokris</a></li>
-  </ol>
-</div><div class="encounter" id="descent">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Flooded Rig</div>
-      <div class="enc-type">Opening</div>
+
+  <div class="enc-nav">
+    <div class="enc-nav-label">Encounters</div>
+    <ol>
+      <li><a href="#descent">Flooded Rig</a></li>
+      <li><a href="#hive_ritual">Hive Ritual</a></li>
+      <li><a href="#ecthar">Ecthar, Shield of Savathun</a></li>
+      <li><a href="#simmumah">Simmumah ur-Nokris</a></li>
+    </ol>
+  </div>
+
+  <div class="encounter" id="descent">
+    <div class="encounter-header">
+      <div class="enc-number">01</div>
+      <div>
+        <div class="enc-name">Flooded Rig</div>
+        <div class="enc-type">Opening</div>
+      </div>
+    </div>
+
+    <p>Traverse a partially submerged oil rig overrun by Hive. Darkness zones are scattered throughout — stay in the light of the glowing jellyfish-like creatures.</p>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>The bioluminescent creatures mark safe zones — follow them through the dark sections.</span></li>
+        <li><span>Diving underwater is fatal outside the safe zones — the Taken corruption deals rapid damage.</span></li>
+      </ul>
     </div>
   </div>
-  <p>Traverse a partially submerged oil rig overrun by Hive. Darkness zones are scattered throughout — stay in the light of the glowing jellyfish-like creatures.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The bioluminescent creatures mark safe zones — follow them through the dark sections</span></li>
-<li><span>Diving underwater is fatal outside the safe zones — the Taken corruption deals rapid damage</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="hive_ritual">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Hive Ritual</div>
-      <div class="enc-type">Encounter 1</div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="hive_ritual">
+    <div class="encounter-header">
+      <div class="enc-number">02</div>
+      <div>
+        <div class="enc-name">Hive Ritual</div>
+        <div class="enc-type">Encounter 1</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Ghost of the Deep/The_Ritual_Guide.jpg" alt="Ghosts of the Deep - The Ritual Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">The Ritual Guide</div>
+    </div>
+
+    <p>Three ritual circles must be purified in sequence. Each circle requires a Ghost to be sacrificed within it while the fireteam holds off Hive.</p>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-name">Ghost Bearers 1-2</div>
+        <div class="role-desc">Carry the Ghost to each ritual circle in sequence.</div>
+      </div>
+
+      <div class="role-card">
+        <div class="role-name">Defenders 1-2</div>
+        <div class="role-desc">Hold the surrounding area free of Hive while the ritual completes.</div>
+      </div>
+    </div>
+
+    <ol>
+      <li><span>Pick up the Ghost near the start of the encounter.</span></li>
+      <li><span>Carry it to the first glowing ritual circle and stand inside.</span></li>
+      <li><span>Hold off Hive until the ritual completes.</span></li>
+      <li><span>Move to the second and third circles and repeat.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>The Ghost carrier cannot shoot — protect them aggressively.</span></li>
+        <li><span>Shriekers spawn at specific points during each ritual — prioritize killing them immediately.</span></li>
+        <li><span>The Ghost's timer does not pause when carrying — keep moving.</span></li>
+      </ul>
     </div>
   </div>
-  <p>Three ritual circles must be purified in sequence. Each circle requires a Ghost to be sacrificed within it while the fireteam holds off Hive.</p><div class="roles-grid"><div class="role-card"><div class="role-name">Ghost Bearers (1-2)</div><div class="role-desc">Carry the Ghost to each ritual circle in sequence</div></div>
-<div class="role-card"><div class="role-name">Defenders (1-2)</div><div class="role-desc">Hold the surrounding area free of Hive while the ritual completes</div></div></div><ol><li><span>Pick up the Ghost near the start of the encounter</span></li>
-<li><span>Carry it to the first glowing ritual circle and stand inside</span></li>
-<li><span>Hold off Hive until the ritual completes (timer on screen)</span></li>
-<li><span>Move to the second and third circles and repeat</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The Ghost carrier cannot shoot — protect them aggressively</span></li>
-<li><span>Shriekers spawn at specific points during each ritual — prioritize killing them immediately</span></li>
-<li><span>The Ghost's timer does not pause when carrying — keep moving</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="ecthar2">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Ecthar, Shield of Savathûn</div>
-      <div class="enc-type">Encounter 2</div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="ecthar">
+    <div class="encounter-header">
+      <div class="enc-number">03</div>
+      <div>
+        <div class="enc-name">Ecthar, Shield of Savathûn</div>
+        <div class="enc-type">Encounter 2</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Ghost of the Deep/Ecthar_Guide.jpg" alt="Ghosts of the Deep - Ecthar Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Ecthar Guide</div>
+    </div>
+
+    <p>Ecthar patrols between three pools of Deep Sight. Use the Finisher mechanic to damage him — regular weapons do nothing until his shield is broken by a Finisher.</p>
+
+    <ol>
+      <li><span>Kill adds until you build full Finisher energy.</span></li>
+      <li><span>Approach Ecthar and trigger the Finisher — this strips his shield.</span></li>
+      <li><span>All three players dump DPS while he is exposed.</span></li>
+      <li><span>He retreats to a new pool — repeat.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Finishers can be chained if energy is managed correctly — avoid using them on adds unnecessarily.</span></li>
+        <li><span>Ecthar has a massive shockwave attack when retreating — back up before the retreat animation completes.</span></li>
+        <li><span>Divinity makes his damage phase significantly easier to maximize.</span></li>
+      </ul>
     </div>
   </div>
-  <p>Ecthar patrols between three pools of Deep Sight. Use the Finisher mechanic to damage him — regular weapons do nothing until his shield is broken by a Finisher.</p><ol><li><span>Kill adds until you build full Finisher energy</span></li>
-<li><span>Approach Ecthar and trigger the Finisher — this strips his shield</span></li>
-<li><span>All three players dump DPS while he's exposed</span></li>
-<li><span>He retreats to a new pool — repeat</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Finishers can be chained if energy is managed correctly — avoid using them on adds unnecessarily</span></li>
-<li><span>Ecthar has a massive shockwave attack when retreating — back up before the retreat animation completes</span></li>
-<li><span>Divinity makes his damage phase significantly easier to maximize</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="simmumah">
-  <div class="encounter-header">
-    <div class="enc-number">04</div>
-    <div>
-      <div class="enc-name">Simmumah ur-Nokris</div>
-      <div class="enc-type">Final Boss</div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="simmumah">
+    <div class="encounter-header">
+      <div class="enc-number">04</div>
+      <div>
+        <div class="enc-name">Simmumah ur-Nokris</div>
+        <div class="enc-type">Final Boss</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Ghost of the Deep/Simmumah_Ur_Nokru_Guide.jpg" alt="Ghosts of the Deep - Simmumah Ur Nokru Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Simmumah Ur Nokru Guide</div>
+    </div>
+
+    <p>The dungeon's final boss — a massive Hive Wizard. The Ghost mechanic returns combined with a complex symbol puzzle.</p>
+
+    <div class="loadout-box">
+      <div class="loadout-label">Recommended Loadout</div>
+      <ul>
+        <li><span>Linears or rockets for DPS phases.</span></li>
+        <li><span>Divinity strongly recommended.</span></li>
+        <li><span>Well of Radiance inside the damage bubble.</span></li>
+      </ul>
+    </div>
+
+    <ol>
+      <li><span>Kill adds to generate Symbol knowledge — read the three symbols displayed.</span></li>
+      <li><span>Carry the Ghost to the correct three columns matching the symbols.</span></li>
+      <li><span>All three columns activated = boss vulnerable.</span></li>
+      <li><span>Dump DPS — boss retreats after the window closes.</span></li>
+      <li><span>Repeat until dead.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>The Ghost carrier is marked — Simmumah targets them preferentially.</span></li>
+        <li><span>Having all three symbols memorized before moving saves critical seconds.</span></li>
+        <li><span>Solo: managing the Ghost carry and reading symbols simultaneously is the core challenge — practice the read while moving.</span></li>
+      </ul>
     </div>
   </div>
-  <p>The dungeon's final boss — a massive Hive Wizard. The Ghost mechanic returns combined with a complex symbol puzzle.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>Linears or rockets for DPS phases</span></li>
-<li><span>Divinity strongly recommended</span></li>
-<li><span>Well of Radiance inside the damage bubble</span></li></ul></div><ol><li><span>Kill adds to generate Symbol knowledge — read the three symbols displayed</span></li>
-<li><span>Carry the Ghost to the correct three columns matching the symbols</span></li>
-<li><span>All three columns activated = boss vulnerable</span></li>
-<li><span>Dump DPS — boss retreats after the window closes</span></li>
-<li><span>Repeat until dead</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The Ghost carrier is marked — Simmumah targets them preferentially</span></li>
-<li><span>Having all three symbols memorized before moving saves critical seconds</span></li>
-<li><span>Solo: managing the Ghost carry AND reading symbols simultaneously is the core challenge — practice the read while moving</span></li></ul></div>
-</div>
-<hr class="enc-sep">
+
+  <hr class="enc-sep">
+
 </div>
 
 <footer>
