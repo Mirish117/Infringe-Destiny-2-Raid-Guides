@@ -1,126 +1,513 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--
+Sundered Doctrine guide generated for INFRINGE.
+
+Current folder structure based on your GitHub:
+
+Project Root/
+├── Sundered Doctrine/
+│   ├── Flooded Guide Pattern Guide.png
+│   ├── Flooded Inspection Guide.png
+│   ├── Isolate Preservation Guide.png
+│   ├── Lockout Guide.png
+│   ├── Truth_Lie_Guide.png
+│   └── symbols.jpeg
+└── Dungeon Guides/
+    └── sundered_doctrine_guide.html
+
+Because this page is inside "Dungeon Guides", Sundered Doctrine images use:
+../Sundered Doctrine/File Name.png
+or
+../Sundered Doctrine/File Name.jpeg
+-->
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sundered Doctrine Guide — INFRINGE</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --void: #060608; --deep: #0a080f; --surface: #0f0c18; --lift: #16121f;
-    --purple-bright: #9b5de5; --purple-glow: #c77dff;
-    --cyan-bright: #00d4e8; --silver: #c0c0c8; --light: #e8e4f0; --white: #f4f0ff;
-    --border: rgba(155,93,229,0.15); --border-cyan: rgba(0,212,232,0.2);
+    --void: #060608;
+    --deep: #0a080f;
+    --surface: #0f0c18;
+    --lift: #16121f;
+    --purple-bright: #9b5de5;
+    --purple-glow: #c77dff;
+    --cyan-bright: #00d4e8;
+    --silver: #c0c0c8;
+    --light: #e8e4f0;
+    --white: #f4f0ff;
+    --border: rgba(155,93,229,0.15);
+    --border-cyan: rgba(0,212,232,0.2);
   }
+
   html { scroll-behavior: smooth; }
-  body { background: var(--void); color: var(--light); font-family: 'Rajdhani', sans-serif; font-size: 17px; line-height: 1.7; overflow-x: hidden; }
+
+  body {
+    background: var(--void);
+    color: var(--light);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 3rem; height: 64px;
-    background: rgba(6,6,8,0.9); backdrop-filter: blur(12px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(6,6,8,0.9);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.2em; color: var(--white); text-decoration: none; }
-  .nav-logo span { color: var(--purple-glow); }
-  .nav-back { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan-bright); border: 1px solid var(--cyan-bright); padding: 0.35rem 1rem; text-decoration: none; clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition: all 0.2s; }
-  .nav-back:hover { background: var(--cyan-bright); color: var(--void); }
 
-  /* HERO */
+  .nav-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--purple-glow); }
+
+  .nav-back {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    border: 1px solid var(--cyan-bright);
+    padding: 0.35rem 1rem;
+    text-decoration: none;
+    clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    transition: all 0.2s;
+  }
+
+  .nav-back:hover {
+    background: var(--cyan-bright);
+    color: var(--void);
+  }
+
   .guide-hero {
-    min-height: 38vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-    padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden;
+    min-height: 38vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
+
   .guide-hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 40%, rgba(91,45,158,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 70% 60%, rgba(0,212,232,0.07) 0%, transparent 70%);
   }
+
   .guide-hero-bg::after {
-    content:''; position: absolute; inset: 0;
+    content:'';
+    position: absolute;
+    inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpolygon points='30,2 58,17 58,35 30,50 2,35 2,17' fill='none' stroke='rgba(155,93,229,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
     background-size: 60px 52px;
   }
-  .guide-hero-content { position: relative; z-index: 1; }
-  .guide-type-badge { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
-  .guide-title { font-family: 'Orbitron', monospace; font-weight: 900; font-size: clamp(2.2rem,5vw,4rem); color: var(--white); letter-spacing: 0.08em; text-shadow: 0 0 60px rgba(155,93,229,0.5); margin-bottom: 0.6rem; }
-  .guide-tagline { font-family: 'Rajdhani', sans-serif; font-style: italic; font-size: 1.1rem; color: var(--silver); }
-  .guide-divider { width: 80px; height: 2px; background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright)); margin: 1.5rem auto 0; }
 
-  /* BREADCRUMB */
-  .breadcrumb { max-width: 960px; margin: 2.5rem auto 0; padding: 0 2rem; display: flex; align-items: center; gap: 0.5rem; font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(192,192,200,0.4); }
-  .breadcrumb a { color: var(--purple-glow); text-decoration: none; }
+  .guide-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .guide-type-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.6rem;
+  }
+
+  .guide-title {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: clamp(2.2rem,5vw,4rem);
+    color: var(--white);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 60px rgba(155,93,229,0.5);
+    margin-bottom: 0.6rem;
+  }
+
+  .guide-tagline {
+    font-family: 'Rajdhani', sans-serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--silver);
+  }
+
+  .guide-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(to right, var(--purple-bright), var(--cyan-bright));
+    margin: 1.5rem auto 0;
+  }
+
+  .breadcrumb {
+    max-width: 960px;
+    margin: 2.5rem auto 0;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(192,192,200,0.4);
+  }
+
+  .breadcrumb a {
+    color: var(--purple-glow);
+    text-decoration: none;
+  }
+
   .breadcrumb a:hover { color: var(--cyan-bright); }
+
   .breadcrumb span { color: rgba(192,192,200,0.25); }
 
-  /* CONTENT */
-  .guide-content { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+  .guide-content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
 
-  /* ENCOUNTER NAV */
-  .enc-nav { background: var(--deep); border: 1px solid var(--border); padding: 1.5rem 2rem; margin-bottom: 3rem; clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px); }
-  .enc-nav-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.8rem; }
-  .enc-nav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
-  .enc-nav ol li { counter-increment: enc; display: flex; align-items: center; gap: 0.5rem; }
-  .enc-nav ol { counter-reset: enc; }
-  .enc-nav li::before { content: counter(enc); font-family: 'Orbitron', monospace; font-size: 0.65rem; color: var(--purple-glow); background: rgba(155,93,229,0.1); border: 1px solid rgba(155,93,229,0.2); width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .enc-nav li a { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .enc-nav {
+    background: var(--deep);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+    clip-path: polygon(16px 0%,100% 0%,100% calc(100% - 16px),calc(100% - 16px) 100%,0% 100%,0% 16px);
+  }
+
+  .enc-nav-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.8rem;
+  }
+
+  .enc-nav ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    counter-reset: enc;
+  }
+
+  .enc-nav ol li {
+    counter-increment: enc;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .enc-nav li::before {
+    content: counter(enc);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    color: var(--purple-glow);
+    background: rgba(155,93,229,0.1);
+    border: 1px solid rgba(155,93,229,0.2);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .enc-nav li a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--silver);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
   .enc-nav li a:hover { color: var(--cyan-bright); }
 
-  /* SECTION LABEL */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cyan-bright); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
-  .sec-label::before { content:''; width: 24px; height: 1px; background: var(--cyan-bright); }
+  .sec-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
 
-  /* ENCOUNTER BLOCK */
-  .encounter { margin-bottom: 4rem; scroll-margin-top: 80px; }
-  .encounter-header { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-  .enc-number { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 2rem; color: rgba(155,93,229,0.25); line-height: 1; flex-shrink: 0; width: 48px; text-align: right; }
-  .enc-name { font-family: 'Orbitron', monospace; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.3rem; }
-  .enc-type { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-glow); }
-  .encounter p { color: var(--silver); margin-bottom: 1rem; font-size: 1rem; }
-  .encounter ul, .encounter ol { color: var(--silver); font-size: 1rem; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .encounter li { display: flex; gap: 0.8rem; align-items: flex-start; }
-  .encounter li::before { content: '›'; color: var(--purple-glow); font-size: 1.1rem; flex-shrink: 0; line-height: 1.5; }
-  .encounter ol li::before { content: counter(li) '.'; counter-increment: li; color: var(--cyan-bright); font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; padding-top: 0.2rem; }
-  .encounter ol { counter-reset: li; }
-  .encounter strong { color: var(--white); font-weight: 600; }
+  .sec-label::before {
+    content:'';
+    width: 24px;
+    height: 1px;
+    background: var(--cyan-bright);
+  }
 
-  /* ROLE CARDS */
-  .roles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-  .role-card { background: var(--lift); border: 1px solid var(--border); padding: 1rem 1.2rem; clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px); }
-  .role-name { font-family: 'Orbitron', monospace; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.5rem; }
-  .role-desc { font-size: 0.9rem; color: rgba(192,192,200,0.75); line-height: 1.5; }
+  .encounter {
+    margin-bottom: 4rem;
+    scroll-margin-top: 80px;
+  }
 
-  /* TIPS BOX */
-  .tips-box { background: rgba(155,93,229,0.05); border: 1px solid rgba(155,93,229,0.2); border-left: 3px solid var(--purple-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
-  .tips-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--purple-glow); margin-bottom: 0.6rem; }
+  .encounter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .enc-number {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 2rem;
+    color: rgba(155,93,229,0.25);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    text-align: right;
+  }
+
+  .enc-name {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+
+  .enc-type {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+  }
+
+  .encounter p {
+    color: var(--silver);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .encounter ul,
+  .encounter ol {
+    color: var(--silver);
+    font-size: 1rem;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .encounter li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .encounter li::before {
+    content: '›';
+    color: var(--purple-glow);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    line-height: 1.5;
+  }
+
+  .encounter ol {
+    counter-reset: li;
+  }
+
+  .encounter ol li::before {
+    content: counter(li) '.';
+    counter-increment: li;
+    color: var(--cyan-bright);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    padding-top: 0.2rem;
+  }
+
+  .encounter strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .image-frame {
+    background: var(--lift);
+    border: 1px solid var(--border-cyan);
+    padding: 0.6rem;
+    margin: 1.5rem 0;
+    clip-path: polygon(14px 0%,100% 0%,100% calc(100% - 14px),calc(100% - 14px) 100%,0% 100%,0% 14px);
+  }
+
+  .guide-image {
+    width: 100%;
+    display: block;
+    background: var(--void);
+  }
+
+  .image-caption {
+    font-family: 'Share Tech Mono', monospace;
+    color: rgba(192,192,200,0.55);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 0.55rem;
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .role-card {
+    background: var(--lift);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    clip-path: polygon(10px 0%,100% 0%,100% calc(100% - 10px),calc(100% - 10px) 100%,0% 100%,0% 10px);
+  }
+
+  .role-name {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .role-desc {
+    font-size: 0.9rem;
+    color: rgba(192,192,200,0.75);
+    line-height: 1.5;
+  }
+
+  .tips-box {
+    background: rgba(155,93,229,0.05);
+    border: 1px solid rgba(155,93,229,0.2);
+    border-left: 3px solid var(--purple-bright);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+  }
+
+  .tips-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    margin-bottom: 0.6rem;
+  }
+
   .tips-box ul { margin: 0; }
 
-  /* LOADOUT BOX */
-  .loadout-box { background: rgba(0,212,232,0.03); border: 1px solid rgba(0,212,232,0.15); border-left: 3px solid var(--cyan-bright); padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-  .loadout-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan-bright); margin-bottom: 0.6rem; }
+  .loadout-box {
+    background: rgba(0,212,232,0.03);
+    border: 1px solid rgba(0,212,232,0.15);
+    border-left: 3px solid var(--cyan-bright);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .loadout-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-bright);
+    margin-bottom: 0.6rem;
+  }
+
   .loadout-box ul { margin: 0; }
 
-  /* SEPARATOR */
-  hr.enc-sep { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+  hr.enc-sep {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
 
-  /* FOOTER */
-  footer { background: var(--deep); border-top: 1px solid var(--border); padding: 2.5rem; text-align: center; }
-  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--white); }
+  footer {
+    background: var(--deep);
+    border-top: 1px solid var(--border);
+    padding: 2.5rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+  }
+
   .footer-logo span { color: var(--purple-glow); }
-  .footer-sub { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(192,192,200,0.3); margin-top: 0.4rem; }
 
-  @media (max-width: 680px) { nav { padding: 0 1.2rem; } .guide-title { font-size: 1.8rem; } }
+  .footer-sub {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(192,192,200,0.3);
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 680px) {
+    nav { padding: 0 1.2rem; }
+    .guide-title { font-size: 1.8rem; }
+    .guide-content { padding-left: 1.2rem; padding-right: 1.2rem; }
+  }
 </style>
 
 </head>
+
 <body>
 
 <nav>
-  <a href="infringe_clan_site.html" class="nav-logo">IN<span>FR</span>INGE</a>
-  <a href="infringe_clan_site.html#raids" class="nav-back">← Back to Guides</a>
+  <a href="../index.html" class="nav-logo">IN<span>FR</span>INGE</a>
+  <a href="../index.html#raids" class="nav-back">← Back to Guides</a>
 </nav>
 
 <header class="guide-hero">
@@ -134,65 +521,235 @@
 </header>
 
 <div class="breadcrumb">
-  <a href="infringe_clan_site.html">Home</a>
+  <a href="../index.html">Home</a>
   <span>/</span>
-  <a href="infringe_clan_site.html#raids">Guides</a>
+  <a href="../index.html#raids">Guides</a>
   <span>/</span>
   <span style="color:var(--silver)">Sundered Doctrine</span>
 </div>
 
 <div class="guide-content">
-<div class="enc-nav">
-  <div class="enc-nav-label">Encounters</div>
-  <ol>
-    <li><a href="#breach">Outer Breach</a></li>
-    <li><a href="#indoctrination">Indoctrination</a></li>
-    <li><a href="#dominion">Dominion</a></li>
-  </ol>
-</div><div class="encounter" id="breach">
-  <div class="encounter-header">
-    <div class="enc-number">01</div>
-    <div>
-      <div class="enc-name">Outer Breach</div>
-      <div class="enc-type">Opening</div>
+
+  <div class="enc-nav">
+    <div class="enc-nav-label">Encounters</div>
+    <ol>
+      <li><a href="#symbols">Symbols Reference</a></li>
+      <li><a href="#flooded_inspection">Flooded Inspection</a></li>
+      <li><a href="#truth_lie">Truth / Lie</a></li>
+      <li><a href="#lockout">Lockout</a></li>
+      <li><a href="#isolate_preservation">Isolate Preservation</a></li>
+      <li><a href="#dominion">Final Encounter</a></li>
+    </ol>
+  </div>
+
+  <div class="encounter" id="symbols">
+    <div class="encounter-header">
+      <div class="enc-number">00</div>
+      <div>
+        <div class="enc-name">Symbols Reference</div>
+        <div class="enc-type">Reference</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/symbols.jpeg" alt="Sundered Doctrine - Symbols Reference" class="guide-image" loading="lazy">
+      <div class="image-caption">Symbols Reference</div>
+    </div>
+
+    <p>Use this symbol reference when reading callouts, puzzle clues, and encounter mechanics throughout Sundered Doctrine.</p>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Agree on symbol names before starting the dungeon.</span></li>
+        <li><span>Use the same callouts every run so the team does not confuse symbols during timed mechanics.</span></li>
+      </ul>
     </div>
   </div>
-  <p>A traversal section through the Taken-corrupted corridors of the Witness's structure. Navigate carefully — zones of Darkness deal rapid damage outside the light columns.</p><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>Light columns respawn on a timer — don't rush ahead of them</span></li>
-<li><span>The path branches twice — both routes converge at the main gate</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="indoctrination">
-  <div class="encounter-header">
-    <div class="enc-number">02</div>
-    <div>
-      <div class="enc-name">Indoctrination</div>
-      <div class="enc-type">Encounter 1</div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="flooded_inspection">
+    <div class="encounter-header">
+      <div class="enc-number">01</div>
+      <div>
+        <div class="enc-name">Flooded Inspection</div>
+        <div class="enc-type">Opening / Puzzle</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/Flooded Inspection Guide.png" alt="Sundered Doctrine - Flooded Inspection Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Flooded Inspection Guide</div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/Flooded Guide Pattern Guide.png" alt="Sundered Doctrine - Flooded Guide Pattern Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Flooded Guide Pattern Guide</div>
+    </div>
+
+    <p>A puzzle-focused section centered on reading the correct symbols, checking the pattern, and moving through the flooded area without losing track of the required callouts.</p>
+
+    <ol>
+      <li><span>Use the inspection image to identify the correct symbols or objects.</span></li>
+      <li><span>Compare the result against the flooded pattern guide.</span></li>
+      <li><span>Call the route clearly before the team moves forward.</span></li>
+      <li><span>Repeat the process if the puzzle changes or resets.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Have one person read and one person confirm the pattern before moving.</span></li>
+        <li><span>Do not rush this section; a bad callout usually costs more time than a careful read.</span></li>
+      </ul>
     </div>
   </div>
-  <p>A three-phase encounter centered on reading symbol clues and activating the correct resonance conduits within the time limit.</p><ol><li><span>Kill orange-bar enemies to reveal which conduits are active</span></li>
-<li><span>Read the symbols displayed to identify correct deposit locations</span></li>
-<li><span>Deposit resonance buffs into the matching conduits</span></li>
-<li><span>Wipe timer resets once the round is complete</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The symbol order is randomized each encounter — always read fresh</span></li>
-<li><span>Never deposit into a locked conduit — identify which ones are unlocked first</span></li>
-<li><span>Two players managing opposite sides of the arena speeds up each round significantly</span></li></ul></div>
-</div>
-<hr class="enc-sep"><div class="encounter" id="dominion">
-  <div class="encounter-header">
-    <div class="enc-number">03</div>
-    <div>
-      <div class="enc-name">Dominion</div>
-      <div class="enc-type">Final Boss</div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="truth_lie">
+    <div class="encounter-header">
+      <div class="enc-number">02</div>
+      <div>
+        <div class="enc-name">Truth / Lie</div>
+        <div class="enc-type">Puzzle Mechanic</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/Truth_Lie_Guide.png" alt="Sundered Doctrine - Truth Lie Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Truth / Lie Guide</div>
+    </div>
+
+    <p>The Truth / Lie mechanic is used to determine which symbols, objects, or statements should be trusted and which ones should be ignored.</p>
+
+    <ol>
+      <li><span>Read all visible clues before choosing a symbol or route.</span></li>
+      <li><span>Separate the truthful clue from the false clue.</span></li>
+      <li><span>Use the guide image to confirm the correct interpretation.</span></li>
+      <li><span>Apply the answer to the active puzzle or encounter mechanic.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Do not act on the first clue until the false clue has been ruled out.</span></li>
+        <li><span>Repeat the answer back to the team before anyone deposits, shoots, or activates anything.</span></li>
+      </ul>
     </div>
   </div>
-  <p>The dungeon's final boss. Combines resonance mechanics with a high-DPS burn phase. The boss gains a shield that must be stripped using correct resonance deposits before the damage window opens.</p><div class="loadout-box"><div class="loadout-label">Recommended Loadout</div><ul><li><span>High-burst DPS — linears or rockets</span></li>
-<li><span>Divinity for the boss's crit spot</span></li>
-<li><span>Well of Radiance or Tether for damage phases</span></li></ul></div><ol><li><span>Kill adds to generate resonance pickups</span></li>
-<li><span>Deposit into the correct conduits to strip the boss shield</span></li>
-<li><span>Boss vulnerable — all three players dump DPS into the crit spot</span></li>
-<li><span>Reset and repeat</span></li></ol><div class="tips-box"><div class="tips-label">Tips &amp; Notes</div><ul><li><span>The boss's shield recharges quickly — deposit efficiently</span></li>
-<li><span>In Solo, the deposit timing is tighter — prioritize adds constantly</span></li>
-<li><span>Artifact mods matching the current season's damage focus are mandatory here</span></li></ul></div>
-</div>
-<hr class="enc-sep">
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="lockout">
+    <div class="encounter-header">
+      <div class="enc-number">03</div>
+      <div>
+        <div class="enc-name">Lockout</div>
+        <div class="enc-type">Encounter Mechanic</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/Lockout Guide.png" alt="Sundered Doctrine - Lockout Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Lockout Guide</div>
+    </div>
+
+    <p>The Lockout mechanic is about preventing incorrect activations while keeping track of which options are still available to the fireteam.</p>
+
+    <ol>
+      <li><span>Identify which symbols or nodes are locked out.</span></li>
+      <li><span>Call which options are still valid.</span></li>
+      <li><span>Have one player confirm before the team commits to an activation.</span></li>
+      <li><span>Reset the callout if a mechanic changes mid-round.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Use short calls like “locked,” “open,” “safe,” and “wrong” to keep comms clean.</span></li>
+        <li><span>If two players disagree, stop and re-check instead of guessing.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="isolate_preservation">
+    <div class="encounter-header">
+      <div class="enc-number">04</div>
+      <div>
+        <div class="enc-name">Isolate Preservation</div>
+        <div class="enc-type">Encounter Mechanic</div>
+      </div>
+    </div>
+
+    <div class="image-frame">
+      <img src="../Sundered Doctrine/Isolate Preservation Guide.png" alt="Sundered Doctrine - Isolate Preservation Guide" class="guide-image" loading="lazy">
+      <div class="image-caption">Isolate Preservation Guide</div>
+    </div>
+
+    <p>Use this guide section to handle the Isolate Preservation mechanic, where the team must identify what should be separated, protected, preserved, or avoided.</p>
+
+    <ol>
+      <li><span>Read the mechanic state and identify the target object, symbol, or clue.</span></li>
+      <li><span>Determine what needs to be isolated or preserved.</span></li>
+      <li><span>Assign one player to handle the mechanic while the rest control enemies.</span></li>
+      <li><span>Confirm completion before moving into the next step.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Keep one player dedicated to mechanic calls so the team does not talk over each other.</span></li>
+        <li><span>Mechanic accuracy matters more than speed during the first few runs.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="enc-sep">
+
+  <div class="encounter" id="dominion">
+    <div class="encounter-header">
+      <div class="enc-number">05</div>
+      <div>
+        <div class="enc-name">Final Encounter</div>
+        <div class="enc-type">Boss / Completion</div>
+      </div>
+    </div>
+
+    <p>The final section combines the dungeon’s symbol reading, puzzle confirmation, and high-pressure execution. Use the reference images above whenever the team needs to confirm a mechanic before committing.</p>
+
+    <div class="loadout-box">
+      <div class="loadout-label">Recommended Loadout</div>
+      <ul>
+        <li><span>Reliable add-clear weapon for fast enemy control.</span></li>
+        <li><span>High-burst heavy weapon for boss damage windows.</span></li>
+        <li><span>Survivability tools such as Well of Radiance, Ward of Dawn, healing rifts, barricades, or invisibility.</span></li>
+      </ul>
+    </div>
+
+    <ol>
+      <li><span>Clear enemies and stabilize the arena.</span></li>
+      <li><span>Read the active symbols or puzzle state.</span></li>
+      <li><span>Use the correct reference image to confirm the answer.</span></li>
+      <li><span>Complete the mechanic and open the damage or completion window.</span></li>
+      <li><span>Repeat until the encounter is cleared.</span></li>
+    </ol>
+
+    <div class="tips-box">
+      <div class="tips-label">Tips &amp; Notes</div>
+      <ul>
+        <li><span>Before each major action, repeat the callout once so the whole team is synced.</span></li>
+        <li><span>Keep the symbols reference open if your team is still learning the dungeon.</span></li>
+        <li><span>Clean communication is the most important part of puzzle-heavy encounters.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="enc-sep">
+
 </div>
 
 <footer>
